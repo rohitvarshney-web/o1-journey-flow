@@ -87,7 +87,7 @@ const Footer = () => {
                 <span>o1@useteleport.com</span>
               </li>
               <li className="flex items-start gap-2">
-                <MapPin className="w-8 h-8 mt-0.5" />
+                <MapPin className="w-8 h-8 mt-1" />
                 <span>
                   Bengaluru
                   <br />
