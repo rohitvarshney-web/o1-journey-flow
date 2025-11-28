@@ -39,14 +39,10 @@ const Understanding = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-semibold text-primary mb-4 tracking-wide uppercase">
-            Understanding the O-1 Visa
-          </p>
+          <p className="text-sm font-semibold text-primary mb-4 tracking-wide uppercase">Understanding the O-1 Visa</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
             What Is the O-1 Visa and{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Who Qualifies?
-            </span>
+            <span className="bg-gradient-primary bg-clip-text text-transparent">Who Qualifies?</span>
           </h2>
         </motion.div>
 
@@ -57,11 +53,11 @@ const Understanding = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="max-w-4xl mx-auto mb-20"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">
-            Who Is the O-1 Visa For?
-          </h3>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">Who Is the O-1 Visa For?</h3>
           <p className="text-lg text-muted-foreground leading-relaxed text-center">
-            The O-1 visa is for individuals whose achievements set them apart, whether in technology, science, the arts, business, or sports. If you've earned recognition, led impactful work, or gained distinction in your field, this visa can turn those accomplishments into the right to live and work in the U.S.
+            The O-1 visa is for individuals whose achievements set them apart, whether in technology, science, the arts,
+            business, or sports. If you've earned recognition, led impactful work, or gained distinction in your field,
+            this visa can turn those accomplishments into the right to live and work in the U.S.
           </p>
         </motion.div>
 
@@ -72,11 +68,11 @@ const Understanding = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-6xl mx-auto"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">
-            What It Takes To Qualify for the O-1
-          </h3>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">What It Takes To Qualify for the O-1</h3>
           <p className="text-lg text-muted-foreground leading-relaxed text-center mb-12">
-            To qualify for an O-1 visa, you must meet at least 3 of the criteria set by USCIS. The specific criteria vary slightly depending on whether you're applying for an O-1A (science, business, education, athletics) or an O-1B (arts, film, television) visa.
+            To qualify for an O-1 visa, you must meet at least 3 of the criteria set by USCIS. The specific criteria
+            vary slightly depending on whether you're applying for an O-1A (science, business, education, athletics) or
+            an O-1B (arts, film, television) visa.
           </p>
 
           {/* O-1A Criteria */}
@@ -101,9 +97,7 @@ const Understanding = () => {
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-primary font-semibold text-sm">{index + 1}</span>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {criterion}
-                  </p>
+                  <p className="text-muted-foreground leading-relaxed">{criterion}</p>
                 </motion.div>
               ))}
             </div>
@@ -112,11 +106,11 @@ const Understanding = () => {
           {/* O-1B Criteria */}
           <div>
             <div className="bg-accent/10 rounded-2xl p-8 md:p-10 mb-8">
-              <h4 className="text-xl md:text-2xl font-bold mb-4">
-                O-1B Visa Criteria (Arts, Film, Television)
-              </h4>
+              <h4 className="text-xl md:text-2xl font-bold mb-4">O-1B Visa Criteria (Arts, Film, Television)</h4>
               <p className="text-lg text-muted-foreground mb-4">
-                If you've received a major national or international award, such as an Oscar, Emmy, Grammy, or similar, it may stand alone as proof of extraordinary ability. In this case, you wouldn't need to meet any additional criteria.
+                If you've received a major national or international award, such as an Oscar, Emmy, Grammy, or similar,
+                it may stand alone as proof of extraordinary ability. In this case, you wouldn't need to meet any
+                additional criteria.
               </p>
               <p className="text-lg text-muted-foreground">
                 If not, for the O-1B, you must meet at least 3 of the following 6 criteria:
@@ -134,9 +128,7 @@ const Understanding = () => {
                   <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-accent-foreground font-semibold text-sm">{index + 1}</span>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {criterion}
-                  </p>
+                  <p className="text-muted-foreground leading-relaxed">{criterion}</p>
                 </motion.div>
               ))}
             </div>
@@ -149,11 +141,11 @@ const Understanding = () => {
             transition={{ duration: 0.6, delay: 1.1 }}
             className="mt-16 bg-gradient-primary/5 border border-primary/20 rounded-2xl p-8 md:p-12 text-center"
           >
-            <h4 className="text-xl md:text-2xl font-bold mb-4">
-              How Manifest's O-1 Visa Lawyers Help
-            </h4>
+            <h4 className="text-xl md:text-2xl font-bold mb-4">How Teleport's O-1 Visa Lawyers Help</h4>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-3xl mx-auto">
-              Most accomplished professionals already meet 3 or more criteria, often without realizing it. Manifest attorneys map your achievements directly to USCIS's criteria and frame them in a way that demonstrates extraordinary ability, even if your career doesn't "look extraordinary" on paper.
+              Most accomplished professionals already meet 3 or more criteria, often without realizing it. Teleport
+              attorneys map your achievements directly to USCIS's criteria and frame them in a way that demonstrates
+              extraordinary ability, even if your career doesn't "look extraordinary" on paper.
             </p>
             <Button size="lg" className="text-lg px-8">
               Request Free Consultation
