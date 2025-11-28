@@ -9,13 +9,9 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground">
-              Get O-1 visas 3x faster with Deel Immigration
+              Get O-1 visas 3x faster with Teleport
             </h1>
 
             <p className="text-xl sm:text-2xl text-foreground/80 mb-10 max-w-2xl">
@@ -52,11 +48,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <img 
-              src={heroImage} 
-              alt="O-1 Visa Professional" 
-              className="w-full h-auto rounded-2xl shadow-2xl"
-            />
+            <img src={heroImage} alt="O-1 Visa Professional" className="w-full h-auto rounded-2xl shadow-2xl" />
           </motion.div>
         </div>
       </div>
