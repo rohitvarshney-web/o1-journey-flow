@@ -16,10 +16,10 @@ const Index = () => {
       <Navigation />
       <main className="pt-16 md:pt-20">
         <Hero />
-        <Benefits />
         <VisualIntro />
         <Understanding />
         <WhoQualifies />
+        <Benefits />
         <VisaComparison />
         <Process />
         <FAQ />
