@@ -80,7 +80,7 @@ const VisualIntro = () => {
                 <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-xl">
                   <div className="flex items-center gap-2 text-primary font-semibold text-sm">
                     <CheckCircle className="w-5 h-5" />
-                    <span>Approval Rate: 94.6%</span>
+                    <span>Approval Rate: 95.6%</span>
                   </div>
                 </div>
               </div>
