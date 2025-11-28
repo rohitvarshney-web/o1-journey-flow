@@ -30,7 +30,7 @@ const Hero = () => {
             >
               <Button
                 size="lg"
-                className="group text-base px-8 h-14 bg-foreground text-background hover:bg-foreground/90 shadow-lg hover:shadow-xl transition-all"
+                className="group text-base px-8 h-14 bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg transition-all"
               >
                 Get Started Free
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -38,7 +38,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base px-8 h-14 border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background"
+                className="text-base px-8 h-14 border-2 border-foreground/80 bg-background text-foreground hover:bg-foreground/5 transition-all"
               >
                 Schedule Consultation
               </Button>
