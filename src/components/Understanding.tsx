@@ -133,24 +133,6 @@ const Understanding = () => {
               ))}
             </div>
           </div>
-
-          {/* Help Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
-            className="mt-16 bg-gradient-primary/5 border border-primary/20 rounded-2xl p-8 md:p-12 text-center"
-          >
-            <h4 className="text-xl md:text-2xl font-bold mb-4">How Teleport's O-1 Visa Lawyers Help</h4>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-3xl mx-auto">
-              Most accomplished professionals already meet 3 or more criteria, often without realizing it. Teleport
-              attorneys map your achievements directly to USCIS's criteria and frame them in a way that demonstrates
-              extraordinary ability, even if your career doesn't "look extraordinary" on paper.
-            </p>
-            <Button size="lg" className="text-lg px-8">
-              Request Free Consultation
-            </Button>
-          </motion.div>
         </motion.div>
       </div>
     </section>
