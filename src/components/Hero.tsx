@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-image.png";
+import teleportLogo from "@/assets/teleport-logo.png";
 
 const Hero = () => {
   return (
@@ -10,8 +11,9 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground">
-              Get O-1 visas 3x faster with Teleport
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground flex flex-wrap items-center gap-3">
+              Get O-1 visas 3x faster with
+              <img src={teleportLogo} alt="Teleport" className="inline-block h-12 sm:h-14 lg:h-16 w-auto" />
             </h1>
 
             <p className="text-xl sm:text-2xl text-foreground/80 mb-10 max-w-2xl">
