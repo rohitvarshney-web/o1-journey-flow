@@ -1,6 +1,8 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Benefits from "@/components/Benefits";
+import Understanding from "@/components/Understanding";
+import VisaComparison from "@/components/VisaComparison";
 import Process from "@/components/Process";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
@@ -13,6 +15,8 @@ const Index = () => {
       <main className="pt-16 md:pt-20">
         <Hero />
         <Benefits />
+        <Understanding />
+        <VisaComparison />
         <Process />
         <FAQ />
         <CTA />
