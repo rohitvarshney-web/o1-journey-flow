@@ -16,8 +16,7 @@ const visaTypes = [
   {
     name: "H-1B",
     title: "H-1B",
-    description:
-      "Common work visa but requires lottery with odds of being selected ranging from 10-30%. Requires employer sponsor and $100k filing fee.",
+    description: "Common work visa but requires lottery with odds of being selected ranging from 10-30%. Requires employer sponsor and $100k filing fee.",
     difficulty: "Moderate",
     type: "Nonimmigrant/18 months-6 Years",
     highlight: false,
@@ -53,9 +52,14 @@ const VisaComparison = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-semibold text-muted-foreground mb-4 tracking-wide uppercase">Why Choose O-1?</p>
+          <p className="text-sm font-semibold text-muted-foreground mb-4 tracking-wide uppercase">
+            Why Choose O-1?
+          </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            O-1 vs. <span className="bg-gradient-primary bg-clip-text text-transparent">Other Visas</span>
+            O-1 vs.{" "}
+            <span className="bg-gradient-primary bg-clip-text text-transparent">
+              Other Visas
+            </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Which U.S. Immigration Path Is Right for You?
@@ -70,19 +74,23 @@ const VisaComparison = () => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={`relative rounded-2xl p-8 border ${
-                visa.highlight ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border"
+                visa.highlight
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card border-border"
               } transition-all hover:shadow-lg flex flex-col`}
             >
               <div className="mb-6">
                 <span
                   className={`inline-block px-4 py-2 rounded-lg text-sm font-semibold ${
-                    visa.highlight ? "bg-white/20 text-white" : "bg-primary/10 text-primary"
+                    visa.highlight
+                      ? "bg-white/20 text-white"
+                      : "bg-primary/10 text-primary"
                   }`}
                 >
                   {visa.title}
                 </span>
               </div>
-
+              
               <p
                 className={`text-base leading-relaxed mb-8 flex-grow ${
                   visa.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
@@ -99,7 +107,9 @@ const VisaComparison = () => {
                     }`}
                   >
                     Difficulty:{" "}
-                    <span className={visa.highlight ? "text-primary-foreground" : "text-foreground"}>
+                    <span
+                      className={visa.highlight ? "text-primary-foreground" : "text-foreground"}
+                    >
                       {visa.difficulty}
                     </span>
                   </p>
@@ -111,13 +121,29 @@ const VisaComparison = () => {
                     }`}
                   >
                     Type:{" "}
-                    <span className={visa.highlight ? "text-primary-foreground" : "text-foreground"}>{visa.type}</span>
+                    <span
+                      className={visa.highlight ? "text-primary-foreground" : "text-foreground"}
+                    >
+                      {visa.type}
+                    </span>
                   </p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center"
+        >
+          <Button size="lg" className="text-lg px-8 group">
+            Check Your Eligibility For O-1
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
