@@ -5,7 +5,7 @@ import heroImage from "@/assets/hero-image.png";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#F5E6B3]">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
