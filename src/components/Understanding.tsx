@@ -41,7 +41,7 @@ const Understanding = () => {
         >
           <p className="text-sm font-semibold text-primary mb-4 tracking-wide uppercase">Understanding the O-1 Visa</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            What Is the O-1 Visa and{" "}
+            Who Is the O-1 Visa For and{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">Who Qualifies?</span>
           </h2>
         </motion.div>
