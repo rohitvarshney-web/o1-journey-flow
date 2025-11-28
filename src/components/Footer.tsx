@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import teleportLogo from "@/assets/teleport-logo.png";
 
 const Footer = () => {
   return (
