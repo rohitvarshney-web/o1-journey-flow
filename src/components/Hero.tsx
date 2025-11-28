@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-image.png";
+import teleportLogo from "@/assets/teleport-logo.png";
 
 const Hero = () => {
   return (
@@ -11,7 +12,14 @@ const Hero = () => {
           {/* Left Content */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground">
-              Get O-1 visas 3x faster with Teleport
+              Get O-1 visas 3x faster with
+              {/* Logo */}
+              <div className="flex-shrink-0">
+                <a href="/" className="flex items-center">
+                  <img src={teleportLogo} alt="Teleport Logo" className="h-10 w-28 md:w-36 object-contain" />
+                </a>
+              </div>
+              Teleport
             </h1>
 
             <p className="text-xl sm:text-2xl text-foreground/80 mb-10 max-w-2xl">
