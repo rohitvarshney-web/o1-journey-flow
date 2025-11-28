@@ -23,7 +23,7 @@ const Index = () => {
         <VisaComparison />
         <Process />
         <FAQ />
-        <CTA />
+        {/* <CTA /> */}
       </main>
       <Footer />
     </div>
