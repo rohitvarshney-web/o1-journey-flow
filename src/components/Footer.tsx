@@ -89,8 +89,8 @@ const Footer = () => {
               <li className="flex items-start gap-2">
                 <MapPin className="w-16 h-16 mt-0.5" />
                 <span>
-                  Bengaluru
-                  <br />
+                  {/* Bengaluru
+                  <br /> */}
                   3rd floor, Star Blue Building, Plot no 1215, 22nd Cross Rd, Sector 3, HSR Layout, Bengaluru, Karnataka
                   560102
                 </span>
