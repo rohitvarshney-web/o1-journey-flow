@@ -27,7 +27,7 @@ const VisualIntro = () => {
               requirements, no annual cap, and no wage requirements—the O-1 is one of the most flexible and advantageous
               US work visas.
             </p>
-            <Button size="lg" className="text-base">
+            <Button size="lg" className="text-base bg-primary hover:bg-primary/90">
               Schedule a free consultation
             </Button>
           </motion.div>
