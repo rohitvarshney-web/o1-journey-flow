@@ -19,13 +19,15 @@ const VisualIntro = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              What is the{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">O-1?</span>
+              What is the <span className="bg-gradient-primary bg-clip-text text-transparent">O-1?</span>
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               A 3-year visa that gives you the freedom to work and live in the US with unlimited extensions, no academic
               requirements, no annual cap, and no wage requirements—the O-1 is one of the most flexible and advantageous
-              US work visas.
+              US work visas. The O-1 visa is for individuals whose achievements set them apart, whether in technology,
+              science, the arts, business, or sports. If you've earned recognition, led impactful work, or gained
+              distinction in your field, this visa can turn those accomplishments into the right to live and work in the
+              U.S.
             </p>
             <Button size="lg" className="text-base bg-primary hover:bg-primary/90">
               Schedule a free consultation
