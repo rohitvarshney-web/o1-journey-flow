@@ -89,9 +89,10 @@ const Footer = () => {
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5" />
                 <span>
-                  123 Immigration Ave
+                  ❤️ Bengaluru
                   <br />
-                  New York, NY 10001
+                  3rd floor, Star Blue Building, Plot no 1215, 22nd Cross Rd, Sector 3, HSR Layout, Bengaluru, Karnataka
+                  560102
                 </span>
               </li>
             </ul>
