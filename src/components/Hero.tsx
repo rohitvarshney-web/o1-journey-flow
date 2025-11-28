@@ -5,7 +5,7 @@ import heroImage from "@/assets/hero-image.png";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-primary/5">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-primary/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
@@ -24,10 +24,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button
-                size="lg"
-                className="group text-base px-8 h-14 shadow-md hover:shadow-lg transition-all"
-              >
+              <Button size="lg" className="group text-base px-8 h-14 shadow-md hover:shadow-lg transition-all">
                 Get Started Free
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
