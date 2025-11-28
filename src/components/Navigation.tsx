@@ -8,8 +8,8 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Services", href: "#services" },
-    { name: "Process", href: "#process" },
+    { name: "Lawyer", href: "#services" },
+    // { name: "Process", href: "#process" },
     { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "#contact" },
   ];
@@ -42,11 +42,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
+          <button className="md:hidden p-2" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
