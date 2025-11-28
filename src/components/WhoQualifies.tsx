@@ -59,7 +59,7 @@ const WhoQualifies = () => {
             See who qualifies for the{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">O-1</span>
           </h2>
-          <Button size="lg" className="text-base">
+          <Button size="lg" className="text-base bg-primary hover:bg-primary/90">
             Schedule a free consultation
           </Button>
         </motion.div>

@@ -43,7 +43,7 @@ const CTA = () => {
             <Button
               size="lg"
               variant="outline"
-              className="text-base px-8 h-14 border-2"
+              className="text-base px-8 h-14 border-2 hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
             >
               Learn More
             </Button>

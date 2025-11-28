@@ -36,7 +36,7 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <Button size="sm" className="ml-4">
+            <Button size="sm" className="ml-4 bg-primary hover:bg-primary/90">
               Get Started
             </Button>
           </div>
@@ -69,7 +69,7 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <Button size="sm" className="w-full">
+              <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
                 Get Started
               </Button>
             </div>

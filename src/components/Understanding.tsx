@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { Button } from "./ui/button";
 
 const Understanding = () => {
   const ref = useRef(null);
@@ -30,7 +29,7 @@ const Understanding = () => {
   ];
 
   return (
-    <section ref={ref} className="py-20 md:py-32 bg-background">
+    <section ref={ref} className="py-20 md:py-32 bg-gradient-to-b from-background to-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -41,97 +40,112 @@ const Understanding = () => {
         >
           <p className="text-sm font-semibold text-primary mb-4 tracking-wide uppercase">Understanding the O-1 Visa</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Who Is the O-1 Visa For and{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">Who Qualifies?</span>
+            What It Takes To{" "}
+            <span className="bg-gradient-primary bg-clip-text text-transparent">Qualify for the O-1</span>
           </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            You must meet at least <span className="font-bold text-primary">3 criteria</span> set by USCIS. Requirements vary between O-1A and O-1B visas.
+          </p>
         </motion.div>
 
-        {/* Who Is the O-1 Visa For */}
+        {/* O-1A Criteria */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-4xl mx-auto mb-20"
+          className="max-w-7xl mx-auto mb-20"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">Who Is the O-1 Visa For?</h3>
-          <p className="text-lg text-muted-foreground leading-relaxed text-center">
-            The O-1 visa is for individuals whose achievements set them apart, whether in technology, science, the arts,
-            business, or sports. If you've earned recognition, led impactful work, or gained distinction in your field,
-            this visa can turn those accomplishments into the right to live and work in the U.S.
-          </p>
+          <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-3xl p-8 md:p-12 mb-10 border-2 border-primary/20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                <CheckCircle2 className="w-7 h-7 text-primary-foreground" />
+              </div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                  O-1A Visa Criteria
+                </h3>
+                <p className="text-base text-muted-foreground">
+                  Science, Business, Education, Athletics
+                </p>
+              </div>
+            </div>
+            <p className="text-lg mb-2 font-medium">
+              Meet at least <span className="text-primary font-bold">3 of these 8 criteria</span>:
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {o1aCriteria.map((criterion, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.05 }}
+                className="group relative bg-card border-2 border-primary/20 rounded-2xl p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                    <span className="text-primary group-hover:text-primary-foreground font-bold">{index + 1}</span>
+                  </div>
+                  <p className="text-foreground leading-relaxed font-medium pt-1">{criterion}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
-        {/* What It Takes To Qualify */}
+        {/* O-1B Criteria */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-6xl mx-auto"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="max-w-7xl mx-auto"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">What It Takes To Qualify for the O-1</h3>
-          <p className="text-lg text-muted-foreground leading-relaxed text-center mb-12">
-            To qualify for an O-1 visa, you must meet at least 3 of the criteria set by USCIS. The specific criteria
-            vary slightly depending on whether you're applying for an O-1A (science, business, education, athletics) or
-            an O-1B (arts, film, television) visa.
-          </p>
-
-          {/* O-1A Criteria */}
-          <div className="mb-16">
-            <div className="bg-primary/10 rounded-2xl p-8 md:p-10 mb-8">
-              <h4 className="text-xl md:text-2xl font-bold mb-4">
-                O-1A Visa Criteria (Science, Business, Education, Athletics)
-              </h4>
-              <p className="text-lg text-muted-foreground">
-                To qualify for an O-1A, you must meet at least 3 of the following 8 criteria set by USCIS:
+          <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-3xl p-8 md:p-12 mb-10 border-2 border-primary/20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                <CheckCircle2 className="w-7 h-7 text-primary-foreground" />
+              </div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                  O-1B Visa Criteria
+                </h3>
+                <p className="text-base text-muted-foreground">
+                  Arts, Film, Television
+                </p>
+              </div>
+            </div>
+            <div className="bg-primary/5 border border-primary/20 rounded-xl p-5 mb-4">
+              <p className="text-base font-medium">
+                <span className="text-primary font-bold">Major award holders:</span> If you've received an Oscar, Emmy, Grammy, or similar major national/international award, it may stand alone as proof—no other criteria needed.
               </p>
             </div>
-            <div className="grid gap-4">
-              {o1aCriteria.map((criterion, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.6, delay: 0.3 + index * 0.05 }}
-                  className="flex gap-4 items-start bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-colors"
-                >
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-primary font-semibold text-sm">{index + 1}</span>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">{criterion}</p>
-                </motion.div>
-              ))}
-            </div>
+            <p className="text-lg font-medium">
+              Otherwise, meet at least <span className="text-primary font-bold">3 of these 6 criteria</span>:
+            </p>
           </div>
-
-          {/* O-1B Criteria */}
-          <div>
-            <div className="bg-accent/10 rounded-2xl p-8 md:p-10 mb-8">
-              <h4 className="text-xl md:text-2xl font-bold mb-4">O-1B Visa Criteria (Arts, Film, Television)</h4>
-              <p className="text-lg text-muted-foreground mb-4">
-                If you've received a major national or international award, such as an Oscar, Emmy, Grammy, or similar,
-                it may stand alone as proof of extraordinary ability. In this case, you wouldn't need to meet any
-                additional criteria.
-              </p>
-              <p className="text-lg text-muted-foreground">
-                If not, for the O-1B, you must meet at least 3 of the following 6 criteria:
-              </p>
-            </div>
-            <div className="grid gap-4">
-              {o1bCriteria.map((criterion, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.6, delay: 0.7 + index * 0.05 }}
-                  className="flex gap-4 items-start bg-card border border-border rounded-xl p-6 hover:border-accent/50 transition-colors"
-                >
-                  <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-accent-foreground font-semibold text-sm">{index + 1}</span>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {o1bCriteria.map((criterion, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
+                className="group relative bg-card border-2 border-primary/20 rounded-2xl p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                    <span className="text-primary group-hover:text-primary-foreground font-bold">{index + 1}</span>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">{criterion}</p>
-                </motion.div>
-              ))}
-            </div>
+                  <p className="text-foreground leading-relaxed font-medium pt-1">{criterion}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

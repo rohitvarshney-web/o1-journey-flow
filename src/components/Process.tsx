@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const steps = [
   {
@@ -131,9 +132,9 @@ const Process = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-8"
             >
-              <button className="bg-foreground text-background px-8 py-3 rounded-full font-semibold hover:bg-foreground/90 transition-colors">
+              <Button size="lg" className="px-8 py-3 text-base font-semibold">
                 Schedule a free consultation
-              </button>
+              </Button>
             </motion.div>
           </motion.div>
         </div>
