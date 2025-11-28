@@ -6,6 +6,7 @@ import WhoQualifies from "@/components/WhoQualifies";
 import Understanding from "@/components/Understanding";
 import VisaComparison from "@/components/VisaComparison";
 import Process from "@/components/Process";
+import Timeline from "@/components/Timeline";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ const Index = () => {
         <Benefits />
         <VisaComparison />
         <Process />
+        <Timeline />
         <FAQ />
         {/* <CTA /> */}
       </main>
