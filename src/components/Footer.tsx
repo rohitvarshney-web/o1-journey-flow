@@ -87,9 +87,9 @@ const Footer = () => {
                 <span>o1@useteleport.com</span>
               </li>
               <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5" />
+                <MapPin className="w-8 h-8 mt-0.5" />
                 <span>
-                  ❤️ Bengaluru
+                  Bengaluru
                   <br />
                   3rd floor, Star Blue Building, Plot no 1215, 22nd Cross Rd, Sector 3, HSR Layout, Bengaluru, Karnataka
                   560102
@@ -100,7 +100,9 @@ const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">© 2024 O-1 Visa Experts. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">
+            ©2025 Intelliglobe Travel Tech Private Limited. All rights reserved.
+          </p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">
               Privacy Policy
