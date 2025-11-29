@@ -82,9 +82,6 @@ const Testimonials = () => {
                         alt={testimonial.name}
                         className="w-16 h-16 rounded-full ring-2 ring-primary/20"
                       />
-                      <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      </div>
                     </motion.div>
                     <div className="flex-1">
                       <h3 className="font-bold text-lg text-foreground">{testimonial.name}</h3>
