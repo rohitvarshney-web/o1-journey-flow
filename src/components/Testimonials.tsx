@@ -18,7 +18,7 @@ const testimonials = [
     role: "Creative Director",
     industry: "Film & Media",
     location: "Los Angeles, CA",
-    quote:c
+    quote:
       "I was worried about my case's complexity, but Teleport's attorneys crafted a compelling petition highlighting my work on international campaigns. The premium processing delivered results in just 15 days.",
     outcome: "Approved in 15 days (Premium)",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
