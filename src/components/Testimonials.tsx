@@ -114,7 +114,7 @@ const Testimonials = () => {
                       whileHover={{ scale: 1.05 }}
                       className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full"
                     >
-                      <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
+                      <div className="relative -bottom-1 -right-1 bg-primary rounded-full p-1">
                         <CheckCircle className="w-4 h-4 text-white" />
                       </div>
                       {testimonial.outcome}
