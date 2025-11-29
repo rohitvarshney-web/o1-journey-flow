@@ -82,7 +82,7 @@ const Testimonials = () => {
                         alt={testimonial.name}
                         className="w-16 h-16 rounded-full ring-2 ring-primary/20"
                       />
-                      <div className="absolute -bottom-1 -right-1 bg-primary/8 rounded-full p-1">
+                      <div className="absolute -bottom-1 -right-1 bg-primary/4 rounded-full p-1">
                         <CheckCircle className="w-4 h-4 text-white" />
                       </div>
                     </motion.div>
