@@ -8,7 +8,8 @@ const categories = [
   {
     icon: Briefcase,
     title: "Startup founders",
-    description: "Your investors and customers are in the US. Fundraise, hire, meet customers, and grow your business within the US.",
+    description:
+      "Your investors and customers are in the US. Fundraise, hire, meet customers, and grow your business within the US.",
     bgColor: "bg-primary/10",
     iconColor: "text-primary",
   },
@@ -29,7 +30,8 @@ const categories = [
   {
     icon: Palette,
     title: "Artists and designers",
-    description: "The O-1 is an option for outstanding individuals in almost any field. You may also qualify for the O-1 if you're at the top of your industry.",
+    description:
+      "The O-1 is an option for outstanding individuals in almost any field. You may also qualify for the O-1 if you're at the top of your industry.",
     bgColor: "bg-primary/10",
     iconColor: "text-primary",
   },
@@ -56,12 +58,11 @@ const WhoQualifies = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            See who qualifies for the{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">O-1</span>
+            See who qualifies for the <span className="bg-gradient-primary bg-clip-text text-transparent">O-1</span>
           </h2>
-          <Button size="lg" className="text-base bg-primary hover:bg-primary/90">
+          {/* <Button size="lg" className="text-base bg-primary hover:bg-primary/90">
             Schedule a free consultation
-          </Button>
+          </Button> */}
         </motion.div>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
