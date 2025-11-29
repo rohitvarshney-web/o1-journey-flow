@@ -18,7 +18,7 @@ const testimonials = [
     role: "Creative Director",
     industry: "Film & Media",
     location: "Los Angeles, CA",
-    quote:
+    quote:c
       "I was worried about my case's complexity, but Teleport's attorneys crafted a compelling petition highlighting my work on international campaigns. The premium processing delivered results in just 15 days.",
     outcome: "Approved in 15 days (Premium)",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
@@ -82,9 +82,9 @@ const Testimonials = () => {
                         alt={testimonial.name}
                         className="w-16 h-16 rounded-full ring-2 ring-primary/20"
                       />
-                      <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
+                      {/* <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
                         <CheckCircle className="w-4 h-4 text-white" />
-                      </div>
+                      </div> */}
                     </motion.div>
                     <div className="flex-1">
                       <h3 className="font-bold text-lg text-foreground">{testimonial.name}</h3>
@@ -117,7 +117,7 @@ const Testimonials = () => {
                         {testimonial.outcome}
                       </motion.span>
 
-                      <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 bg-primary rounded-full p-1 z-10 shadow-sm">
+                      <div className="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-primary rounded-full p-1 z-10 shadow-sm">
                         <CheckCircle className="w-4 h-4 text-white" />
                       </div>
                     </div>
