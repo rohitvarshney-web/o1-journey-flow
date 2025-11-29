@@ -64,10 +64,10 @@ const Timeline = () => {
             constraint. That's why we commit to firm turnaround times and a streamlined, tech-enabled application
             process from day one.
           </p>
-          <Button size="lg" className="group">
+          {/* <Button size="lg" className="group">
             Request a Consultation
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          </Button> */}
         </motion.div>
 
         {/* Timeline */}
