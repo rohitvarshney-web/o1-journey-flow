@@ -117,7 +117,7 @@ const Testimonials = () => {
                         {testimonial.outcome}
                       </motion.span>
 
-                      <div className="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-primary rounded-full p-1 z-10 shadow-sm">
+                      <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 bg-primary rounded-full p-1 z-10 shadow-sm">
                         <CheckCircle className="w-4 h-4 text-white" />
                       </div>
                     </div>
