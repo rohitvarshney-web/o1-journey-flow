@@ -7,6 +7,7 @@ import Understanding from "@/components/Understanding";
 import VisaComparison from "@/components/VisaComparison";
 import Process from "@/components/Process";
 import Timeline from "@/components/Timeline";
+import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -24,6 +25,7 @@ const Index = () => {
         <VisaComparison />
         <Process />
         <Timeline />
+        <Testimonials />
         <FAQ />
         {/* <CTA /> */}
       </main>
