@@ -109,16 +109,17 @@ const Testimonials = () => {
 
                   <div className="flex items-center justify-between pt-4 border-t border-primary/10">
                     <span className="text-xs text-muted-foreground">Outcome</span>
-                    <div className="flex items-center gap-3">
-                      <div className="relative -middle-1 -right-1 bg-primary rounded-full p-1">
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      </div>
+                    <div className="relative">
                       <motion.span
                         whileHover={{ scale: 1.05 }}
                         className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full"
                       >
                         {testimonial.outcome}
                       </motion.span>
+
+                      <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 bg-primary rounded-full p-1 z-10 shadow-sm">
+                        <CheckCircle className="w-4 h-4 text-white" />
+                      </div>
                     </div>
                   </div>
                 </CardContent>
