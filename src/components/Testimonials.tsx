@@ -8,37 +8,41 @@ const testimonials = [
     role: "AI Research Scientist",
     industry: "Technology",
     location: "San Francisco, CA",
-    quote: "The team at Teleport made my O-1 visa process seamless. Their expertise and strategic approach resulted in approval within 3 months. I'm now leading AI research at a top tech company.",
+    quote:
+      "The team at Teleport made my O-1 visa process seamless. Their expertise and strategic approach resulted in approval within 3 months. I'm now leading AI research at a top tech company.",
     outcome: "Approved in 3 months",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
   },
   {
     name: "Marcus Rodriguez",
     role: "Creative Director",
     industry: "Film & Media",
     location: "Los Angeles, CA",
-    quote: "I was worried about my case's complexity, but Teleport's attorneys crafted a compelling petition highlighting my work on international campaigns. The premium processing delivered results in just 15 days.",
+    quote:
+      "I was worried about my case's complexity, but Teleport's attorneys crafted a compelling petition highlighting my work on international campaigns. The premium processing delivered results in just 15 days.",
     outcome: "Approved in 15 days (Premium)",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
   },
   {
     name: "Priya Sharma",
     role: "Pharmaceutical Researcher",
     industry: "Healthcare",
     location: "Boston, MA",
-    quote: "The client portal made evidence collection so organized. My attorney guided me through every step, and the review by a former USCIS officer gave me complete confidence. Approved on first try!",
+    quote:
+      "The client portal made evidence collection so organized. My attorney guided me through every step, and the review by a former USCIS officer gave me complete confidence. Approved on first try!",
     outcome: "Approved - First Submission",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
   },
   {
     name: "James Mitchell",
     role: "Software Architect",
     industry: "Technology",
     location: "Seattle, WA",
-    quote: "Switching from H-1B to O-1 seemed daunting, but Teleport's strategic approach showcased my contributions perfectly. The tech-enabled process kept me informed every step of the way.",
+    quote:
+      "Switching from H-1B to O-1 seemed daunting, but Teleport's strategic approach showcased my contributions perfectly. The tech-enabled process kept me informed every step of the way.",
     outcome: "Approved in 2 months",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James"
-  }
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+  },
 ];
 
 const Testimonials = () => {
@@ -72,10 +76,7 @@ const Testimonials = () => {
               <Card className="h-full bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-4 mb-6">
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      className="relative"
-                    >
+                    <motion.div whileHover={{ scale: 1.05 }} className="relative">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -103,16 +104,14 @@ const Testimonials = () => {
 
                   <div className="relative mb-6">
                     <Quote className="absolute -top-2 -left-2 w-8 h-8 text-primary/20" />
-                    <p className="text-muted-foreground leading-relaxed pl-6">
-                      "{testimonial.quote}"
-                    </p>
+                    <p className="text-muted-foreground leading-relaxed pl-6">"{testimonial.quote}"</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-primary/10">
                     <span className="text-xs text-muted-foreground">Outcome</span>
                     <motion.span
                       whileHover={{ scale: 1.05 }}
-                      className="text-sm font-semibold text-accent bg-accent/10 px-3 py-1 rounded-full"
+                      className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full"
                     >
                       {testimonial.outcome}
                     </motion.span>
@@ -133,13 +132,13 @@ const Testimonials = () => {
           <p className="text-sm text-muted-foreground mb-6">
             Join 1,700+ professionals who've trusted us with their O-1 visa journey
           </p>
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl hover:shadow-primary/20"
           >
             Start Your Success Story
-          </motion.button>
+          </motion.button> */}
         </motion.div>
       </div>
     </section>
