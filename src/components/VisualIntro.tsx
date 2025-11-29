@@ -53,7 +53,7 @@ const VisualIntro = () => {
                     US
                   </div>
                   <div>
-                    <div className="font-semibold">O-1A Visa</div>
+                    <div className="font-semibold">O-1 Visa</div>
                     <div className="text-sm text-muted-foreground">Work Authorization</div>
                   </div>
                 </div>
