@@ -109,6 +109,9 @@ const Testimonials = () => {
 
                   <div className="flex items-center justify-between pt-4 border-t border-primary/10">
                     <span className="text-xs text-muted-foreground">Outcome</span>
+                    <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
+                      <CheckCircle className="w-4 h-4 text-white" />
+                    </div>
                     <motion.span
                       whileHover={{ scale: 1.05 }}
                       className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full"
