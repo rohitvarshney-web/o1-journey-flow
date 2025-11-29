@@ -20,7 +20,7 @@ const testimonials = [
     location: "Los Angeles, CA",
     quote:
       "I was worried about my case's complexity, but Teleport's attorneys crafted a compelling petition highlighting my work on international campaigns. The premium processing delivered results in just 15 days.",
-    outcome: "Approved in 15 days (Premium)",
+    outcome: "Approved in 15 days",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
   },
   {
