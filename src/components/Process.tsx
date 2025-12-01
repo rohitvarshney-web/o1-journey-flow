@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ApplicationForm from "./ApplicationForm";
 
 const steps = [
   {
@@ -33,6 +35,7 @@ const steps = [
 ];
 
 const Process = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -132,13 +135,19 @@ const Process = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-8"
             >
-              <Button size="lg" className="px-8 py-3 text-base font-semibold">
+              <Button 
+                size="lg" 
+                className="px-8 py-3 text-base font-semibold"
+                onClick={() => setIsFormOpen(true)}
+              >
                 Schedule a free consultation
               </Button>
             </motion.div>
           </motion.div>
         </div>
       </div>
+
+      <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
     </section>
   );
 };
