@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, ChevronLeft, ChevronRight, Upload, FileText } from "lucide-react";
+import { CheckCircle, ChevronLeft, ChevronRight, Upload, FileText, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { uploadToGoogleDrive, initializeGoogleAPI } from "@/lib/googleDrive";
+import { useToast } from "@/hooks/use-toast";
 
 interface ApplicationFormProps {
   open: boolean;
@@ -17,7 +19,12 @@ interface ApplicationFormProps {
 const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
     visaType: "",
     countryOfBirth: "",
     countryOfCitizenship: "",
@@ -37,7 +44,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     familyInUS: "",
   });
 
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -55,15 +62,35 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      await initializeGoogleAPI();
+      await uploadToGoogleDrive(formData);
+      setSubmitted(true);
+      toast({
+        title: "Success!",
+        description: "Your application has been saved to Google Drive.",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "Failed to save application. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
     setSubmitted(false);
     setStep(0);
     setFormData({
+      name: "",
+      email: "",
+      phone: "",
       visaType: "",
       countryOfBirth: "",
       countryOfCitizenship: "",
@@ -195,6 +222,48 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     className="space-y-4"
                   >
                     {step === 0 && (
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="name">Full Name *</Label>
+                          <Input
+                            id="name"
+                            placeholder="John Doe"
+                            className="bg-secondary/30 border-border"
+                            value={formData.name}
+                            onChange={(e) => handleInputChange("name", e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="email">Email Address *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="john@example.com"
+                            className="bg-secondary/30 border-border"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange("email", e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="phone">Phone Number *</Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            placeholder="+1 (555) 123-4567"
+                            className="bg-secondary/30 border-border"
+                            value={formData.phone}
+                            onChange={(e) => handleInputChange("phone", e.target.value)}
+                            required
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {step === 3 && (
                       <div className="space-y-4">
                         <div>
                           <Label className="text-base font-medium mb-3 block">
@@ -333,7 +402,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                       </div>
                     )}
 
-                    {step === 3 && (
+                    {step === 5 && (
                       <div className="space-y-4">
                         <div>
                           <Label htmlFor="awards">Details of any award received</Label>
@@ -465,9 +534,18 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                       <ChevronRight className="w-4 h-4" />
                     </Button>
                   ) : (
-                    <Button type="button" onClick={handleSubmit} className="gap-2">
-                      Submit Application
-                      <CheckCircle className="w-4 h-4" />
+                    <Button type="button" onClick={handleSubmit} disabled={isSubmitting} className="gap-2">
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          Submit Application
+                          <CheckCircle className="w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   )}
                 </div>
