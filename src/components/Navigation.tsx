@@ -36,7 +36,7 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <Button size="sm" className="ml-4 bg-primary hover:bg-primary/90">
+            <Button size="sm" className="ml-4 bg-primary hover:bg-primary/90" onClick={() => setIsFormOpen(true)}>
               Get Started
             </Button>
           </div>
