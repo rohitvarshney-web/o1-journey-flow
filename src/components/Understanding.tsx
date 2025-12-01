@@ -50,6 +50,7 @@ const Understanding = () => {
 
         {/* O-1A Criteria */}
         <motion.div
+          id="o1a-criteria"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -98,6 +99,7 @@ const Understanding = () => {
 
         {/* O-1B Criteria */}
         <motion.div
+          id="o1b-criteria"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.3 }}

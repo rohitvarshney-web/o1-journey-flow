@@ -25,12 +25,12 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#visa-comparison" className="hover:text-primary transition-colors">
+                <a href="#o1a-criteria" className="hover:text-primary transition-colors">
                   O-1A Visa
                 </a>
               </li>
               <li>
-                <a href="#visa-comparison" className="hover:text-primary transition-colors">
+                <a href="#o1b-criteria" className="hover:text-primary transition-colors">
                   O-1B Visa
                 </a>
               </li>
