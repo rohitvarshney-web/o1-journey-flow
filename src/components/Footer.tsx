@@ -66,11 +66,11 @@ const Footer = () => {
                   FAQ
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="hover:text-primary transition-colors">
                   Blog
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
