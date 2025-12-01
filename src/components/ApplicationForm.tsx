@@ -47,7 +47,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const totalSteps = 6;
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleNext = () => {
@@ -119,7 +119,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
           <div className="bg-gradient-to-br from-primary to-primary/80 p-8 md:p-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/4" />
-            
+
             <div className="relative z-10 text-center">
               <motion.div
                 initial={{ scale: 0 }}
@@ -129,13 +129,12 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
               >
                 <CheckCircle className="w-12 h-12 text-white" />
               </motion.div>
-              
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Application Submitted!
-              </h2>
-              
+
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Application Submitted!</h2>
+
               <p className="text-white/90 text-lg mb-8 max-w-md mx-auto">
-                Thank you for submitting your {formData.visaType} application. Our team will review your information and get back to you within 1-3 business days.
+                Thank you for submitting your {formData.visaType} application. Our team will review your information and
+                get back to you within 1-3 business days.
               </p>
 
               <div className="bg-white rounded-2xl p-6 mb-6 text-left">
@@ -156,12 +155,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                 </ul>
               </div>
 
-              <Button
-                onClick={handleClose}
-                size="lg"
-                variant="secondary"
-                className="w-full max-w-xs mx-auto"
-              >
+              <Button onClick={handleClose} size="lg" variant="secondary" className="w-full max-w-xs mx-auto">
                 Close
               </Button>
             </div>
@@ -177,7 +171,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         <div className="bg-gradient-to-br from-primary to-primary/80 p-6 md:p-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/4" />
-          
+
           <div className="relative z-10">
             <div className="bg-white rounded-2xl p-6 shadow-2xl">
               <DialogHeader>
@@ -197,7 +191,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
               {/* Progress indicator */}
               <div className="mb-6">
                 <div className="flex justify-between text-xs text-muted-foreground mb-2">
-                  <span>Step {step + 1} of {totalSteps}</span>
+                  <span>
+                    Step {step + 1} of {totalSteps}
+                  </span>
                   <span>{Math.round(((step + 1) / totalSteps) * 100)}%</span>
                 </div>
                 <div className="w-full h-2 bg-secondary/30 rounded-full overflow-hidden">
@@ -266,22 +262,29 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     {step === 3 && (
                       <div className="space-y-4">
                         <div>
-                          <Label className="text-base font-medium mb-3 block">
-                            Which visa are you applying for?
-                          </Label>
-                          <RadioGroup value={formData.visaType} onValueChange={(value) => handleInputChange("visaType", value)}>
+                          <Label className="text-base font-medium mb-3 block">Which visa are you applying for?</Label>
+                          <RadioGroup
+                            value={formData.visaType}
+                            onValueChange={(value) => handleInputChange("visaType", value)}
+                          >
                             <div className="flex items-center space-x-3 border border-border rounded-lg p-4 hover:bg-secondary/30 transition-colors cursor-pointer">
                               <RadioGroupItem value="O-1A" id="o1a" />
                               <Label htmlFor="o1a" className="flex-1 cursor-pointer">
                                 <div className="font-semibold">O-1A Visa</div>
-                                <div className="text-sm text-muted-foreground">For individuals with extraordinary ability in sciences, education, business, or athletics</div>
+                                <div className="text-sm text-muted-foreground">
+                                  For individuals with extraordinary ability in sciences, education, business, or
+                                  athletics
+                                </div>
                               </Label>
                             </div>
                             <div className="flex items-center space-x-3 border border-border rounded-lg p-4 hover:bg-secondary/30 transition-colors cursor-pointer">
                               <RadioGroupItem value="O-1B" id="o1b" />
                               <Label htmlFor="o1b" className="flex-1 cursor-pointer">
                                 <div className="font-semibold">O-1B Visa</div>
-                                <div className="text-sm text-muted-foreground">For individuals with extraordinary ability in the arts or extraordinary achievement in motion picture or television</div>
+                                <div className="text-sm text-muted-foreground">
+                                  For individuals with extraordinary ability in the arts or extraordinary achievement in
+                                  motion picture or television
+                                </div>
                               </Label>
                             </div>
                           </RadioGroup>
@@ -293,7 +296,10 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                       <div className="space-y-4">
                         <div>
                           <Label htmlFor="countryOfBirth">Country of Birth</Label>
-                          <Select value={formData.countryOfBirth} onValueChange={(value) => handleInputChange("countryOfBirth", value)}>
+                          <Select
+                            value={formData.countryOfBirth}
+                            onValueChange={(value) => handleInputChange("countryOfBirth", value)}
+                          >
                             <SelectTrigger className="bg-secondary/30 border-border">
                               <SelectValue placeholder="Select country" />
                             </SelectTrigger>
@@ -310,7 +316,10 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
 
                         <div>
                           <Label htmlFor="countryOfCitizenship">Country of Citizenship</Label>
-                          <Select value={formData.countryOfCitizenship} onValueChange={(value) => handleInputChange("countryOfCitizenship", value)}>
+                          <Select
+                            value={formData.countryOfCitizenship}
+                            onValueChange={(value) => handleInputChange("countryOfCitizenship", value)}
+                          >
                             <SelectTrigger className="bg-secondary/30 border-border">
                               <SelectValue placeholder="Select country" />
                             </SelectTrigger>
@@ -348,7 +357,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         </div>
 
                         <div>
-                          <Label htmlFor="timeline">How quickly do you want to start the process? Any specific deadlines?</Label>
+                          <Label htmlFor="timeline">
+                            How quickly do you want to start the process? Any specific deadlines?
+                          </Label>
                           <Textarea
                             id="timeline"
                             placeholder="Let us know your timeline and any deadlines..."
@@ -438,7 +449,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         </div>
 
                         <div>
-                          <Label htmlFor="impactfulWork">Have you developed something that makes an impact in your field?</Label>
+                          <Label htmlFor="impactfulWork">
+                            Have you developed something that makes an impact in your field?
+                          </Label>
                           <Textarea
                             id="impactfulWork"
                             placeholder="Describe your contributions and their impact..."
@@ -453,7 +466,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     {step === 4 && (
                       <div className="space-y-4">
                         <div>
-                          <Label htmlFor="scholarlyArticles">Have you written any scholarly articles that got published?</Label>
+                          <Label htmlFor="scholarlyArticles">
+                            Have you written any scholarly articles that got published?
+                          </Label>
                           <Textarea
                             id="scholarlyArticles"
                             placeholder="List publications, journals, citations, etc..."
@@ -464,7 +479,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         </div>
 
                         <div>
-                          <Label htmlFor="criticalRole">Have you served in a critical role for an important organization?</Label>
+                          <Label htmlFor="criticalRole">
+                            Have you served in a critical role for an important organization?
+                          </Label>
                           <Textarea
                             id="criticalRole"
                             placeholder="Describe leadership positions and organizational impact..."
@@ -487,8 +504,13 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         </div>
 
                         <div>
-                          <Label htmlFor="familyInUS">Do you have a close family member who is currently a U.S. citizen or Green Card holder?</Label>
-                          <RadioGroup value={formData.familyInUS} onValueChange={(value) => handleInputChange("familyInUS", value)}>
+                          <Label htmlFor="familyInUS">
+                            Do you have a close family member who is currently a U.S. citizen or Green Card holder?
+                          </Label>
+                          <RadioGroup
+                            value={formData.familyInUS}
+                            onValueChange={(value) => handleInputChange("familyInUS", value)}
+                          >
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="yes" id="family-yes" />
                               <Label htmlFor="family-yes">Yes</Label>
@@ -507,26 +529,20 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
 
               {/* Navigation buttons */}
               <div className="flex items-center justify-between mt-6 pt-6 border-t border-border">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={handleBack}
-                  disabled={step === 0}
-                  className="gap-2"
-                >
+                <Button type="button" variant="ghost" onClick={handleBack} disabled={step === 0} className="gap-2">
                   <ChevronLeft className="w-4 h-4" />
                   Back
                 </Button>
 
                 <div className="flex gap-2">
-                  <Button
+                  {/* <Button
                     type="button"
                     variant="outline"
                     onClick={() => console.log("Saved:", formData)}
                   >
                     <FileText className="w-4 h-4 mr-2" />
                     Save Progress
-                  </Button>
+                  </Button> */}
 
                   {step < totalSteps - 1 ? (
                     <Button type="button" onClick={handleNext} className="gap-2">
