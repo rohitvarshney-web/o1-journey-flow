@@ -34,16 +34,16 @@ const Footer = () => {
                   O-1B Visa
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="hover:text-primary transition-colors">
                   Green Card
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="#" className="hover:text-primary transition-colors">
                   Premium Processing
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
