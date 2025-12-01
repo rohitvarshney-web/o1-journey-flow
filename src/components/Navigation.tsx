@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import ApplicationForm from "./ApplicationForm";
 import teleportLogo from "@/assets/teleport-logo.png";
 
 const Navigation = () => {
