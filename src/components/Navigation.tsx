@@ -2,11 +2,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import ApplicationForm from "@/ApplicationForm";
+import ApplicationForm from "@/components/ApplicationForm";
 import teleportLogo from "@/assets/teleport-logo.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const navItems = [
     // { name: "Lawyer", href: "#services" },
@@ -70,13 +71,15 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
+              <Button size="sm" className="w-full bg-primary hover:bg-primary/90" onClick={() => setIsFormOpen(true)}>
                 Get Started
               </Button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
     </nav>
   );
 };
