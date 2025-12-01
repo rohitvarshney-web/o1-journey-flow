@@ -25,12 +25,12 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="#visa-comparison" className="hover:text-primary transition-colors">
                   O-1A Visa
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="#visa-comparison" className="hover:text-primary transition-colors">
                   O-1B Visa
                 </a>
               </li>
@@ -52,17 +52,17 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="#who-qualifies" className="hover:text-primary transition-colors">
                   Eligibility Guide
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="#testimonials" className="hover:text-primary transition-colors">
                   Success Stories
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="#faq" className="hover:text-primary transition-colors">
                   FAQ
                 </a>
               </li>
