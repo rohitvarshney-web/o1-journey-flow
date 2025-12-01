@@ -37,7 +37,7 @@ const Process = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-32 bg-primary/5">
+    <section id="process" ref={ref} className="py-20 md:py-32 bg-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Left side - Visual Card */}

@@ -57,6 +57,21 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="#benefits" className="hover:text-primary transition-colors">
+                  Visa Benefits
+                </a>
+              </li>
+              <li>
+                <a href="#process" className="hover:text-primary transition-colors">
+                  Our Process
+                </a>
+              </li>
+              <li>
+                <a href="#timeline" className="hover:text-primary transition-colors">
+                  Application Timeline
+                </a>
+              </li>
+              <li>
                 <a href="#testimonials" className="hover:text-primary transition-colors">
                   Success Stories
                 </a>
@@ -66,11 +81,6 @@ const Footer = () => {
                   FAQ
                 </a>
               </li>
-              {/* <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Blog
-                </a>
-              </li> */}
             </ul>
           </div>
 
