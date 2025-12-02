@@ -29,7 +29,7 @@ const testimonials = [
     industry: "Healthcare",
     location: "Boston, MA",
     quote:
-      "The client portal made evidence collection so organized. My attorney guided me through every step, and the review by a former USCIS officer gave me complete confidence. Approved on first try!",
+      "Teleport has made evidence collection so organized. My attorney guided me through every step, and the review by a former USCIS officer gave me complete confidence. Approved on first try!",
     outcome: "Approved - First Submission",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
   },
