@@ -11,7 +11,7 @@ const testimonials = [
     quote:
       "The team at Teleport made my O-1 visa process seamless. Their expertise and strategic approach resulted in approval within 3 months. I'm now leading AI research at a top tech company.",
     outcome: "Approved in 3 months",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&mood=happy",
   },
   {
     name: "Megha Kapoor",
@@ -21,7 +21,7 @@ const testimonials = [
     quote:
       "I was worried about my case's complexity, but Teleport's attorneys crafted a compelling petition highlighting my work on international campaigns. The premium processing delivered results in just 15 days.",
     outcome: "Approved in 1 month",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus&mood=happy",
   },
   {
     name: "Vishwadeep Sharma",
@@ -31,7 +31,7 @@ const testimonials = [
     quote:
       "Teleport has made evidence collection so organized. My attorney guided me through every step, and the review by a former USCIS officer gave me complete confidence. Approved on first try!",
     outcome: "Approved - First Submission",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya&mood=happy",
   },
   {
     name: "Rishi Sawant",
@@ -41,7 +41,7 @@ const testimonials = [
     quote:
       "Switching from H-1B to O-1 seemed daunting, but Teleport's strategic approach showcased my contributions perfectly. The tech-enabled process kept me informed every step of the way.",
     outcome: "Approved in 2 months",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James&mood=happy",
   },
 ];
 
