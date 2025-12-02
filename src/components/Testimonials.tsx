@@ -4,7 +4,7 @@ import { Card, CardContent } from "./ui/card";
 
 const testimonials = [
   {
-    name: "Dr. Sarah Chen",
+    name: "Dr. Prashant Jain",
     role: "AI Research Scientist",
     industry: "Technology",
     location: "San Francisco, CA",
