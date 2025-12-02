@@ -105,7 +105,7 @@ const Testimonials = () => {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-primary/10">
-                    <span className="text-xs text-muted-foreground">Outcome</span>
+                    {/* <span className="text-xs text-muted-foreground">Outcome</span> */}
                     <div className="relative">
                       <motion.span
                         whileHover={{ scale: 1.05 }}
