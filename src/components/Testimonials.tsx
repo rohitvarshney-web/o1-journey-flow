@@ -14,7 +14,7 @@ const testimonials = [
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
   },
   {
-    name: "Marcus Rodriguez",
+    name: "Megha Kapoor",
     role: "Creative Director",
     industry: "Film & Media",
     location: "Los Angeles, CA",
@@ -24,7 +24,7 @@ const testimonials = [
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
   },
   {
-    name: "Priya Sharma",
+    name: "Vishwadeep Sharma",
     role: "Pharmaceutical Researcher",
     industry: "Healthcare",
     location: "Boston, MA",
@@ -34,7 +34,7 @@ const testimonials = [
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
   },
   {
-    name: "James Mitchell",
+    name: "Rishi Sawant",
     role: "Software Architect",
     industry: "Technology",
     location: "Seattle, WA",
