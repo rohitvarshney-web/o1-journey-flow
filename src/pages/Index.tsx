@@ -11,6 +11,7 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import ApprovalProtection from "@/components/ApprovalProtection";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <WhoQualifies />
         <Understanding />
         <Benefits />
+        <ApprovalProtection />
         <VisaComparison />
         <Process />
         <Timeline />
