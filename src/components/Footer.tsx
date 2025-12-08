@@ -38,12 +38,12 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link to="/about-o1-visa#o1a-criteria" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#understanding" className="hover:text-primary transition-colors">
                   O-1A Visa
                 </Link>
               </li>
               <li>
-                <Link to="/about-o1-visa#o1b-criteria" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#understanding" className="hover:text-primary transition-colors">
                   O-1B Visa
                 </Link>
               </li>
