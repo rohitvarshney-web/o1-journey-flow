@@ -31,12 +31,12 @@ const ConsultationCTA = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif text-foreground mb-6">
             Connect and let us handle all your immigration needs
           </h2>
-          <Button 
+          {/* <Button 
             onClick={() => setIsFormOpen(true)}
             className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg rounded-full"
           >
             Request a consultation
-          </Button>
+          </Button> */}
         </motion.div>
 
         {/* Main Card */}
@@ -48,12 +48,8 @@ const ConsultationCTA = () => {
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-3xl md:text-4xl font-serif text-foreground mb-2">
-                Take the First Step:
-              </h3>
-              <p className="text-xl md:text-2xl text-foreground/80 mb-8">
-                Schedule your free consultation!
-              </p>
+              <h3 className="text-3xl md:text-4xl font-serif text-foreground mb-2">Take the First Step:</h3>
+              <p className="text-xl md:text-2xl text-foreground/80 mb-8">Schedule your free consultation!</p>
 
               <div className="space-y-4 mb-8">
                 {benefits.map((benefit, index) => (
@@ -72,7 +68,7 @@ const ConsultationCTA = () => {
                 ))}
               </div>
 
-              <Button 
+              <Button
                 onClick={() => setIsFormOpen(true)}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-full"
               >
@@ -88,11 +84,7 @@ const ConsultationCTA = () => {
               className="relative"
             >
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img 
-                  src={principalAttorney} 
-                  alt="Principal Attorney"
-                  className="w-full aspect-[4/5] object-cover"
-                />
+                <img src={principalAttorney} alt="Principal Attorney" className="w-full aspect-[4/5] object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 bg-foreground/80 backdrop-blur-sm p-4">
                   <h4 className="text-background font-semibold">Principal Attorney</h4>
                   <p className="text-background/80 text-sm">Manifest Law</p>
