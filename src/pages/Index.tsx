@@ -17,6 +17,7 @@ import FastCommunication from "@/components/FastCommunication";
 import BeforeAfter from "@/components/BeforeAfter";
 import ConsultationCTA from "@/components/ConsultationCTA";
 import PricingPlans from "@/components/PricingPlans";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Index = () => {
   return (
@@ -41,6 +42,7 @@ const Index = () => {
         <FAQ />
       </main>
       <Footer />
+      <FloatingCTA />
     </div>
   );
 };
