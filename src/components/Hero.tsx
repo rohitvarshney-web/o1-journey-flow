@@ -5,9 +5,11 @@ import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-image.png";
 import teleportLogo from "@/assets/teleport-logo.png";
 import ApplicationForm from "./ApplicationForm";
+import ScheduleCallModal from "./ScheduleCallModal";
 
 const Hero = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
   return (
     <section className="relative min-h-[60vh] sm:min-h-[75vh] lg:min-h-[85vh] flex items-center overflow-hidden bg-primary/3 pt-24 sm:pt-28 lg:pt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -41,6 +43,7 @@ const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="text-sm sm:text-base px-6 sm:px-8 h-12 sm:h-14 border-2 hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
+                onClick={() => setIsScheduleOpen(true)}
               >
                 Schedule Consultation
               </Button>
@@ -60,6 +63,7 @@ const Hero = () => {
       </div>
 
       <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
+      <ScheduleCallModal open={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} />
     </section>
   );
 };

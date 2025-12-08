@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ApplicationForm from "@/components/ApplicationForm";
+import ScheduleCallModal from "@/components/ScheduleCallModal";
 import principalAttorney from "@/assets/principal-attorney.png";
 
 const benefits = [
@@ -16,7 +16,7 @@ const benefits = [
 const ConsultationCTA = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
   return (
     <section ref={ref} className="py-16 md:py-24">
@@ -69,7 +69,7 @@ const ConsultationCTA = () => {
               </div>
 
               <Button
-                onClick={() => setIsFormOpen(true)}
+                onClick={() => setIsScheduleOpen(true)}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-full"
               >
                 Request a consultation
@@ -95,7 +95,7 @@ const ConsultationCTA = () => {
         </motion.div>
       </div>
 
-      <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
+      <ScheduleCallModal open={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} />
     </section>
   );
 };
