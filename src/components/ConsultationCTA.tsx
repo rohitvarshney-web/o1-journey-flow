@@ -87,7 +87,7 @@ const ConsultationCTA = () => {
                 <img src={principalAttorney} alt="Principal Attorney" className="w-full aspect-[4/5] object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 bg-foreground/80 backdrop-blur-sm p-4">
                   <h4 className="text-background font-semibold">Principal Attorney</h4>
-                  <p className="text-background/80 text-sm">Manifest Law</p>
+                  <p className="text-background/80 text-sm">Teleport</p>
                 </div>
               </div>
             </motion.div>
