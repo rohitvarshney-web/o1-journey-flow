@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { Check } from "lucide-react";
+import personConfused from "@/assets/person-confused.png";
+import personHappy from "@/assets/person-happy.png";
 
 const beforeItems = [
   "Massive upfront legal retainers ...",
@@ -52,17 +54,17 @@ const BeforeAfter = () => {
               <div className="w-16 h-px bg-border mx-auto mt-2" />
             </div>
 
-            <div className="space-y-4 min-h-[180px]">
+            <div className="space-y-3 min-h-[160px]">
               {beforeItems.map((item, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, rotate: -5 + index * 3 }}
-                  animate={isInView ? { opacity: 1, rotate: -5 + index * 3 } : {}}
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                   className="inline-block bg-destructive/10 text-destructive/80 px-4 py-2 rounded-lg text-sm italic"
                   style={{ 
-                    marginLeft: `${index * 20}px`,
-                    transform: `rotate(${-5 + index * 3}deg)`
+                    marginLeft: `${index * 15}px`,
+                    transform: `rotate(${-3 + index * 2}deg)`
                   }}
                 >
                   {item}
@@ -70,10 +72,12 @@ const BeforeAfter = () => {
               ))}
             </div>
 
-            <div className="mt-8 flex justify-center">
-              <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center">
-                <span className="text-2xl">😕</span>
-              </div>
+            <div className="mt-6 flex justify-center">
+              <img 
+                src={personConfused} 
+                alt="Confused person"
+                className="w-28 h-28 rounded-full object-cover object-top"
+              />
             </div>
           </motion.div>
 
@@ -90,7 +94,7 @@ const BeforeAfter = () => {
               <div className="w-16 h-px bg-primary/30 mx-auto mt-2" />
             </div>
 
-            <div className="space-y-4 min-h-[180px]">
+            <div className="space-y-4 min-h-[160px]">
               {afterItems.map((item, index) => (
                 <motion.div
                   key={index}
@@ -107,10 +111,12 @@ const BeforeAfter = () => {
               ))}
             </div>
 
-            <div className="mt-8 flex justify-center">
-              <div className="w-20 h-20 rounded-full bg-accent/20 flex items-center justify-center">
-                <span className="text-2xl">😊</span>
-              </div>
+            <div className="mt-6 flex justify-center">
+              <img 
+                src={personHappy} 
+                alt="Happy person"
+                className="w-28 h-28 rounded-full object-cover object-top"
+              />
             </div>
           </motion.div>
         </div>

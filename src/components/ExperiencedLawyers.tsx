@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import lawyer1 from "@/assets/lawyer-1.png";
+import lawyer2 from "@/assets/lawyer-2.png";
+import lawyer3 from "@/assets/lawyer-3.png";
+import lawyer4 from "@/assets/lawyer-4.png";
 
 const lawyers = [
-  { experience: "7+", position: "top-8 left-8" },
-  { experience: "12+", position: "bottom-16 left-32" },
-  { experience: "23+", position: "top-4 right-8" },
-  { experience: "11+", position: "bottom-8 right-24" },
+  { image: lawyer1, experience: "7+", name: "Sarah Chen" },
+  { image: lawyer2, experience: "12+", name: "Michael Torres" },
+  { image: lawyer3, experience: "23+", name: "Robert Williams" },
+  { image: lawyer4, experience: "11+", name: "Amanda Johnson" },
 ];
 
 const ExperiencedLawyers = () => {
@@ -31,52 +35,71 @@ const ExperiencedLawyers = () => {
             </p>
           </div>
 
-          {/* Floating lawyer badges */}
+          {/* Floating lawyer badges - top left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="absolute top-8 left-4 md:left-16 flex items-center gap-2"
           >
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/40 border-4 border-background shadow-lg" />
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full">
-              7+ YEARS OF EXPERIENCE
+            <img 
+              src={lawyers[0].image} 
+              alt={lawyers[0].name}
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-background shadow-lg"
+            />
+            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+              {lawyers[0].experience} YEARS OF EXPERIENCE
             </span>
           </motion.div>
 
+          {/* Bottom left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="absolute bottom-16 left-8 md:left-32 flex items-center gap-2"
           >
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full">
-              12+ YEARS OF EXPERIENCE
+            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+              {lawyers[1].experience} YEARS OF EXPERIENCE
             </span>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-secondary/30 to-secondary/50 border-4 border-background shadow-lg" />
+            <img 
+              src={lawyers[1].image} 
+              alt={lawyers[1].name}
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-background shadow-lg"
+            />
           </motion.div>
 
+          {/* Top right */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="absolute top-4 right-4 md:right-16 flex items-center gap-2"
           >
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full">
-              23+ YEARS OF EXPERIENCE
+            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+              {lawyers[2].experience} YEARS OF EXPERIENCE
             </span>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-accent/30 to-accent/50 border-4 border-background shadow-lg" />
+            <img 
+              src={lawyers[2].image} 
+              alt={lawyers[2].name}
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-background shadow-lg"
+            />
           </motion.div>
 
+          {/* Bottom right */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="absolute bottom-8 right-8 md:right-32 flex items-center gap-2"
           >
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/40 border-4 border-background shadow-lg" />
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full">
-              11+ YEARS OF EXPERIENCE
+            <img 
+              src={lawyers[3].image} 
+              alt={lawyers[3].name}
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-background shadow-lg"
+            />
+            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+              {lawyers[3].experience} YEARS OF EXPERIENCE
             </span>
           </motion.div>
         </motion.div>

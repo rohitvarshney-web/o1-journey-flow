@@ -4,6 +4,7 @@ import { useInView } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ApplicationForm from "@/components/ApplicationForm";
+import principalAttorney from "@/assets/principal-attorney.png";
 
 const benefits = [
   "Discuss your company's holistic immigration strategy",
@@ -86,7 +87,12 @@ const ConsultationCTA = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-primary/20 to-primary/40 rounded-2xl aspect-[4/5] flex items-end justify-center overflow-hidden">
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <img 
+                  src={principalAttorney} 
+                  alt="Principal Attorney"
+                  className="w-full aspect-[4/5] object-cover"
+                />
                 <div className="absolute bottom-0 left-0 right-0 bg-foreground/80 backdrop-blur-sm p-4">
                   <h4 className="text-background font-semibold">Principal Attorney</h4>
                   <p className="text-background/80 text-sm">Manifest Law</p>

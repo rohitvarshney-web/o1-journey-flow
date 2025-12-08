@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import communicationPerson from "@/assets/communication-person.png";
 
 const FastCommunication = () => {
   const ref = useRef(null);
@@ -13,7 +14,7 @@ const FastCommunication = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="bg-accent/20 rounded-3xl p-8 md:p-12 lg:p-16 max-w-6xl mx-auto"
+          className="bg-accent/20 rounded-3xl p-8 md:p-12 lg:p-16 max-w-6xl mx-auto overflow-hidden"
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -27,37 +28,48 @@ const FastCommunication = () => {
 
             <div className="relative">
               {/* Chat bubbles mockup */}
-              <div className="space-y-3">
+              <div className="absolute top-0 right-0 left-0 space-y-3 z-10">
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 }}
-                  className="bg-background rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm max-w-xs ml-auto"
+                  className="bg-background rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm max-w-[200px] ml-auto"
                 >
-                  <p className="text-sm text-foreground">I DON'T KNOW HOW TO DRAFT THIS FORM</p>
+                  <p className="text-xs text-foreground">I DON'T KNOW HOW TO DRAFT THIS FORM</p>
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.5 }}
-                  className="bg-primary text-primary-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm max-w-xs"
+                  className="bg-primary text-primary-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm max-w-[220px]"
                 >
-                  <p className="text-sm">NO WORRIES, WE'LL TAKE CARE OF IT :)</p>
+                  <p className="text-xs">NO WORRIES, WE'LL TAKE CARE OF IT :)</p>
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.7 }}
-                  className="bg-background rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm max-w-xs ml-auto"
+                  className="bg-background rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm max-w-[180px] ml-auto"
                 >
-                  <p className="text-sm text-foreground">OMG! THANK YOU SO MUCH 🙏</p>
+                  <p className="text-xs text-foreground">OMG! THANK YOU SO MUCH 🙏</p>
                 </motion.div>
               </div>
 
-              {/* Decorative gradient */}
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-accent/30 to-primary/20 rounded-full blur-2xl -z-10" />
+              {/* Person image */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="mt-24 relative"
+              >
+                <img 
+                  src={communicationPerson} 
+                  alt="Team member in consultation"
+                  className="w-full max-w-sm mx-auto rounded-2xl shadow-lg object-cover"
+                />
+              </motion.div>
             </div>
           </div>
         </motion.div>
