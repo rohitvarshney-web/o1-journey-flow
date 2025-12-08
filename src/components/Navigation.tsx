@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -10,8 +11,7 @@ const Navigation = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const navItems = [
-    // { name: "Lawyer", href: "#services" },
-    // { name: "Process", href: "#process" },
+    { name: "About O1 Visa", href: "/about-o1-visa" },
     { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "#footer" },
   ];
@@ -22,22 +22,32 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img src={teleportLogo} alt="Teleport Logo" className="h-10 w-28 md:w-36 object-contain" />
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item) => 
+              item.href.startsWith("/") ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </a>
+              )
+            )}
             <Button size="sm" className="ml-4 bg-primary hover:bg-primary/90" onClick={() => setIsFormOpen(true)}>
               Get Started
             </Button>
@@ -61,16 +71,27 @@ const Navigation = () => {
             className="md:hidden border-t border-border bg-background"
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item) => 
+                item.href.startsWith("/") ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                )
+              )}
               <Button size="sm" className="w-full bg-primary hover:bg-primary/90" onClick={() => setIsFormOpen(true)}>
                 Get Started
               </Button>
