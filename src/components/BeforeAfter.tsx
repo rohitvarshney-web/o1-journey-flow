@@ -35,9 +35,7 @@ const BeforeAfter = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground mb-4">
             Confused and overwhelmed?
           </h2>
-          <p className="text-muted-foreground text-lg">
-            No legal jargon. Only clear and simple words.
-          </p>
+          <p className="text-muted-foreground text-lg">No legal jargon. Only clear and simple words.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -50,7 +48,7 @@ const BeforeAfter = () => {
           >
             <div className="text-center mb-6">
               <span className="text-muted-foreground text-sm">before</span>
-              <h3 className="text-2xl md:text-3xl font-serif text-foreground">manifest</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-foreground">Teleport</h3>
               <div className="w-16 h-px bg-border mx-auto mt-2" />
             </div>
 
@@ -62,9 +60,9 @@ const BeforeAfter = () => {
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                   className="inline-block bg-destructive/10 text-destructive/80 px-4 py-2 rounded-lg text-sm italic"
-                  style={{ 
+                  style={{
                     marginLeft: `${index * 15}px`,
-                    transform: `rotate(${-3 + index * 2}deg)`
+                    transform: `rotate(${-3 + index * 2}deg)`,
                   }}
                 >
                   {item}
@@ -73,8 +71,8 @@ const BeforeAfter = () => {
             </div>
 
             <div className="mt-6 flex justify-center">
-              <img 
-                src={personConfused} 
+              <img
+                src={personConfused}
                 alt="Confused person"
                 className="w-28 h-28 rounded-full object-cover object-top"
               />
@@ -90,7 +88,7 @@ const BeforeAfter = () => {
           >
             <div className="text-center mb-6">
               <span className="text-primary text-sm font-medium">after</span>
-              <h3 className="text-2xl md:text-3xl font-serif text-foreground">manifest</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-foreground">Teleport</h3>
               <div className="w-16 h-px bg-primary/30 mx-auto mt-2" />
             </div>
 
@@ -112,11 +110,7 @@ const BeforeAfter = () => {
             </div>
 
             <div className="mt-6 flex justify-center">
-              <img 
-                src={personHappy} 
-                alt="Happy person"
-                className="w-28 h-28 rounded-full object-cover object-top"
-              />
+              <img src={personHappy} alt="Happy person" className="w-28 h-28 rounded-full object-cover object-top" />
             </div>
           </motion.div>
         </div>
