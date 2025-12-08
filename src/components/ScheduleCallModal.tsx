@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Calendar, Clock, FileText, Globe, X, ArrowRight, CheckCircle } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Calendar, Clock, FileText, Globe, ArrowRight, CheckCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type Tab = "prepare" | "schedule" | "instructions";
 
@@ -36,14 +37,12 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-4xl p-0 overflow-hidden border-0">
+        <VisuallyHidden>
+          <DialogTitle>Schedule Your Free Consultation</DialogTitle>
+          <DialogDescription>Book a call with our O-1 visa experts</DialogDescription>
+        </VisuallyHidden>
         {/* Header */}
         <div className="relative bg-gradient-to-r from-primary to-primary/80 p-6 text-white">
-          <button
-            onClick={handleClose}
-            className="absolute right-4 top-4 text-white/80 hover:text-white transition-colors"
-          >
-            <X size={24} />
-          </button>
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-white/20 p-3">
               <Calendar size={24} />
