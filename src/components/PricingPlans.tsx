@@ -62,7 +62,7 @@ const PricingPlans = () => {
         </motion.div>
 
         {/* EB-1A Plans */}
-        {/* <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
           {pricingPlans.slice(0, 3).map((plan, index) => (
             <motion.div
               key={index}
@@ -82,7 +82,7 @@ const PricingPlans = () => {
               </p>
             </motion.div>
           ))}
-        </div> */}
+        </div>
 
         {/* O-1 Plans */}
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
