@@ -1,7 +1,20 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import teleportLogo from "@/assets/teleport-logo.png";
 
 const Footer = () => {
+  const location = useLocation();
+  const isAboutPage = location.pathname === "/about-o1-visa";
+
+  // Helper to create proper links based on current page
+  const getLink = (hash: string, targetPage: "home" | "about") => {
+    if (targetPage === "home") {
+      return isAboutPage ? `/${hash}` : hash;
+    } else {
+      return isAboutPage ? hash : `/about-o1-visa${hash}`;
+    }
+  };
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -10,9 +23,9 @@ const Footer = () => {
           <div>
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/" className="flex items-center">
+              <Link to="/" className="flex items-center">
                 <img src={teleportLogo} alt="Teleport Logo" className="h-10 w-28 md:w-36 object-contain" />
-              </a>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
               Expert immigration lawyers specializing in O-1 extraordinary ability visas for professionals in tech,
@@ -25,25 +38,15 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#o1a-criteria" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#o1a-criteria" className="hover:text-primary transition-colors">
                   O-1A Visa
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#o1b-criteria" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#o1b-criteria" className="hover:text-primary transition-colors">
                   O-1B Visa
-                </a>
+                </Link>
               </li>
-              {/* <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Green Card
-                </a>
-              </li> */}
-              {/* <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Premium Processing
-                </a>
-              </li> */}
             </ul>
           </div>
 
@@ -52,34 +55,34 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#who-qualifies" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#who-qualifies" className="hover:text-primary transition-colors">
                   Eligibility Guide
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#benefits" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#benefits" className="hover:text-primary transition-colors">
                   Visa Benefits
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#process" className="hover:text-primary transition-colors">
+                <Link to="/#process" className="hover:text-primary transition-colors">
                   Our Process
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#timeline" className="hover:text-primary transition-colors">
+                <Link to="/#timeline" className="hover:text-primary transition-colors">
                   Application Timeline
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#testimonials" className="hover:text-primary transition-colors">
+                <Link to="/#testimonials" className="hover:text-primary transition-colors">
                   Success Stories
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#faq" className="hover:text-primary transition-colors">
+                <Link to="/about-o1-visa#faq" className="hover:text-primary transition-colors">
                   FAQ
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

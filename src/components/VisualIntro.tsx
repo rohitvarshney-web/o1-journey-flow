@@ -3,6 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "./ui/button";
 import { CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const VisualIntro = () => {
   const ref = useRef(null);
@@ -29,9 +30,9 @@ const VisualIntro = () => {
               distinction in your field, this visa can turn those accomplishments into the right to live and work in the
               U.S.
             </p>
-            {/* <Button size="lg" className="text-base bg-primary hover:bg-primary/90">
-              Schedule a free consultation
-            </Button> */}
+            <Button asChild size="lg" className="text-base bg-primary hover:bg-primary/90">
+              <Link to="/about-o1-visa">Know More</Link>
+            </Button>
           </motion.div>
 
           {/* Right visual */}
