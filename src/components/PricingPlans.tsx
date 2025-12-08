@@ -108,7 +108,7 @@ const PricingPlans = () => {
         </div>
 
         {/* Offer Banner */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
@@ -118,15 +118,15 @@ const PricingPlans = () => {
             $500 off offer on all other legal services!
           </div>
 
-          {/* <div>
+          <div>
             <Button
               onClick={() => setIsFormOpen(true)}
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
             >
               View all visas
             </Button>
-          </div> */}
-        </motion.div>
+          </div>
+        </motion.div> */}
       </div>
 
       <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
