@@ -10,7 +10,8 @@ const steps = [
   {
     number: "1",
     title: "Free eligibility check",
-    description: "Our in-house team conducts a quick assessment to ensure you meet the qualifications for the O-1 visa.",
+    description:
+      "Our in-house team conducts a quick assessment to ensure you meet the qualifications for the O-1 visa.",
   },
   {
     number: "2",
@@ -54,7 +55,7 @@ const Process = () => {
               {/* Decorative circles */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/4" />
-              
+
               {/* Form Card */}
               <div className="relative z-10 bg-white rounded-2xl p-6 shadow-2xl">
                 <div className="flex items-center gap-3 mb-6">
@@ -105,8 +106,7 @@ const Process = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12">
-              Teleport simplifies the{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">process</span>
+              Teleport simplifies the <span className="bg-gradient-primary bg-clip-text text-transparent">process</span>
             </h2>
 
             <div className="space-y-8">
@@ -129,7 +129,7 @@ const Process = () => {
               ))}
             </div>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -142,7 +142,7 @@ const Process = () => {
               >
                 Schedule a free consultation
               </Button>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
       </div>
