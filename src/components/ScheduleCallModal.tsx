@@ -93,12 +93,8 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
                     <FileText size={32} className="text-accent" />
                   </div>
-                  <h3 className="mb-2 text-2xl font-semibold text-foreground">
-                    Prepare for Your Call
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Make the most of your consultation by having these ready
-                  </p>
+                  <h3 className="mb-2 text-2xl font-semibold text-foreground">Prepare for Your Call</h3>
+                  <p className="text-muted-foreground">Make the most of your consultation by having these ready</p>
                 </div>
 
                 <div className="rounded-xl bg-muted/50 p-6 space-y-4">
@@ -146,14 +142,9 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                       <CheckCircle size={24} className="text-accent" />
                       <div className="flex-1">
                         <h4 className="font-medium text-foreground">Great! You're all set</h4>
-                        <p className="text-muted-foreground">
-                          Proceed to schedule your free consultation call.
-                        </p>
+                        <p className="text-muted-foreground">Proceed to schedule your free consultation call.</p>
                       </div>
-                      <Button
-                        onClick={() => setActiveTab("schedule")}
-                        size="sm"
-                      >
+                      <Button onClick={() => setActiveTab("schedule")} size="sm">
                         Next <ArrowRight size={16} className="ml-2" />
                       </Button>
                     </div>
@@ -174,9 +165,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
                     <Calendar size={32} className="text-accent" />
                   </div>
-                  <h3 className="mb-2 text-2xl font-semibold text-foreground">
-                    Pick a Time That Works
-                  </h3>
+                  <h3 className="mb-2 text-2xl font-semibold text-foreground">Pick a Time That Works</h3>
                   <p className="text-muted-foreground">
                     Select a convenient time slot for your free consultation with our immigration experts.
                   </p>
@@ -185,7 +174,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 <div className="rounded-xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-4">
                   <div className="overflow-hidden rounded-lg bg-background shadow-sm">
                     <iframe
-                      src="https://cal.com/teleport-immigration/o1-visa-consultation"
+                      src="https://cal.com/stampmyvisa/live-document-check"
                       width="100%"
                       height="450"
                       className="w-full border-0"
@@ -220,12 +209,8 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
                     <Clock size={32} className="text-accent" />
                   </div>
-                  <h3 className="mb-2 text-2xl font-semibold text-foreground">
-                    Consultation Guidelines
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Important tips to ensure a smooth consultation
-                  </p>
+                  <h3 className="mb-2 text-2xl font-semibold text-foreground">Consultation Guidelines</h3>
+                  <p className="text-muted-foreground">Important tips to ensure a smooth consultation</p>
                 </div>
 
                 <div className="grid gap-3">
@@ -239,9 +224,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                         <div className="rounded-lg bg-primary/10 p-2">
                           <Icon size={20} className="text-primary" />
                         </div>
-                        <p className="font-medium text-foreground">
-                          {instruction.text}
-                        </p>
+                        <p className="font-medium text-foreground">{instruction.text}</p>
                       </div>
                     );
                   })}
@@ -253,9 +236,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                       <CheckCircle size={20} className="text-primary" />
                     </div>
                     <div>
-                      <h4 className="mb-2 font-medium text-foreground">
-                        What to expect during the call
-                      </h4>
+                      <h4 className="mb-2 font-medium text-foreground">What to expect during the call</h4>
                       <ul className="space-y-1 text-sm text-muted-foreground">
                         <li>• Review of your qualifications for O-1 visa</li>
                         <li>• Discussion of your career achievements</li>
