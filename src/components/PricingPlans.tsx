@@ -5,27 +5,27 @@ import { Button } from "@/components/ui/button";
 import ApplicationForm from "@/components/ApplicationForm";
 
 const pricingPlans = [
-  // {
-  //   visa: "EB-1A Green Card",
-  //   plan: "Silver Plan",
-  //   guarantee: "(no money-back)",
-  //   price: "$8,475",
-  //   featured: false,
-  // },
-  // {
-  //   visa: "EB-1A Green Card",
-  //   plan: "Gold Plan",
-  //   guarantee: "(60% money-back)",
-  //   price: "$10,000",
-  //   featured: false,
-  // },
-  // {
-  //   visa: "EB-1A Green Card",
-  //   plan: "Platinum Plan",
-  //   guarantee: "(100% money-back + RFE cap of $2.5k)",
-  //   price: "$12,000",
-  //   featured: true,
-  // },
+  {
+    visa: "EB-1A Green Card",
+    plan: "Silver Plan",
+    guarantee: "(no money-back)",
+    price: "$8,475",
+    featured: false,
+  },
+  {
+    visa: "EB-1A Green Card",
+    plan: "Gold Plan",
+    guarantee: "(60% money-back)",
+    price: "$10,000",
+    featured: false,
+  },
+  {
+    visa: "EB-1A Green Card",
+    plan: "Platinum Plan",
+    guarantee: "(100% money-back + RFE cap of $2.5k)",
+    price: "$12,000",
+    featured: true,
+  },
   {
     visa: "O-1 Visa",
     plan: "Gold Plan",
