@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Calendar, ArrowRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ApplicationForm from "./ApplicationForm";
+import ScheduleCallModal from "./ScheduleCallModal";
 
 const FloatingCTA = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
@@ -27,7 +27,7 @@ const FloatingCTA = () => {
               </button>
 
               <div
-                onClick={() => setIsFormOpen(true)}
+                onClick={() => setIsModalOpen(true)}
                 className="group relative cursor-pointer"
               >
                 <div className="rounded-xl bg-gradient-to-r from-primary via-primary/80 to-accent p-[2px] shadow-2xl transition-all duration-300 hover:shadow-3xl">
@@ -87,7 +87,7 @@ const FloatingCTA = () => {
         </AnimatePresence>
       </div>
 
-      <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
+      <ScheduleCallModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
