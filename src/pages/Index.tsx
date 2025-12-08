@@ -12,6 +12,11 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import ApprovalProtection from "@/components/ApprovalProtection";
+import ExperiencedLawyers from "@/components/ExperiencedLawyers";
+import FastCommunication from "@/components/FastCommunication";
+import BeforeAfter from "@/components/BeforeAfter";
+import ConsultationCTA from "@/components/ConsultationCTA";
+import PricingPlans from "@/components/PricingPlans";
 
 const Index = () => {
   return (
@@ -24,12 +29,16 @@ const Index = () => {
         <Understanding />
         <Benefits />
         <ApprovalProtection />
+        <ExperiencedLawyers />
+        <FastCommunication />
+        <BeforeAfter />
         <VisaComparison />
         <Process />
         <Timeline />
+        <PricingPlans />
+        <ConsultationCTA />
         <Testimonials />
         <FAQ />
-        {/* <CTA /> */}
       </main>
       <Footer />
     </div>
