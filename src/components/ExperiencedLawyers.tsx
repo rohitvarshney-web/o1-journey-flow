@@ -58,7 +58,7 @@ const ExperiencedLawyers = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="absolute bottom-8 left-12 md:left-32 flex items-center gap-2"
+            className="absolute bottom-8 left-4 md:left-32 flex items-center gap-2"
           >
             <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
               {lawyers[1].experience} YEARS OF EXPERIENCE
