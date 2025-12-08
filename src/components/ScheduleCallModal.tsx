@@ -186,7 +186,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 <p className="text-center text-sm text-muted-foreground">
                   Having trouble booking?{" "}
                   <a
-                    href="https://cal.com/teleport-immigration/o1-visa-consultation"
+                    href="https://cal.com/stampmyvisa/live-document-check"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium text-primary hover:underline"
