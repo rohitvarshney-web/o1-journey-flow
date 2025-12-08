@@ -5,27 +5,27 @@ import { Button } from "@/components/ui/button";
 import ApplicationForm from "@/components/ApplicationForm";
 
 const pricingPlans = [
-  {
-    visa: "EB-1A Green Card",
-    plan: "Silver Plan",
-    guarantee: "(no money-back)",
-    price: "$8,475",
-    featured: false,
-  },
-  {
-    visa: "EB-1A Green Card",
-    plan: "Gold Plan",
-    guarantee: "(60% money-back)",
-    price: "$10,000",
-    featured: false,
-  },
-  {
-    visa: "EB-1A Green Card",
-    plan: "Platinum Plan",
-    guarantee: "(100% money-back + RFE cap of $2.5k)",
-    price: "$12,000",
-    featured: true,
-  },
+  // {
+  //   visa: "EB-1A Green Card",
+  //   plan: "Silver Plan",
+  //   guarantee: "(no money-back)",
+  //   price: "$8,475",
+  //   featured: false,
+  // },
+  // {
+  //   visa: "EB-1A Green Card",
+  //   plan: "Gold Plan",
+  //   guarantee: "(60% money-back)",
+  //   price: "$10,000",
+  //   featured: false,
+  // },
+  // {
+  //   visa: "EB-1A Green Card",
+  //   plan: "Platinum Plan",
+  //   guarantee: "(100% money-back + RFE cap of $2.5k)",
+  //   price: "$12,000",
+  //   featured: true,
+  // },
   {
     visa: "O-1 Visa",
     plan: "Gold Plan",
@@ -73,9 +73,7 @@ const PricingPlans = () => {
                 plan.featured ? "ring-2 ring-primary" : ""
               }`}
             >
-              <h3 className="text-xl md:text-2xl font-serif text-foreground mb-4">
-                {plan.visa}
-              </h3>
+              <h3 className="text-xl md:text-2xl font-serif text-foreground mb-4">{plan.visa}</h3>
               <div className="w-12 h-px bg-border mx-auto mb-4" />
               <p className="font-semibold text-foreground mb-1">{plan.plan}</p>
               <p className="text-sm text-muted-foreground mb-4">{plan.guarantee}</p>
@@ -98,9 +96,7 @@ const PricingPlans = () => {
                 plan.featured ? "ring-2 ring-primary" : ""
               }`}
             >
-              <h3 className="text-xl md:text-2xl font-serif text-foreground mb-4">
-                {plan.visa}
-              </h3>
+              <h3 className="text-xl md:text-2xl font-serif text-foreground mb-4">{plan.visa}</h3>
               <div className="w-12 h-px bg-border mx-auto mb-4" />
               <p className="font-semibold text-foreground mb-1">{plan.plan}</p>
               <p className="text-sm text-muted-foreground mb-4">{plan.guarantee}</p>
@@ -123,7 +119,7 @@ const PricingPlans = () => {
           </div>
 
           <div>
-            <Button 
+            <Button
               onClick={() => setIsFormOpen(true)}
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
             >
