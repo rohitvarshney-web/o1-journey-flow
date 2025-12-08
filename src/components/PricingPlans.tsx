@@ -63,7 +63,7 @@ const PricingPlans = () => {
 
         {/* EB-1A Plans */}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
-          {pricingPlans.slice(0, 3).map((plan, index) => (
+          {pricingPlans.slice(0, 2).map((plan, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -85,7 +85,7 @@ const PricingPlans = () => {
         </div>
 
         {/* O-1 Plans */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
+        {/* <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
           {pricingPlans.slice(3).map((plan, index) => (
             <motion.div
               key={index}
@@ -105,7 +105,7 @@ const PricingPlans = () => {
               </p>
             </motion.div>
           ))}
-        </div>
+        </div> */}
 
         {/* Offer Banner */}
         {/* <motion.div
