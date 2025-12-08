@@ -4,10 +4,10 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar } from "lucide-react";
-import ApplicationForm from "./ApplicationForm";
+import ScheduleCallModal from "./ScheduleCallModal";
 
 const CTA = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -38,7 +38,7 @@ const CTA = () => {
             <Button
               size="lg"
               className="group text-base px-8 h-14 shadow-lg hover:shadow-xl transition-all"
-              onClick={() => setIsFormOpen(true)}
+              onClick={() => setIsScheduleOpen(true)}
             >
               <Calendar className="mr-2 w-5 h-5" />
               Schedule Free Consultation
@@ -74,7 +74,7 @@ const CTA = () => {
         </motion.div>
       </div>
 
-      <ApplicationForm open={isFormOpen} onOpenChange={setIsFormOpen} />
+      <ScheduleCallModal open={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} />
     </section>
   );
 };
