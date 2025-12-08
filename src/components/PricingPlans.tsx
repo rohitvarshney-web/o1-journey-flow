@@ -118,14 +118,14 @@ const PricingPlans = () => {
             $500 off offer on all other legal services!
           </div>
 
-          <div>
+          {/* <div>
             <Button
               onClick={() => setIsFormOpen(true)}
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
             >
               View all visas
             </Button>
-          </div>
+          </div> */}
         </motion.div>
       </div>
 
