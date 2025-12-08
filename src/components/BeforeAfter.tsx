@@ -4,6 +4,7 @@ import { useInView } from "framer-motion";
 import { Check } from "lucide-react";
 import personConfused from "@/assets/person-confused.png";
 import personHappy from "@/assets/person-happy.png";
+import teleportLogo from "@/assets/teleport-logo.png";
 
 const beforeItems = [
   "Massive upfront legal retainers ...",
@@ -48,7 +49,9 @@ const BeforeAfter = () => {
           >
             <div className="text-center mb-6">
               <span className="text-muted-foreground text-sm">before</span>
-              <h3 className="text-2xl md:text-3xl font-serif text-foreground">Teleport</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-foreground">
+                <img src={teleportLogo} alt="Teleport" className="inline-block h-8 sm:h-12 lg:h-16 w-auto" />
+              </h3>
               <div className="w-16 h-px bg-border mx-auto mt-2" />
             </div>
 
@@ -88,7 +91,9 @@ const BeforeAfter = () => {
           >
             <div className="text-center mb-6">
               <span className="text-primary text-sm font-medium">after</span>
-              <h3 className="text-2xl md:text-3xl font-serif text-foreground">Teleport</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-foreground">
+                <img src={teleportLogo} alt="Teleport" className="inline-block h-8 sm:h-12 lg:h-16 w-auto" />
+              </h3>
               <div className="w-16 h-px bg-primary/30 mx-auto mt-2" />
             </div>
 
