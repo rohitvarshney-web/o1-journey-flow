@@ -30,8 +30,8 @@ const Index = () => {
         <Process />
         <Timeline />
         <PricingPlans />
-        <ConsultationCTA />
         <Testimonials />
+        <ConsultationCTA />
         <FAQ />
       </main>
       <Footer />
