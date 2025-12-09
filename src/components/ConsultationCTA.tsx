@@ -38,12 +38,16 @@ const ConsultationCTA = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-accent/20 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 max-w-5xl mx-auto"
+          className="bg-primary/20 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 max-w-5xl mx-auto"
         >
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
             <div className="order-2 md:order-1">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-foreground mb-1 sm:mb-2">Take the First Step:</h3>
-              <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 mb-6 sm:mb-8">Schedule your free consultation!</p>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-foreground mb-1 sm:mb-2">
+                Take the First Step:
+              </h3>
+              <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 mb-6 sm:mb-8">
+                Schedule your free consultation!
+              </p>
 
               <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                 {benefits.map((benefit, index) => (
@@ -78,11 +82,7 @@ const ConsultationCTA = () => {
               className="relative order-1 md:order-2"
             >
               <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-lg max-w-xs mx-auto md:max-w-none">
-                <img 
-                  src={principalAttorney} 
-                  alt="Principal Attorney" 
-                  className="w-full aspect-[4/5] object-cover" 
-                />
+                <img src={principalAttorney} alt="Principal Attorney" className="w-full aspect-[4/5] object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 bg-foreground/80 backdrop-blur-sm p-3 sm:p-4">
                   <h4 className="text-background font-semibold text-sm sm:text-base">Principal Attorney</h4>
                   <p className="text-background/80 text-xs sm:text-sm">Teleport</p>
