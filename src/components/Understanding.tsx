@@ -29,7 +29,7 @@ const Understanding = () => {
   ];
 
   return (
-    <section ref={ref} className="py-12 sm:py-16 md:py-32 bg-gradient-to-b from-background to-primary/5">
+    <section id="understanding" ref={ref} className="py-12 sm:py-16 md:py-32 bg-gradient-to-b from-background to-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

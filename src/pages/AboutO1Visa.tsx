@@ -8,8 +8,10 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import CTA from "@/components/CTA";
+import useScrollToHash from "@/hooks/useScrollToHash";
 
 const AboutO1Visa = () => {
+  useScrollToHash();
   return (
     <div className="min-h-screen">
       <Navigation />
