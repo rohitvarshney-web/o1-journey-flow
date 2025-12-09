@@ -21,7 +21,7 @@ const ApprovalProtection = () => {
     <section ref={ref} className="py-12 sm:py-16 md:py-28 bg-background relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent" />
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -49,9 +49,7 @@ const ApprovalProtection = () => {
                 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight"
               >
                 Apply with{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
-                  Complete Confidence
-                </span>
+                <span className="bg-gradient-primary bg-clip-text text-transparent">Complete Confidence</span>
               </motion.h2>
 
               <motion.p
@@ -60,8 +58,8 @@ const ApprovalProtection = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-base sm:text-lg text-muted-foreground leading-relaxed"
               >
-                Our Approval Protection Plan removes all financial risk from your O-1 visa application. 
-                If your petition is denied, we refund your entire service fee—no exceptions.
+                Our Approval Protection Plan removes all financial risk from your O-1 visa application. If your petition
+                is denied, we refund your entire service fee—no exceptions.
               </motion.p>
 
               <motion.ul
@@ -78,7 +76,7 @@ const ApprovalProtection = () => {
                 ))}
               </motion.ul>
 
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -92,7 +90,7 @@ const ApprovalProtection = () => {
                   Learn About Protection Plan
                   <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </motion.div>
+              </motion.div> */}
             </div>
 
             {/* Visual Side */}
@@ -113,9 +111,7 @@ const ApprovalProtection = () => {
                     <p className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider">
                       Approval Protection
                     </p>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
-                      Money-Back Guarantee
-                    </h3>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">Money-Back Guarantee</h3>
                   </div>
 
                   <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -141,8 +137,8 @@ const ApprovalProtection = () => {
 
                   <div className="bg-accent/10 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-accent/20">
                     <p className="text-xs sm:text-sm text-foreground/80 text-center">
-                      <span className="font-semibold text-accent">96% approval rate</span> — most clients never need to use it, 
-                      but it&apos;s there when you want the extra security.
+                      <span className="font-semibold text-accent">96% approval rate</span> — most clients never need to
+                      use it, but it&apos;s there when you want the extra security.
                     </p>
                   </div>
                 </div>
