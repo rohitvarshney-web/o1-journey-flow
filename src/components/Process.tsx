@@ -15,8 +15,9 @@ const steps = [
   },
   {
     number: "2",
-    title: "Digital intake",
-    description: "Complete our streamlined online form to provide us with your background and achievements.",
+    title: "Digital intake and first payment",
+    description:
+      "Complete our streamlined online form to provide us with your background and achievements. This where you will have to make a small transaction, which will help us to move further with the process",
   },
   {
     number: "3",
