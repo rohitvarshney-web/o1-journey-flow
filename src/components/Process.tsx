@@ -15,7 +15,7 @@ const steps = [
   },
   {
     number: "2",
-    title: "Digital intake and first payment",
+    title: "Digital intake & First Payment",
     description:
       "Complete our streamlined online form to provide us with your background and achievements. This where you will have to make a small transaction, which will help us to move further with the process",
   },
@@ -31,8 +31,13 @@ const steps = [
   },
   {
     number: "5",
-    title: "Share & sign",
+    title: "Share, Sign & Final Payment",
     description: "Review the final petition, sign the documents, and we'll file with USCIS on your behalf.",
+  },
+  {
+    number: "6",
+    title: "Submission",
+    description: "Submission of the final petition and documents with USCIS on your behalf.",
   },
 ];
 
