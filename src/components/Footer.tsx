@@ -31,7 +31,7 @@ const Footer = () => {
             <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground">
               <li>
                 <Link
-                  to="/about-o1-visa#understanding"
+                  to="/about-o1-visa#o1a-criteria"
                   className="hover:text-primary focus:text-primary focus:outline-none focus:underline transition-colors"
                 >
                   O-1A Visa
@@ -39,7 +39,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/about-o1b-visa#understanding"
+                  to="/about-o1-visa#o1b-criteria"
                   className="hover:text-primary focus:text-primary focus:outline-none focus:underline transition-colors"
                 >
                   O-1B Visa
