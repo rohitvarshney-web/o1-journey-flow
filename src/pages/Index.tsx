@@ -13,8 +13,10 @@ import BeforeAfter from "@/components/BeforeAfter";
 import ConsultationCTA from "@/components/ConsultationCTA";
 import PricingPlans from "@/components/PricingPlans";
 import FloatingCTA from "@/components/FloatingCTA";
+import useScrollToHash from "@/hooks/useScrollToHash";
 
 const Index = () => {
+  useScrollToHash();
   return (
     <div className="min-h-screen">
       <Navigation />
