@@ -32,7 +32,8 @@ const steps = [
   {
     number: "5",
     title: "Share, Sign & Final Payment",
-    description: "Review the final petition, sign the documents, and we'll file with USCIS on your behalf.",
+    description:
+      "Review the final petition, sign the documents, and we'll file with USCIS on your behalf. You also pay the final amount here.",
   },
   {
     number: "6",
