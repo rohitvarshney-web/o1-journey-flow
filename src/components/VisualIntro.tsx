@@ -3,21 +3,24 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "./ui/button";
 import { CheckCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const VisualIntro = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const location = useLocation();
+  const isAboutPage = location.pathname === "/about-o1-visa";
 
   return (
     <section ref={ref} className="py-12 sm:py-16 md:py-32 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6 }}
+            className="order-1"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
               What is the <span className="bg-gradient-primary bg-clip-text text-transparent">O-1?</span>
@@ -30,9 +33,12 @@ const VisualIntro = () => {
               distinction in your field, this visa can turn those accomplishments into the right to live and work in the
               U.S.
             </p>
-            <Button asChild size="lg" className="text-sm sm:text-base bg-primary hover:bg-primary/90">
-              <Link to="/about-o1-visa">Know More</Link>
-            </Button>
+            {/* Know More button - hidden on mobile (shows below card) and on about page */}
+            {!isAboutPage && (
+              <Button asChild size="lg" className="hidden lg:inline-flex text-sm sm:text-base bg-primary hover:bg-primary/90">
+                <Link to="/about-o1-visa">Know More</Link>
+              </Button>
+            )}
           </motion.div>
 
           {/* Right visual */}
@@ -40,7 +46,7 @@ const VisualIntro = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
+            className="relative order-2"
           >
             <div className="relative bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 border border-primary/20">
               {/* Decorative elements */}
@@ -87,6 +93,20 @@ const VisualIntro = () => {
               </div>
             </div>
           </motion.div>
+
+          {/* Know More button - shows below card on mobile only, hidden on about page */}
+          {!isAboutPage && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="order-3 lg:hidden w-full"
+            >
+              <Button asChild size="lg" className="w-full text-sm sm:text-base bg-primary hover:bg-primary/90">
+                <Link to="/about-o1-visa">Know More</Link>
+              </Button>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
