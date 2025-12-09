@@ -4,6 +4,7 @@ import WhoQualifies from "@/components/WhoQualifies";
 import Understanding from "@/components/Understanding";
 import Benefits from "@/components/Benefits";
 import VisaComparison from "@/components/VisaComparison";
+import ConsultationCTA from "@/components/ConsultationCTA";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -21,8 +22,9 @@ const AboutO1Visa = () => {
         <Understanding />
         <Benefits />
         <VisaComparison />
+        <ConsultationCTA />
         <FAQ />
-        <CTA />
+        {/* <CTA /> */}
       </main>
       <Footer />
       <FloatingCTA />
