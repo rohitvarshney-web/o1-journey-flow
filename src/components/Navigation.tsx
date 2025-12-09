@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -9,11 +9,13 @@ import teleportLogo from "@/assets/teleport-logo.png";
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const location = useLocation();
+  const isAboutPage = location.pathname === "/about-o1-visa";
 
   const navItems = [
     { name: "About O1 Visa", href: "/about-o1-visa" },
-    { name: "FAQ", href: "#faq" },
-    { name: "Contact", href: "#footer" },
+    { name: "FAQ", href: isAboutPage ? "#faq" : "/#faq" },
+    { name: "Contact", href: isAboutPage ? "/about-o1-visa#footer" : "/#footer" },
   ];
 
   return (

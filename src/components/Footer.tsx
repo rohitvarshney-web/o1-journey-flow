@@ -93,12 +93,21 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/about-o1-visa#faq" 
-                  className="hover:text-primary focus:text-primary focus:outline-none focus:underline transition-colors"
-                >
-                  FAQ
-                </Link>
+                {isAboutPage ? (
+                  <a 
+                    href="#faq" 
+                    className="hover:text-primary focus:text-primary focus:outline-none focus:underline transition-colors"
+                  >
+                    FAQ
+                  </a>
+                ) : (
+                  <Link 
+                    to="/#faq" 
+                    className="hover:text-primary focus:text-primary focus:outline-none focus:underline transition-colors"
+                  >
+                    FAQ
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>
