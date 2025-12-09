@@ -18,91 +18,128 @@ const ExperiencedLawyers = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-primary/5">
+    <section ref={ref} className="py-12 sm:py-16 md:py-28 bg-primary/5">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="relative max-w-5xl mx-auto"
+          className="max-w-5xl mx-auto"
         >
-          <div className="text-center py-16 md:py-24">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground mb-6">
-              Experienced
-              <br />& creative lawyers
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-md mx-auto">
-              Our network of experienced lawyers and co-counsel will bring ease and clarity to your immigration journey
-            </p>
+          {/* Mobile layout - stacked grid */}
+          <div className="md:hidden">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl font-serif text-foreground mb-4">
+                Experienced
+                <br />& creative lawyers
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base max-w-sm mx-auto px-4">
+                Our network of experienced lawyers and co-counsel will bring ease and clarity to your immigration journey
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 px-2">
+              {lawyers.map((lawyer, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  className="flex flex-col items-center text-center"
+                >
+                  <img
+                    src={lawyer.image}
+                    alt={lawyer.name}
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-background shadow-lg mb-2"
+                  />
+                  <span className="bg-primary/10 text-primary text-[10px] sm:text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap">
+                    {lawyer.experience} YRS EXP
+                  </span>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
-          {/* Floating lawyer badges - top left */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="absolute top-8 left-4 md:left-16 flex items-center gap-2"
-          >
-            <img
-              src={lawyers[0].image}
-              alt={lawyers[0].name}
-              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-background shadow-lg"
-            />
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-              {lawyers[0].experience} YEARS OF EXPERIENCE
-            </span>
-          </motion.div>
+          {/* Desktop layout - floating badges */}
+          <div className="hidden md:block relative">
+            <div className="text-center py-24">
+              <h2 className="text-4xl lg:text-5xl font-serif text-foreground mb-6">
+                Experienced
+                <br />& creative lawyers
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-md mx-auto">
+                Our network of experienced lawyers and co-counsel will bring ease and clarity to your immigration journey
+              </p>
+            </div>
 
-          {/* Bottom left */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="absolute bottom-8 left-4 md:left-32 flex items-center gap-2"
-          >
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-              {lawyers[1].experience} YEARS OF EXPERIENCE
-            </span>
-            <img
-              src={lawyers[1].image}
-              alt={lawyers[1].name}
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-background shadow-lg"
-            />
-          </motion.div>
+            {/* Floating lawyer badges - top left */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="absolute top-8 left-16 flex items-center gap-2"
+            >
+              <img
+                src={lawyers[0].image}
+                alt={lawyers[0].name}
+                className="w-20 h-20 rounded-full object-cover border-4 border-background shadow-lg"
+              />
+              <span className="bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+                {lawyers[0].experience} YEARS OF EXPERIENCE
+              </span>
+            </motion.div>
 
-          {/* Top right */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="absolute top-4 right-4 md:right-16 flex items-center gap-2"
-          >
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-              {lawyers[2].experience} YEARS OF EXPERIENCE
-            </span>
-            <img
-              src={lawyers[2].image}
-              alt={lawyers[2].name}
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-background shadow-lg"
-            />
-          </motion.div>
+            {/* Bottom left */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="absolute bottom-8 left-32 flex items-center gap-2"
+            >
+              <span className="bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+                {lawyers[1].experience} YEARS OF EXPERIENCE
+              </span>
+              <img
+                src={lawyers[1].image}
+                alt={lawyers[1].name}
+                className="w-24 h-24 rounded-full object-cover border-4 border-background shadow-lg"
+              />
+            </motion.div>
 
-          {/* Bottom right */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="absolute bottom-8 right-8 md:right-32 flex items-center gap-2"
-          >
-            <img
-              src={lawyers[3].image}
-              alt={lawyers[3].name}
-              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-background shadow-lg"
-            />
-            <span className="bg-primary/10 text-primary text-xs md:text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-              {lawyers[3].experience} YEARS OF EXPERIENCE
-            </span>
-          </motion.div>
+            {/* Top right */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="absolute top-4 right-16 flex items-center gap-2"
+            >
+              <span className="bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+                {lawyers[2].experience} YEARS OF EXPERIENCE
+              </span>
+              <img
+                src={lawyers[2].image}
+                alt={lawyers[2].name}
+                className="w-24 h-24 rounded-full object-cover border-4 border-background shadow-lg"
+              />
+            </motion.div>
+
+            {/* Bottom right */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="absolute bottom-8 right-32 flex items-center gap-2"
+            >
+              <img
+                src={lawyers[3].image}
+                alt={lawyers[3].name}
+                className="w-20 h-20 rounded-full object-cover border-4 border-background shadow-lg"
+              />
+              <span className="bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
+                {lawyers[3].experience} YEARS OF EXPERIENCE
+              </span>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
