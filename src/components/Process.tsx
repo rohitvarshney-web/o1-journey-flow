@@ -43,13 +43,13 @@ const Process = () => {
   return (
     <section id="process" ref={ref} className="py-20 md:py-32 bg-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-          {/* Left side - Visual Card */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+          {/* Visual Card - shows below text on mobile */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative order-2 lg:order-1"
           >
             <div className="bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 md:p-12 relative overflow-hidden">
               {/* Decorative circles */}
@@ -99,11 +99,12 @@ const Process = () => {
             </div>
           </motion.div>
 
-          {/* Right side - Steps */}
+          {/* Steps - shows first on mobile */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="order-1 lg:order-2"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12">
               Teleport simplifies the <span className="bg-gradient-primary bg-clip-text text-transparent">process</span>
