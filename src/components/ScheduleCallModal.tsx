@@ -173,7 +173,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 <div className="rounded-xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-4">
                   <div className="overflow-hidden rounded-lg bg-background shadow-sm">
                     <iframe
-                      src="https://cal.com/stampmyvisa/live-document-check"
+                      src="https://cal.com/ashish-teleport/initial-call"
                       width="100%"
                       height="450"
                       className="w-full border-0"
@@ -185,7 +185,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 <p className="text-center text-sm text-muted-foreground">
                   Having trouble booking?{" "}
                   <a
-                    href="https://cal.com/stampmyvisa/live-document-check"
+                    href="https://cal.com/ashish-teleport/initial-call"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium text-primary hover:underline"
