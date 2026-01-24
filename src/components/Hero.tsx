@@ -16,13 +16,12 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground flex flex-wrap items-center gap-2 sm:gap-3">
-              Get O-1 visas 3x faster with
-              <img src={teleportLogo} alt="Teleport" className="inline-block h-8 sm:h-12 lg:h-16 w-auto" />
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
+              The "Talent Visa" No One Tells You How to Get
             </h1>
 
             <p className="text-base sm:text-xl lg:text-2xl text-foreground/80 mb-8 sm:mb-10 max-w-2xl">
-              Accelerate the visa application process with our AI-powered platform and in-house legal experts.
+              The O-1 Visa isn't just for Nobel Prize winners. It's for builders, creators, and founders—if you know how to present your case. Speak to our team that cracks the code for top Indian talent.
             </p>
 
             <motion.div
