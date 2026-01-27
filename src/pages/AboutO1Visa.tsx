@@ -8,7 +8,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import CTA from "@/components/CTA";
+import ReadinessCTA from "@/components/ReadinessCTA";
 import useScrollToHash from "@/hooks/useScrollToHash";
 
 const AboutO1Visa = () => {
@@ -22,9 +22,9 @@ const AboutO1Visa = () => {
         <Understanding />
         <Benefits />
         <VisaComparison />
+        <ReadinessCTA />
         <ConsultationCTA />
         <FAQ />
-        {/* <CTA /> */}
       </main>
       <Footer />
       <FloatingCTA />

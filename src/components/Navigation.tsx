@@ -15,7 +15,6 @@ const Navigation = () => {
   const navItems = [
     { name: "About O1 Visa", href: "/about-o1-visa" },
     { name: "FAQ", href: isAboutPage ? "#faq" : "/#faq" },
-    { name: "Contact", href: isAboutPage ? "/about-o1-visa#footer" : "/#footer" },
   ];
 
   return (

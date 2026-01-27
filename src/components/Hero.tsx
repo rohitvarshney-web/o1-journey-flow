@@ -35,7 +35,7 @@ const Hero = () => {
                 className="group text-sm sm:text-base px-6 sm:px-8 h-12 sm:h-14 shadow-md hover:shadow-lg transition-all"
                 onClick={() => setIsFormOpen(true)}
               >
-                Get Started Free
+                Check Your O-1 Readiness
                 <ArrowRight className="ml-2 w-4 sm:w-5 h-4 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
