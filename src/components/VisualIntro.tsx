@@ -23,7 +23,7 @@ const VisualIntro = () => {
             className="order-1"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              What is the <span className="bg-gradient-primary bg-clip-text text-transparent">O-1?</span>
+              What is <span className="bg-gradient-primary bg-clip-text text-transparent">O-1 Visa?</span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6 sm:mb-8">
               A 3-year visa that gives you the freedom to work and live in the US with unlimited extensions, no academic
