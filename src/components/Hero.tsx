@@ -17,11 +17,11 @@ const Hero = () => {
           {/* Left Content */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
-              The "Talent Visa" No One Tells You How to Get
+              Your <span className="bg-gradient-primary bg-clip-text text-transparent">O-1 visa</span>, handled start to finish.
             </h1>
 
             <p className="text-base sm:text-xl lg:text-2xl text-foreground/80 mb-8 sm:mb-10 max-w-2xl">
-              The O-1 Visa isn't just for Nobel Prize winners. It's for builders, creators, and founders—if you know how to present your case. Speak to our team that cracks the code for top Indian talent.
+              Eligibility to filing, including strategy, narrative, and recommendation letters — led by experienced, US-licensed immigration lawyers.
             </p>
 
             <motion.div
