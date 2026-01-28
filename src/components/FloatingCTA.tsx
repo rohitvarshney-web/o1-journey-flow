@@ -13,59 +13,57 @@ const FloatingCTA = () => {
         <AnimatePresence>
           {isExpanded ? (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               className="relative"
             >
               {/* Close button */}
               <button
                 onClick={() => setIsExpanded(false)}
                 aria-label="Close consultation popup"
-                className="absolute -top-3 -right-1 sm:-top-2 sm:-right-2 z-10 h-7 w-7 sm:h-6 sm:w-6 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-700 transition-colors shadow-lg"
+                className="absolute -top-2 -right-2 z-10 h-6 w-6 rounded-full bg-foreground text-background flex items-center justify-center hover:bg-foreground/80 transition-colors shadow-md"
               >
-                <X size={16} className="sm:w-3.5 sm:h-3.5" />
+                <X size={12} />
               </button>
 
               <div
                 onClick={() => setIsModalOpen(true)}
                 className="group relative cursor-pointer"
               >
-                <div className="rounded-xl bg-gradient-to-r from-primary via-primary/80 to-accent p-[2px] shadow-2xl transition-all duration-300 hover:shadow-3xl">
-                  <div className="rounded-[10px] bg-white transition-all duration-300 hover:bg-gradient-to-r hover:from-primary/5 hover:to-accent/5">
-                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4">
-                      <div className="relative flex-shrink-0">
-                        <div className="grid h-10 w-10 sm:h-12 sm:w-12 animate-bounce place-items-center rounded-full bg-gradient-to-r from-primary to-accent shadow-xl">
-                          <Calendar size={20} className="sm:w-6 sm:h-6 text-white" />
-                        </div>
-                        <div className="absolute -right-1 -top-1 animate-pulse">
-                          <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 animate-ping rounded-full bg-accent"></div>
-                        </div>
+                <div className="bg-card border border-border rounded-sm shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="flex items-center gap-4 p-4">
+                    <div className="relative flex-shrink-0">
+                      <div className="h-10 w-10 rounded-sm bg-primary flex items-center justify-center">
+                        <Calendar size={18} className="text-primary-foreground" />
                       </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div className="mb-0.5 sm:mb-1 flex items-center gap-2">
-                          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-sm sm:text-base font-bold text-transparent truncate">
-                            Free O-1 Visa Consultation
-                          </span>
-                        </div>
-                        <p className="text-[11px] sm:text-xs font-medium text-muted-foreground">
-                          📞 Schedule a call with our experts
-                        </p>
-
-                        <div className="mt-0.5 sm:mt-1 flex items-center gap-2">
-                          <span className="text-xs sm:text-sm font-semibold text-muted-foreground line-through">
-                            $150
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-accent">
-                            Free consultation
-                          </span>
-                        </div>
+                      <div className="absolute -right-0.5 -top-0.5">
+                        <div className="h-2.5 w-2.5 rounded-full bg-accent animate-pulse"></div>
                       </div>
+                    </div>
 
-                      <div className="transform transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 flex-shrink-0">
-                        <ArrowRight size={18} className="sm:w-5 sm:h-5 text-primary" />
+                    <div className="flex-1 min-w-0">
+                      <div className="mb-0.5 flex items-center gap-2">
+                        <span className="text-sm font-semibold text-foreground">
+                          Free O-1 Visa Consultation
+                        </span>
                       </div>
+                      <p className="text-xs text-muted-foreground">
+                        Schedule a call with our experts
+                      </p>
+
+                      <div className="mt-1 flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground line-through">
+                          $150
+                        </span>
+                        <span className="text-xs font-semibold text-accent">
+                          Free consultation
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
+                      <ArrowRight size={16} className="text-primary" />
                     </div>
                   </div>
                 </div>
@@ -73,16 +71,16 @@ const FloatingCTA = () => {
             </motion.div>
           ) : (
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
+              exit={{ opacity: 0, scale: 0.9 }}
               onClick={() => setIsExpanded(true)}
               aria-label="Open consultation popup"
-              className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-gradient-to-r from-primary to-accent shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+              className="h-12 w-12 rounded-sm bg-primary shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
             >
-              <Calendar size={20} className="sm:w-6 sm:h-6 text-white animate-bounce" />
-              <div className="absolute -right-1 -top-1 animate-pulse">
-                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 animate-ping rounded-full bg-accent"></div>
+              <Calendar size={20} className="text-primary-foreground" />
+              <div className="absolute -right-0.5 -top-0.5">
+                <div className="h-2.5 w-2.5 rounded-full bg-accent animate-pulse"></div>
               </div>
             </motion.button>
           )}

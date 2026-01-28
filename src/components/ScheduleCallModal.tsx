@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar, Clock, FileText, Globe, ArrowRight, CheckCircle } from "lucide-react";
+import { Calendar, Clock, FileText, Globe, ArrowRight, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,33 +29,34 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
   ];
 
   const instructions = [
-    { icon: Clock, text: "Please be on time as the meeting link expires after the scheduled slot", important: false },
-    { icon: Globe, text: "Ensure stable internet connection for video call", important: false },
-    { icon: FileText, text: "Have your resume/CV ready to share if needed", important: false },
+    { icon: Clock, text: "Please be on time as the meeting link expires after the scheduled slot" },
+    { icon: Globe, text: "Ensure stable internet connection for video call" },
+    { icon: FileText, text: "Have your resume/CV ready to share if needed" },
   ];
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl p-0 overflow-hidden border-0">
+      <DialogContent className="max-w-3xl p-0 overflow-hidden border border-border rounded-sm">
         <VisuallyHidden>
           <DialogTitle>Schedule Your Free Consultation</DialogTitle>
           <DialogDescription>Book a call with our O-1 visa experts</DialogDescription>
         </VisuallyHidden>
+        
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-primary to-primary/80 p-6 text-white">
-          <div className="flex items-center gap-3">
-            <div className="rounded-full bg-white/20 p-3">
-              <Calendar size={24} />
+        <div className="bg-primary p-6 text-primary-foreground">
+          <div className="flex items-center gap-4">
+            <div className="rounded-sm bg-primary-foreground/20 p-3">
+              <Calendar size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">Schedule Your Free Consultation</h2>
-              <p className="mt-1 text-white/80">Speak with our O-1 visa experts</p>
+              <h2 className="font-serif text-xl font-semibold">Schedule Your Free Consultation</h2>
+              <p className="mt-1 text-primary-foreground/80 text-sm">Speak with our O-1 visa experts</p>
             </div>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-border bg-muted/30">
+        <div className="border-b border-border bg-muted">
           <div className="flex">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -63,13 +64,13 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex flex-1 items-center justify-center gap-2 px-6 py-4 font-medium transition-all duration-200 ${
+                  className={`flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
                     activeTab === tab.id
-                      ? "border-b-2 border-primary bg-background text-primary shadow-sm"
-                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      ? "border-b-2 border-primary bg-background text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <Icon size={18} />
+                  <Icon size={16} />
                   <span className="hidden sm:inline">{tab.label}</span>
                 </button>
               );
@@ -78,7 +79,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
         </div>
 
         {/* Body */}
-        <div className="max-h-[500px] overflow-y-auto p-6">
+        <div className="max-h-[450px] overflow-y-auto p-6">
           <AnimatePresence mode="wait">
             {activeTab === "prepare" && (
               <motion.div
@@ -88,20 +89,20 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-6"
               >
-                <div className="text-center mb-8">
-                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
-                    <FileText size={32} className="text-accent" />
+                <div className="text-center mb-6">
+                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-sm bg-accent/10">
+                    <FileText size={28} className="text-accent" />
                   </div>
-                  <h3 className="mb-2 text-2xl font-semibold text-foreground">Prepare for Your Call</h3>
-                  <p className="text-muted-foreground">Make the most of your consultation by having these ready</p>
+                  <h3 className="mb-2 font-serif text-xl font-semibold text-foreground">Prepare for Your Call</h3>
+                  <p className="text-muted-foreground text-sm">Make the most of your consultation by having these ready</p>
                 </div>
 
-                <div className="rounded-xl bg-muted/50 p-6 space-y-4">
-                  <h4 className="text-lg font-medium text-foreground flex items-center gap-2">
-                    <CheckCircle size={20} className="text-accent" />
+                <div className="rounded-sm bg-muted p-5 space-y-4">
+                  <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
+                    <Check size={16} className="text-accent" />
                     Recommended to have ready:
                   </h4>
-                  <ul className="space-y-3 text-muted-foreground">
+                  <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2">
                       <span className="text-accent">•</span>
                       Your resume or LinkedIn profile
@@ -121,30 +122,28 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   </ul>
                 </div>
 
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <Button
-                    onClick={() => setIsPrepared(true)}
-                    className={`flex-1 ${isPrepared ? "bg-accent hover:bg-accent/90" : ""}`}
-                  >
-                    <CheckCircle size={20} className="mr-2" />
-                    {isPrepared ? "Ready to Schedule!" : "I'm Ready"}
-                  </Button>
-                </div>
+                <Button
+                  onClick={() => setIsPrepared(true)}
+                  className={`w-full rounded-sm ${isPrepared ? "bg-accent hover:bg-accent/90" : ""}`}
+                >
+                  <Check size={16} className="mr-2" />
+                  {isPrepared ? "Ready to Schedule!" : "I'm Ready"}
+                </Button>
 
                 {isPrepared && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="rounded-xl border border-accent/30 bg-accent/10 p-6"
+                    className="rounded-sm border border-accent/30 bg-accent/10 p-5"
                   >
                     <div className="flex items-center gap-3">
-                      <CheckCircle size={24} className="text-accent" />
+                      <Check size={20} className="text-accent flex-shrink-0" />
                       <div className="flex-1">
-                        <h4 className="font-medium text-foreground">Great! You're all set</h4>
-                        <p className="text-muted-foreground">Proceed to schedule your free consultation call.</p>
+                        <h4 className="font-medium text-sm text-foreground">Great! You're all set</h4>
+                        <p className="text-muted-foreground text-sm">Proceed to schedule your free consultation call.</p>
                       </div>
-                      <Button onClick={() => setActiveTab("schedule")} size="sm">
-                        Next <ArrowRight size={16} className="ml-2" />
+                      <Button onClick={() => setActiveTab("schedule")} size="sm" className="rounded-sm">
+                        Next <ArrowRight size={14} className="ml-1" />
                       </Button>
                     </div>
                   </motion.div>
@@ -158,31 +157,29 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="space-y-6"
+                className="space-y-5"
               >
-                <div className="text-center mb-6">
-                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
-                    <Calendar size={32} className="text-accent" />
+                <div className="text-center mb-5">
+                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-sm bg-accent/10">
+                    <Calendar size={28} className="text-accent" />
                   </div>
-                  <h3 className="mb-2 text-2xl font-semibold text-foreground">Pick a Time That Works</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="mb-2 font-serif text-xl font-semibold text-foreground">Pick a Time That Works</h3>
+                  <p className="text-muted-foreground text-sm">
                     Select a convenient time slot for your free consultation with our immigration experts.
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-4">
-                  <div className="overflow-hidden rounded-lg bg-background shadow-sm">
-                    <iframe
-                      src="https://cal.com/ashish-teleport/initial-call"
-                      width="100%"
-                      height="450"
-                      className="w-full border-0"
-                      title="Schedule Consultation"
-                    />
-                  </div>
+                <div className="rounded-sm border border-border bg-background">
+                  <iframe
+                    src="https://cal.com/ashish-teleport/initial-call"
+                    width="100%"
+                    height="420"
+                    className="w-full border-0"
+                    title="Schedule Consultation"
+                  />
                 </div>
 
-                <p className="text-center text-sm text-muted-foreground">
+                <p className="text-center text-xs text-muted-foreground">
                   Having trouble booking?{" "}
                   <a
                     href="https://cal.com/ashish-teleport/initial-call"
@@ -202,40 +199,40 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="space-y-6"
+                className="space-y-5"
               >
-                <div className="text-center mb-6">
-                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
-                    <Clock size={32} className="text-accent" />
+                <div className="text-center mb-5">
+                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-sm bg-accent/10">
+                    <Clock size={28} className="text-accent" />
                   </div>
-                  <h3 className="mb-2 text-2xl font-semibold text-foreground">Consultation Guidelines</h3>
-                  <p className="text-muted-foreground">Important tips to ensure a smooth consultation</p>
+                  <h3 className="mb-2 font-serif text-xl font-semibold text-foreground">Consultation Guidelines</h3>
+                  <p className="text-muted-foreground text-sm">Important tips to ensure a smooth consultation</p>
                 </div>
 
-                <div className="grid gap-3">
+                <div className="space-y-3">
                   {instructions.map((instruction, index) => {
                     const Icon = instruction.icon;
                     return (
                       <div
                         key={index}
-                        className="flex items-center gap-4 rounded-xl border-2 border-border bg-muted/30 p-4 transition-all duration-200 hover:shadow-md hover:bg-muted/50"
+                        className="flex items-center gap-4 rounded-sm border border-border bg-muted p-4"
                       >
-                        <div className="rounded-lg bg-primary/10 p-2">
-                          <Icon size={20} className="text-primary" />
+                        <div className="rounded-sm bg-primary/10 p-2">
+                          <Icon size={18} className="text-primary" />
                         </div>
-                        <p className="font-medium text-foreground">{instruction.text}</p>
+                        <p className="text-sm text-foreground">{instruction.text}</p>
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
+                <div className="rounded-sm border border-primary/20 bg-primary/5 p-5">
                   <div className="flex items-start gap-3">
-                    <div className="rounded-lg bg-primary/20 p-2">
-                      <CheckCircle size={20} className="text-primary" />
+                    <div className="rounded-sm bg-primary/10 p-2">
+                      <Check size={18} className="text-primary" />
                     </div>
                     <div>
-                      <h4 className="mb-2 font-medium text-foreground">What to expect during the call</h4>
+                      <h4 className="mb-2 font-medium text-sm text-foreground">What to expect during the call</h4>
                       <ul className="space-y-1 text-sm text-muted-foreground">
                         <li>• Review of your qualifications for O-1 visa</li>
                         <li>• Discussion of your career achievements</li>
@@ -247,7 +244,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   </div>
                 </div>
 
-                <Button onClick={handleClose} className="w-full">
+                <Button onClick={handleClose} className="w-full rounded-sm">
                   Got It
                 </Button>
               </motion.div>

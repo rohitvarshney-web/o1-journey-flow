@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ClipboardCheck, FolderOpen, FileText, CheckCircle2, FileCheck, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ApplicationForm from "./ApplicationForm";
 
 const timelineSteps = [
@@ -63,30 +62,27 @@ const ProcessTimeline = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="process" ref={ref} className="py-20 md:py-32 bg-primary/5">
+    <section id="process" ref={ref} className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground leading-tight">
             Your O-1 Visa Journey:{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">A Clear Timeline</span>
+            <span className="text-primary">A Clear Timeline</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             We know speed matters, especially when you have a job offer, project deadline, or looming immigration
             constraint. Here's your complete roadmap from day one.
           </p>
         </motion.div>
 
-        {/* Visual Timeline */}
-        <div className="max-w-5xl mx-auto relative">
-          {/* Central timeline line - desktop only */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/60 to-primary/20 -translate-x-1/2 rounded-full" />
-
+        {/* Timeline */}
+        <div className="max-w-4xl mx-auto">
           {timelineSteps.map((step, index) => {
             const Icon = step.icon;
             const isEven = index % 2 === 0;
@@ -94,49 +90,52 @@ const ProcessTimeline = () => {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                className="relative mb-8 lg:mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.4, delay: 0.05 + index * 0.08 }}
+                className="relative"
               >
                 {/* Desktop layout */}
-                <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-8 items-start mb-12">
                   {/* Left side */}
-                  <div className={`${isEven ? 'pr-12 text-right' : 'pr-12 text-right opacity-0 pointer-events-none'}`}>
+                  <div className={`${isEven ? 'text-right pr-8' : 'opacity-0 pointer-events-none'}`}>
                     {isEven && (
-                      <div className="bg-card border border-border rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="flex items-center justify-end gap-3 mb-3">
-                          <div>
-                            <h3 className="text-xl font-bold">{step.title}</h3>
-                            <p className="text-sm text-primary font-semibold">{step.duration}</p>
+                      <div className="bg-card border border-border rounded-sm p-6 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-end gap-4 mb-3">
+                          <div className="text-right">
+                            <h3 className="font-serif text-lg font-semibold text-foreground">{step.title}</h3>
+                            <p className="text-sm text-primary font-medium">{step.duration}</p>
                           </div>
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Icon className="w-6 h-6 text-primary" />
+                          <div className="w-10 h-10 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+                            <Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                           </div>
                         </div>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                        <p className="text-muted-foreground text-sm leading-relaxed text-right">{step.description}</p>
                       </div>
                     )}
                   </div>
 
                   {/* Center node */}
-                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-serif font-bold text-base z-10">
                       {step.number}
                     </div>
+                    {index < timelineSteps.length - 1 && (
+                      <div className="w-px h-24 bg-border mt-2" />
+                    )}
                   </div>
 
                   {/* Right side */}
-                  <div className={`${!isEven ? 'pl-12 text-left' : 'pl-12 text-left opacity-0 pointer-events-none'}`}>
+                  <div className={`${!isEven ? 'text-left pl-8' : 'opacity-0 pointer-events-none'}`}>
                     {!isEven && (
-                      <div className="bg-card border border-border rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Icon className="w-6 h-6 text-primary" />
+                      <div className="bg-card border border-border rounded-sm p-6 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex items-start gap-4 mb-3">
+                          <div className="w-10 h-10 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+                            <Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                           </div>
                           <div>
-                            <h3 className="text-xl font-bold">{step.title}</h3>
-                            <p className="text-sm text-primary font-semibold">{step.duration}</p>
+                            <h3 className="font-serif text-lg font-semibold text-foreground">{step.title}</h3>
+                            <p className="text-sm text-primary font-medium">{step.duration}</p>
                           </div>
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
@@ -146,27 +145,27 @@ const ProcessTimeline = () => {
                 </div>
 
                 {/* Mobile layout */}
-                <div className="lg:hidden flex gap-4">
+                <div className="lg:hidden flex gap-4 mb-6">
                   {/* Timeline node and line */}
                   <div className="flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-white font-bold text-sm shadow-lg flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-serif font-bold text-sm flex-shrink-0 z-10">
                       {step.number}
                     </div>
                     {index < timelineSteps.length - 1 && (
-                      <div className="w-0.5 flex-1 bg-gradient-to-b from-primary to-primary/20 mt-2" />
+                      <div className="w-px flex-1 bg-border mt-2" />
                     )}
                   </div>
 
                   {/* Content card */}
-                  <div className="flex-1 pb-8">
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-md">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-4 h-4 text-primary" />
+                  <div className="flex-1 pb-4">
+                    <div className="bg-card border border-border rounded-sm p-5 shadow-sm">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold">{step.title}</h3>
-                          <p className="text-xs text-primary font-semibold">{step.duration}</p>
+                          <h3 className="font-serif text-base font-semibold text-foreground">{step.title}</h3>
+                          <p className="text-xs text-primary font-medium">{step.duration}</p>
                         </div>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
@@ -182,8 +181,8 @@ const ProcessTimeline = () => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-sm text-muted-foreground text-center mt-8 max-w-4xl mx-auto"
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-sm text-muted-foreground text-center mt-12 max-w-3xl mx-auto"
         >
           *Disclaimer: Timelines may vary based on individual case complexity and USCIS processing times.
         </motion.p>
