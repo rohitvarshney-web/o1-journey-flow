@@ -26,12 +26,7 @@ const VisualIntro = () => {
               What is <span className="bg-gradient-primary bg-clip-text text-transparent">O-1 Visa?</span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6 sm:mb-8">
-              A 3-year visa that gives you the freedom to work and live in the US with unlimited extensions, no academic
-              requirements, no annual cap, and no wage requirements—the O-1 is one of the most flexible and advantageous
-              US work visas. The O-1 visa is for individuals whose achievements set them apart, whether in technology,
-              science, the arts, business, or sports. If you've earned recognition, led impactful work, or gained
-              distinction in your field, this visa can turn those accomplishments into the right to live and work in the
-              U.S.
+              The O-1 is a U.S. work visa for people with extraordinary ability or achievement in fields like technology, science, business, the arts, or athletics. If approved, it can be granted for up to 3 years initially and may be extended in 1-year increments as long as eligible work continues. There is no annual cap and no specific degree requirement. The O-1 is employer or agent-sponsored, meaning you're authorized to work for the petitioning employer/agent (and any approved concurrent employers).
             </p>
             {/* Know More button - hidden on mobile (shows below card) and on about page */}
             {!isAboutPage && (
@@ -87,7 +82,7 @@ const VisualIntro = () => {
                 <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-primary/5 border border-primary/20 rounded-lg sm:rounded-xl">
                   <div className="flex items-center gap-2 text-primary font-semibold text-xs sm:text-sm">
                     <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span>Approval Rate: 95.6%</span>
+                    <span>Approval Rate: 96%</span>
                   </div>
                 </div>
               </div>

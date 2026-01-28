@@ -34,9 +34,12 @@ const PricingPlans = () => {
             <div className="w-16 h-px bg-primary mx-auto mb-6" />
             <p className="text-lg text-muted-foreground mb-2">Prices starting from</p>
             <p className="text-4xl md:text-5xl font-bold text-primary mb-4">$7,000</p>
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full">
+            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6">
               <span className="text-sm font-semibold">Money Back Guarantee</span>
             </div>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
+              Most standard O-1 cases are $7,000. If you need additional support for narrative development, recommendation letters, or complex case structuring, we will confirm any incremental costs upfront.
+            </p>
           </motion.div>
         </div>
       </div>
