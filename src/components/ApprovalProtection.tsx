@@ -59,7 +59,7 @@ const ApprovalProtection = () => {
                 className="text-base sm:text-lg text-muted-foreground leading-relaxed"
               >
                 Our Approval Protection Plan removes all financial risk from your O-1 visa application. If your petition
-                is denied, we refund your entire service fee—no exceptions.
+                is denied, we refund your entire service fee - no exceptions.
               </motion.p>
 
               <motion.ul
@@ -137,7 +137,7 @@ const ApprovalProtection = () => {
 
                   <div className="bg-accent/10 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-accent/20">
                     <p className="text-xs sm:text-sm text-foreground/80 text-center">
-                      <span className="font-semibold text-accent">96% approval rate</span> — most clients never need to
+                      <span className="font-semibold text-accent">96% approval rate</span> - most clients never need to
                       use it, but it&apos;s there when you want the extra security.
                     </p>
                   </div>

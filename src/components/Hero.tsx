@@ -21,7 +21,7 @@ const Hero = () => {
             </h1>
 
             <p className="text-base sm:text-xl lg:text-2xl text-foreground/80 mb-8 sm:mb-10 max-w-2xl">
-              Eligibility to filing, including strategy, narrative, and recommendation letters — led by experienced, US-licensed immigration lawyers.
+              Eligibility to filing, including strategy, narrative, and recommendation letters - led by experienced, US-licensed immigration lawyers.
             </p>
 
             <motion.div
