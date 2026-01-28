@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { Check } from "lucide-react";
 
 const Understanding = () => {
   const ref = useRef(null);
@@ -29,68 +29,66 @@ const Understanding = () => {
   ];
 
   return (
-    <section id="understanding" ref={ref} className="py-12 sm:py-16 md:py-32 bg-gradient-to-b from-background to-primary/5">
+    <section id="understanding" ref={ref} className="py-20 md:py-28 section-gray">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 md:mb-16"
         >
-          <p className="text-xs sm:text-sm font-semibold text-primary mb-3 sm:mb-4 tracking-wide uppercase">Understanding the O-1 Visa</p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+          <p className="text-xs font-medium text-primary mb-3 tracking-wide uppercase">Understanding the O-1 Visa</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-foreground leading-tight">
             What It Takes To{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">Qualify for the O-1</span>
+            <span className="text-primary">Qualify for the O-1</span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto px-2">
-            You must meet at least <span className="font-bold text-primary">3 criteria</span> set by USCIS. Requirements vary between O-1A and O-1B visas.
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            You must meet at least <span className="font-semibold text-foreground">3 criteria</span> set by USCIS. Requirements vary between O-1A and O-1B visas.
           </p>
         </motion.div>
 
         {/* O-1A Criteria */}
         <motion.div
           id="o1a-criteria"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="max-w-5xl mx-auto mb-16"
         >
-          <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 mb-6 sm:mb-10 border-2 border-primary/20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
-            <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-                <CheckCircle2 className="w-5 h-5 sm:w-7 sm:h-7 text-primary-foreground" />
+          <div className="bg-card border border-border rounded-sm p-6 sm:p-8 mb-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="w-10 h-10 bg-primary rounded-sm flex items-center justify-center flex-shrink-0">
+                <Check className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-3">
+                <h3 className="font-serif text-xl sm:text-2xl font-semibold mb-1 text-foreground">
                   O-1A Visa Criteria
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Science, Business, Education, Athletics
                 </p>
               </div>
             </div>
-            <p className="text-sm sm:text-base md:text-lg mb-2 font-medium">
-              Meet at least <span className="text-primary font-bold">3 of these 8 criteria</span>:
+            <p className="text-base font-medium text-foreground">
+              Meet at least <span className="text-primary font-semibold">3 of these 8 criteria</span>:
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {o1aCriteria.map((criterion, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.05 }}
-                className="group relative bg-card border-2 border-primary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, delay: 0.15 + index * 0.04 }}
+                className="bg-card border border-border rounded-sm p-5 hover:border-primary/30 transition-colors"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="relative flex gap-3 sm:gap-4 items-start">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0 transition-all duration-300">
-                    <span className="text-sm sm:text-base text-primary group-hover:text-primary-foreground font-bold">{index + 1}</span>
+                <div className="flex gap-4 items-start">
+                  <div className="w-7 h-7 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm text-primary font-semibold">{index + 1}</span>
                   </div>
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed font-medium pt-0.5 sm:pt-1">{criterion}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{criterion}</p>
                 </div>
               </motion.div>
             ))}
@@ -100,51 +98,49 @@ const Understanding = () => {
         {/* O-1B Criteria */}
         <motion.div
           id="o1b-criteria"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-7xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="max-w-5xl mx-auto"
         >
-          <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 mb-6 sm:mb-10 border-2 border-primary/20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
-            <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-                <CheckCircle2 className="w-5 h-5 sm:w-7 sm:h-7 text-primary-foreground" />
+          <div className="bg-card border border-border rounded-sm p-6 sm:p-8 mb-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="w-10 h-10 bg-primary rounded-sm flex items-center justify-center flex-shrink-0">
+                <Check className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-3">
+                <h3 className="font-serif text-xl sm:text-2xl font-semibold mb-1 text-foreground">
                   O-1B Visa Criteria
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Arts, Film, Television
                 </p>
               </div>
             </div>
-            <div className="bg-primary/5 border border-primary/20 rounded-lg sm:rounded-xl p-3 sm:p-5 mb-3 sm:mb-4">
-              <p className="text-sm sm:text-base font-medium">
-                <span className="text-primary font-bold">Major award holders:</span> If you've received an Oscar, Emmy, Grammy, or similar major national/international award, it may stand alone as proof - no other criteria needed.
+            <div className="bg-muted border border-border rounded-sm p-4 mb-4">
+              <p className="text-sm font-medium text-foreground">
+                <span className="text-primary font-semibold">Major award holders:</span> If you've received an Oscar, Emmy, Grammy, or similar major national/international award, it may stand alone as proof - no other criteria needed.
               </p>
             </div>
-            <p className="text-sm sm:text-base md:text-lg font-medium">
-              Otherwise, meet at least <span className="text-primary font-bold">3 of these 6 criteria</span>:
+            <p className="text-base font-medium text-foreground">
+              Otherwise, meet at least <span className="text-primary font-semibold">3 of these 6 criteria</span>:
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {o1bCriteria.map((criterion, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
-                className="group relative bg-card border-2 border-primary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, delay: 0.25 + index * 0.04 }}
+                className="bg-card border border-border rounded-sm p-5 hover:border-primary/30 transition-colors"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="relative flex gap-3 sm:gap-4 items-start">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0 transition-all duration-300">
-                    <span className="text-sm sm:text-base text-primary group-hover:text-primary-foreground font-bold">{index + 1}</span>
+                <div className="flex gap-4 items-start">
+                  <div className="w-7 h-7 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm text-primary font-semibold">{index + 1}</span>
                   </div>
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed font-medium pt-0.5 sm:pt-1">{criterion}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{criterion}</p>
                 </div>
               </motion.div>
             ))}

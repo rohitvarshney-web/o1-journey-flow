@@ -216,16 +216,16 @@ const FAQ = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="faq" ref={ref} className="py-20 md:py-32 bg-gradient-subtle">
+    <section id="faq" ref={ref} className="py-20 md:py-28 section-gray">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Frequently Asked <span className="bg-gradient-primary bg-clip-text text-transparent">Questions</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-foreground leading-tight">
+            Frequently Asked <span className="text-primary">Questions</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Everything you need to know about the O-1 visa process
@@ -236,22 +236,22 @@ const FAQ = () => {
           {faqCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: 0.1 * categoryIndex }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.4, delay: 0.05 * categoryIndex }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold mb-6 text-primary">{category.title}</h3>
-              <Accordion type="single" collapsible className="space-y-3">
+              <h3 className="font-serif text-xl font-semibold mb-5 text-foreground">{category.title}</h3>
+              <Accordion type="single" collapsible className="space-y-2">
                 {category.faqs.map((faq, faqIndex) => (
                   <AccordionItem
                     key={faqIndex}
                     value={`${category.title}-item-${faqIndex}`}
-                    className="border border-border rounded-xl px-6 bg-card hover:border-primary/50 transition-colors"
+                    className="border border-border rounded-sm px-5 bg-card hover:border-primary/30 transition-colors"
                   >
-                    <AccordionTrigger className="text-left hover:no-underline py-5">
-                      <span className="font-semibold text-base">{faq.question}</span>
+                    <AccordionTrigger className="text-left hover:no-underline py-4">
+                      <span className="font-medium text-sm text-foreground">{faq.question}</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                    <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
