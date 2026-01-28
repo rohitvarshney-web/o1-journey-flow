@@ -122,7 +122,7 @@ const Understanding = () => {
             </div>
             <div className="bg-primary/5 border border-primary/20 rounded-lg sm:rounded-xl p-3 sm:p-5 mb-3 sm:mb-4">
               <p className="text-sm sm:text-base font-medium">
-                <span className="text-primary font-bold">Major award holders:</span> If you've received an Oscar, Emmy, Grammy, or similar major national/international award, it may stand alone as proof—no other criteria needed.
+                <span className="text-primary font-bold">Major award holders:</span> If you've received an Oscar, Emmy, Grammy, or similar major national/international award, it may stand alone as proof - no other criteria needed.
               </p>
             </div>
             <p className="text-sm sm:text-base md:text-lg font-medium">
