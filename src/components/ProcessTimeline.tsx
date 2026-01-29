@@ -73,7 +73,7 @@ const ProcessTimeline = () => {
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground leading-tight">
             Your O-1 Visa Journey:{" "}
-            <span className="text-primary">A Clear Timeline</span>
+            <span className="text-primary">Timeline</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             We know speed matters, especially when you have a job offer, project deadline, or looming immigration

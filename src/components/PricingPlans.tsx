@@ -20,7 +20,7 @@ const PricingPlans = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-            Popular Immigration Services for Startups
+            Our Pricing
           </h2>
         </motion.div>
 
