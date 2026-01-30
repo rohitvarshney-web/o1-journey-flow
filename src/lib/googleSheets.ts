@@ -1,9 +1,7 @@
-import * as XLSX from 'xlsx';
-
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
 const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || '';
-const FOLDER_ID = '1IXn-2CiLe1wDL3_XYKi8B1E4nAMCLsXO';
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID || '';
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
 
 let tokenClient: any;
 let gapiInitialized = false;
@@ -11,6 +9,7 @@ let gisInitialized = false;
 
 export const initializeGoogleAPI = (): Promise<void> => {
   return new Promise((resolve, reject) => {
+    // Load GAPI
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/api.js';
     script.onload = () => {
@@ -18,10 +17,10 @@ export const initializeGoogleAPI = (): Promise<void> => {
         try {
           await gapi.client.init({
             apiKey: API_KEY,
-            discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+            discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
           });
           gapiInitialized = true;
-          console.log('GAPI initialized');
+          console.log('GAPI initialized for Sheets');
           resolve();
         } catch (error) {
           console.error('Error initializing GAPI:', error);
@@ -32,6 +31,7 @@ export const initializeGoogleAPI = (): Promise<void> => {
     script.onerror = reject;
     document.head.appendChild(script);
 
+    // Load GIS (Google Identity Services)
     const gisScript = document.createElement('script');
     gisScript.src = 'https://accounts.google.com/gsi/client';
     gisScript.onload = () => {
@@ -65,47 +65,56 @@ const getAccessToken = (): Promise<string> => {
   });
 };
 
-const createExcelFile = (formData: any): Blob => {
-  const worksheet = XLSX.utils.json_to_sheet([formData]);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Application');
-  
-  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  return new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-};
-
-export const uploadToGoogleDrive = async (formData: any): Promise<void> => {
+export const appendToGoogleSheet = async (formData: any): Promise<void> => {
   if (!gapiInitialized || !gisInitialized) {
     await initializeGoogleAPI();
   }
 
   const accessToken = await getAccessToken();
   
-  const fileName = `O1_Application_${formData.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`;
-  const excelBlob = createExcelFile(formData);
-  
-  const metadata = {
-    name: fileName,
-    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    parents: [FOLDER_ID],
-  };
+  // Create a row with all form data in order
+  const row = [
+    formData.name || '',
+    formData.email || '',
+    formData.phone || '',
+    formData.countryOfCitizenship || '',
+    formData.currentVisa || '',
+    formData.timeline || '',
+    formData.resume || '',
+    formData.linkedIn || '',
+    formData.roleType || '',
+    formData.qualifications || '',
+    formData.awards || '',
+    formData.associations || '',
+    formData.mediaCoverage || '',
+    formData.impactfulWork || '',
+    formData.scholarlyArticles || '',
+    formData.criticalRole || '',
+    formData.immigrationIssues || '',
+    formData.familyInUS || '',
+    new Date().toISOString(), // Submitted At timestamp
+  ];
 
-  const formDataToUpload = new FormData();
-  formDataToUpload.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-  formDataToUpload.append('file', excelBlob);
-
-  const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: formDataToUpload,
-  });
+  const response = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!A:S:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        values: [row],
+      }),
+    }
+  );
 
   if (!response.ok) {
-    throw new Error('Failed to upload file to Google Drive');
+    const errorData = await response.json();
+    console.error('Google Sheets API error:', errorData);
+    throw new Error('Failed to append data to Google Sheet');
   }
 
   const result = await response.json();
-  console.log('File uploaded successfully:', result);
+  console.log('Data appended successfully:', result);
 };

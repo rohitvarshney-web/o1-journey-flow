@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { uploadToGoogleDrive, initializeGoogleAPI } from "@/lib/googleDrive";
+import { appendToGoogleSheet, initializeGoogleAPI } from "@/lib/googleSheets";
 import { useToast } from "@/hooks/use-toast";
 
 interface ApplicationFormProps {
@@ -98,11 +98,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         roleType: formData.roleType.join(", "),
         qualifications: formData.qualifications.join(", "),
       };
-      await uploadToGoogleDrive(submitData);
+      await appendToGoogleSheet(submitData);
       setSubmitted(true);
       toast({
         title: "Success!",
-        description: "Your application has been saved to Google Drive.",
+        description: "Your application has been submitted to Google Sheets.",
       });
     } catch (error) {
       console.error("Error submitting form:", error);
