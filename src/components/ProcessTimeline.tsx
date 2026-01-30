@@ -9,50 +9,51 @@ const timelineSteps = [
   {
     number: "1",
     icon: ClipboardCheck,
-    title: "Free Eligibility Check & Consultation",
+    title: "Check if you qualify (Free)",
     duration: "1-3 days",
     description:
-      "Start with our free quiz. We'll assess your eligibility and book your free consultation. Share your story, get personalized guidance, and make sure it's the right fit before you commit.",
+      "Take a short assessment and a free consult. We'll tell you which O-1 criteria you likely meet and what evidence you'll need.",
   },
   {
     number: "2",
     icon: FileCheck,
-    title: "Digital Intake & First Payment",
+    title: "Build your case plan",
     duration: "1-2 days",
     description:
-      "Complete our streamlined online form to provide us with your background and achievements. A small transaction helps us move forward with the process.",
+      "Get matched with a US licensed immigration lawyer. Together we'll choose the best O-1 approach for you and map the evidence and recommendation letters needed.",
   },
   {
     number: "3",
     icon: FolderOpen,
-    title: "Evidence Collection with Dedicated Lawyer",
+    title: "Gather your evidence",
     duration: "3-6 weeks",
     description:
-      "Get matched with an experienced O-1 attorney. You'll receive a personalized document checklist and access to our secure client portal. Upload materials showcasing your achievements with guidance from your attorney.",
+      "You upload documents that prove your achievements. We provide a checklist, templates, and guidance to help fill gaps.",
   },
   {
     number: "4",
     icon: FileText,
-    title: "Petition Drafting & Review",
+    title: "Draft and review the petition",
     duration: "4-6 weeks",
     description:
-      "Your O-1 visa attorney drafts the full petition, including letters, a personal statement, and a cover memo. Your case is reviewed to ensure it's strategically sound.",
+      "Your lawyer drafts the full petition package, including recommendation letters, supporting statements, and the final petition narrative. You review for accuracy and clarity.",
   },
   {
     number: "5",
     icon: Send,
-    title: "Final Payment & Submission",
+    title: "File with USCIS",
     duration: "1-2 days",
     description:
-      "Review the final petition, sign the documents, pay the final amount, and we'll file with USCIS on your behalf.",
+      "You e-sign, fees are paid, and your lawyer submits the petition to USCIS using standard or premium processing.",
   },
   {
     number: "6",
     icon: CheckCircle2,
-    title: "Petition Decision",
-    duration: "15 days (premium) or 2+ months",
+    title: "USCIS decision and next steps",
+    duration: "15 business days (premium) or 2+ months (standard)",
     description:
-      "After filing, processing times depend on USCIS. Premium processing guarantees a decision within 15 business days.",
+      "If USCIS issues an RFE, we respond. If approved, we guide you on next steps based on where you are.",
+    note: "If you are outside the US: After approval, you will attend a US consular interview for visa stamping. We will prep you so you know what to expect and how to answer common questions.",
   },
 ];
 
@@ -111,6 +112,11 @@ const ProcessTimeline = () => {
                           </div>
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed text-right">{step.description}</p>
+                        {step.note && (
+                          <div className="mt-4 pt-4 border-t border-border">
+                            <p className="text-muted-foreground text-sm leading-relaxed text-right italic">{step.note}</p>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -139,6 +145,11 @@ const ProcessTimeline = () => {
                           </div>
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                        {step.note && (
+                          <div className="mt-4 pt-4 border-t border-border">
+                            <p className="text-muted-foreground text-sm leading-relaxed italic">{step.note}</p>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -169,6 +180,11 @@ const ProcessTimeline = () => {
                         </div>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                      {step.note && (
+                        <div className="mt-4 pt-4 border-t border-border">
+                          <p className="text-muted-foreground text-sm leading-relaxed italic">{step.note}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
