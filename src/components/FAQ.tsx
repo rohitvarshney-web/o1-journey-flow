@@ -143,11 +143,6 @@ const faqCategories: FAQCategory[] = [
           "Fill out assessment → Prequalification call → Legal consult. By the time you reach the legal consult, you'll be clear on the process and what needs to be done, and you can decide if this is the right lawyer for you. If you choose to move forward, we work with you to gather evidence, build your narrative, and then file your petition.",
       },
       {
-        question: "How long does the O-1 process take?",
-        answer:
-          "It depends on evidence readiness and filing approach. The prequalification call helps set a practical expectation; the legal consult confirms the legal timeline and strategy.",
-      },
-      {
         question: "What is a prequalification call?",
         answer:
           "A short, focused call to confirm fit, clarify your strongest evidence, and align on next steps. If it's not the right time, we'll tell you clearly.",
@@ -167,11 +162,6 @@ const faqCategories: FAQCategory[] = [
   {
     title: "Work Setup",
     faqs: [
-      {
-        question: "Do I need a U.S. job offer first?",
-        answer:
-          "You need a credible U.S. work plan and the right petition structure. A traditional offer letter can help, but it's not the only way to build a valid work setup.",
-      },
       {
         question: "Can I work on multiple projects or with multiple clients?",
         answer:
