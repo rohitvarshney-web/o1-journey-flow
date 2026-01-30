@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import teleportLogo from "@/assets/teleport-logo.png";
 
@@ -116,16 +116,6 @@ const Footer = () => {
           <div className="col-span-2 sm:col-span-1">
             <h4 className="font-serif font-semibold text-base mb-5 text-background">Contact</h4>
             <ul className="space-y-4 text-sm text-background/70">
-              <li>
-                <a
-                  href="tel:+919004702232"
-                  className="flex items-center gap-3 hover:text-background transition-colors"
-                  aria-label="Call us at +91 90047 02232"
-                >
-                  <Phone className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-                  <span>+91 90047 02232</span>
-                </a>
-              </li>
               <li>
                 <a
                   href="mailto:o1@useteleport.com"

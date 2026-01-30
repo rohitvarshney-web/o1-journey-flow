@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { uploadToGoogleDrive, initializeGoogleAPI } from "@/lib/googleDrive";
 import { useToast } from "@/hooks/use-toast";
 
@@ -25,15 +26,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     name: "",
     email: "",
     phone: "",
-    visaType: "",
-    countryOfBirth: "",
     countryOfCitizenship: "",
     currentVisa: "",
-    reasonsForApplying: "",
-    timeline: "",
+    timeline: [] as string[],
     resume: "",
     linkedIn: "",
-    currentRole: "",
     awards: "",
     associations: "",
     mediaCoverage: "",
@@ -44,10 +41,19 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     familyInUS: "",
   });
 
-  const totalSteps = 6;
+  const totalSteps = 5;
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleTimelineChange = (value: string, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      timeline: checked
+        ? [...prev.timeline, value]
+        : prev.timeline.filter((t) => t !== value),
+    }));
   };
 
   const handleNext = () => {
@@ -66,7 +72,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     setIsSubmitting(true);
     try {
       await initializeGoogleAPI();
-      await uploadToGoogleDrive(formData);
+      const submitData = {
+        ...formData,
+        timeline: formData.timeline.join(", "),
+      };
+      await uploadToGoogleDrive(submitData);
       setSubmitted(true);
       toast({
         title: "Success!",
@@ -91,15 +101,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       name: "",
       email: "",
       phone: "",
-      visaType: "",
-      countryOfBirth: "",
       countryOfCitizenship: "",
       currentVisa: "",
-      reasonsForApplying: "",
-      timeline: "",
+      timeline: [],
       resume: "",
       linkedIn: "",
-      currentRole: "",
       awards: "",
       associations: "",
       mediaCoverage: "",
@@ -130,7 +136,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
               <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4">Application Submitted!</h2>
 
               <p className="text-primary-foreground/90 mb-8 max-w-md mx-auto">
-                Thank you for submitting your {formData.visaType} application. Our team will review your information and
+                Thank you for submitting your O-1 application. Our team will review your information and
                 get back to you within 1-3 business days.
               </p>
 
@@ -173,7 +179,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
               </div>
               <div>
                 <DialogTitle className="text-primary-foreground font-serif text-lg">
-                  {formData.visaType ? `${formData.visaType} Application` : "O-1 Visa Application"}
+                  O-1 Visa Application
                 </DialogTitle>
                 <p className="text-xs text-primary-foreground/70">Applicant</p>
               </div>
@@ -253,61 +259,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                   </div>
                 )}
 
-                {step === 3 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label className="text-sm font-medium mb-3 block">Which visa are you applying for?</Label>
-                      <RadioGroup
-                        value={formData.visaType}
-                        onValueChange={(value) => handleInputChange("visaType", value)}
-                      >
-                        <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors cursor-pointer">
-                          <RadioGroupItem value="O-1A" id="o1a" />
-                          <Label htmlFor="o1a" className="flex-1 cursor-pointer">
-                            <div className="font-semibold text-sm">O-1A Visa</div>
-                            <div className="text-xs text-muted-foreground">
-                              For individuals with extraordinary ability in sciences, education, business, or
-                              athletics
-                            </div>
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors cursor-pointer mt-3">
-                          <RadioGroupItem value="O-1B" id="o1b" />
-                          <Label htmlFor="o1b" className="flex-1 cursor-pointer">
-                            <div className="font-semibold text-sm">O-1B Visa</div>
-                            <div className="text-xs text-muted-foreground">
-                              For individuals with extraordinary ability in the arts or extraordinary achievement in
-                              motion picture or television
-                            </div>
-                          </Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-                )}
-
                 {step === 1 && (
                   <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="countryOfBirth" className="text-sm font-medium">Country of Birth</Label>
-                      <Select
-                        value={formData.countryOfBirth}
-                        onValueChange={(value) => handleInputChange("countryOfBirth", value)}
-                      >
-                        <SelectTrigger className="bg-muted border-border rounded-sm mt-1.5">
-                          <SelectValue placeholder="Select country" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="us">United States</SelectItem>
-                          <SelectItem value="uk">United Kingdom</SelectItem>
-                          <SelectItem value="ca">Canada</SelectItem>
-                          <SelectItem value="in">India</SelectItem>
-                          <SelectItem value="cn">China</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
                     <div>
                       <Label htmlFor="countryOfCitizenship" className="text-sm font-medium">Country of Citizenship</Label>
                       <Select
@@ -340,27 +293,39 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     </div>
 
                     <div>
-                      <Label htmlFor="reasonsForApplying" className="text-sm font-medium">Reasons for applying to O-1</Label>
-                      <Textarea
-                        id="reasonsForApplying"
-                        placeholder="Tell us why you're applying for an O-1 visa..."
-                        className="bg-muted border-border rounded-sm min-h-[100px] mt-1.5"
-                        value={formData.reasonsForApplying}
-                        onChange={(e) => handleInputChange("reasonsForApplying", e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="timeline" className="text-sm font-medium">
-                        How quickly do you want to start the process? Any specific deadlines?
-                      </Label>
-                      <Textarea
-                        id="timeline"
-                        placeholder="Let us know your timeline and any deadlines..."
-                        className="bg-muted border-border rounded-sm mt-1.5"
-                        value={formData.timeline}
-                        onChange={(e) => handleInputChange("timeline", e.target.value)}
-                      />
+                      <Label className="text-sm font-medium mb-3 block">When are you planning to file?</Label>
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors">
+                          <Checkbox
+                            id="timeline-0-3"
+                            checked={formData.timeline.includes("0-3 Months")}
+                            onCheckedChange={(checked) => handleTimelineChange("0-3 Months", checked as boolean)}
+                          />
+                          <Label htmlFor="timeline-0-3" className="flex-1 cursor-pointer text-sm">
+                            0-3 Months
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors">
+                          <Checkbox
+                            id="timeline-3-6"
+                            checked={formData.timeline.includes("3-6 Months")}
+                            onCheckedChange={(checked) => handleTimelineChange("3-6 Months", checked as boolean)}
+                          />
+                          <Label htmlFor="timeline-3-6" className="flex-1 cursor-pointer text-sm">
+                            3-6 Months
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors">
+                          <Checkbox
+                            id="timeline-6plus"
+                            checked={formData.timeline.includes("More than 6 Months")}
+                            onCheckedChange={(checked) => handleTimelineChange("More than 6 Months", checked as boolean)}
+                          />
+                          <Label htmlFor="timeline-6plus" className="flex-1 cursor-pointer text-sm">
+                            More than 6 Months
+                          </Label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -393,21 +358,10 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         onChange={(e) => handleInputChange("linkedIn", e.target.value)}
                       />
                     </div>
-
-                    <div>
-                      <Label htmlFor="currentRole" className="text-sm font-medium">Current role and details</Label>
-                      <Textarea
-                        id="currentRole"
-                        placeholder="Describe your current position, company, and responsibilities..."
-                        className="bg-muted border-border rounded-sm min-h-[100px] mt-1.5"
-                        value={formData.currentRole}
-                        onChange={(e) => handleInputChange("currentRole", e.target.value)}
-                      />
-                    </div>
                   </div>
                 )}
 
-                {step === 5 && (
+                {step === 3 && (
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="awards" className="text-sm font-medium">Details of any award received</Label>
