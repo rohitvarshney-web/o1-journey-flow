@@ -34,7 +34,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-3xl p-0 overflow-hidden border border-border rounded-sm">
+      <DialogContent className="max-w-4xl p-0 overflow-hidden border border-border rounded-sm">
         <VisuallyHidden>
           <DialogTitle>Schedule Your Free Consultation</DialogTitle>
           <DialogDescription>Book a call with our O-1 visa experts</DialogDescription>
@@ -77,7 +77,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
         </div>
 
         {/* Body */}
-        <div className="max-h-[450px] overflow-y-auto p-6">
+        <div className="max-h-[550px] overflow-y-auto p-6">
           <AnimatePresence mode="wait">
             {activeTab === "prepare" && (
               <motion.div
@@ -152,7 +152,7 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   <iframe
                     src="https://cal.com/ashish-teleport/initial-call"
                     width="100%"
-                    height="320"
+                    height="500"
                     className="w-full border-0"
                     title="Schedule Consultation"
                   />
