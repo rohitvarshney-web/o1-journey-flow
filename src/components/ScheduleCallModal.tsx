@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar, Clock, FileText, Globe, ArrowRight, Check } from "lucide-react";
+import { Calendar, Clock, FileText, Globe, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,11 +14,9 @@ interface ScheduleCallModalProps {
 
 const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
   const [activeTab, setActiveTab] = useState<Tab>("prepare");
-  const [isPrepared, setIsPrepared] = useState(false);
 
   const handleClose = () => {
     onClose();
-    setIsPrepared(false);
     setActiveTab("prepare");
   };
 
@@ -123,31 +121,12 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                 </div>
 
                 <Button
-                  onClick={() => setIsPrepared(true)}
-                  className={`w-full rounded-sm ${isPrepared ? "bg-accent hover:bg-accent/90" : ""}`}
+                  onClick={() => setActiveTab("schedule")}
+                  className="w-full rounded-sm"
                 >
                   <Check size={16} className="mr-2" />
-                  {isPrepared ? "Ready to Schedule!" : "I'm Ready"}
+                  I'm Ready
                 </Button>
-
-                {isPrepared && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="rounded-sm border border-accent/30 bg-accent/10 p-5"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Check size={20} className="text-accent flex-shrink-0" />
-                      <div className="flex-1">
-                        <h4 className="font-medium text-sm text-foreground">Great! You're all set</h4>
-                        <p className="text-muted-foreground text-sm">Proceed to schedule your free consultation call.</p>
-                      </div>
-                      <Button onClick={() => setActiveTab("schedule")} size="sm" className="rounded-sm">
-                        Next <ArrowRight size={14} className="ml-1" />
-                      </Button>
-                    </div>
-                  </motion.div>
-                )}
               </motion.div>
             )}
 
@@ -169,11 +148,11 @@ const ScheduleCallModal = ({ open, onClose }: ScheduleCallModalProps) => {
                   </p>
                 </div>
 
-                <div className="rounded-sm border border-border bg-background">
+                <div className="rounded-sm border border-border bg-background overflow-hidden">
                   <iframe
                     src="https://cal.com/ashish-teleport/initial-call"
                     width="100%"
-                    height="420"
+                    height="320"
                     className="w-full border-0"
                     title="Schedule Consultation"
                   />
