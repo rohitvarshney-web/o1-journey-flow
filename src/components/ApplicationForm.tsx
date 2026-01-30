@@ -31,6 +31,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     timeline: [] as string[],
     resume: "",
     linkedIn: "",
+    roleType: [] as string[],
+    qualifications: [] as string[],
     awards: "",
     associations: "",
     mediaCoverage: "",
@@ -56,6 +58,24 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     }));
   };
 
+  const handleRoleTypeChange = (value: string, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      roleType: checked
+        ? [...prev.roleType, value]
+        : prev.roleType.filter((r) => r !== value),
+    }));
+  };
+
+  const handleQualificationsChange = (value: string, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      qualifications: checked
+        ? [...prev.qualifications, value]
+        : prev.qualifications.filter((q) => q !== value),
+    }));
+  };
+
   const handleNext = () => {
     if (step < totalSteps - 1) {
       setStep(step + 1);
@@ -75,6 +95,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       const submitData = {
         ...formData,
         timeline: formData.timeline.join(", "),
+        roleType: formData.roleType.join(", "),
+        qualifications: formData.qualifications.join(", "),
       };
       await uploadToGoogleDrive(submitData);
       setSubmitted(true);
@@ -106,6 +128,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       timeline: [],
       resume: "",
       linkedIn: "",
+      roleType: [],
+      qualifications: [],
       awards: "",
       associations: "",
       mediaCoverage: "",
@@ -331,7 +355,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                 )}
 
                 {step === 2 && (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
                       <Label htmlFor="resume" className="text-sm font-medium">Resume (URL or file)</Label>
                       <div className="flex gap-2 mt-1.5">
@@ -357,6 +381,61 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         value={formData.linkedIn}
                         onChange={(e) => handleInputChange("linkedIn", e.target.value)}
                       />
+                    </div>
+
+                    <div>
+                      <Label className="text-sm font-medium mb-3 block">Which best describes you?</Label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {["Founder", "Executive Team Member", "Engineer", "Researcher / PHD / PostDoc", "Influencer", "Other"].map((role) => (
+                          <div
+                            key={role}
+                            className="flex items-center space-x-3 border border-border rounded-sm p-3 hover:bg-muted transition-colors"
+                          >
+                            <Checkbox
+                              id={`role-${role}`}
+                              checked={formData.roleType.includes(role)}
+                              onCheckedChange={(checked) => handleRoleTypeChange(role, checked as boolean)}
+                            />
+                            <Label htmlFor={`role-${role}`} className="flex-1 cursor-pointer text-sm">
+                              {role}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label className="text-sm font-medium mb-3 block">Select which all applies to you</Label>
+                      <div className="space-y-2">
+                        {[
+                          { value: "Press / articles about you", label: "Press / articles about you" },
+                          { value: "Awards / recognitions", label: "Awards / recognitions" },
+                          { value: "Spoken at known events", label: "Spoken at known events" },
+                          { value: "Judged / reviewed other's work", label: "Judged / reviewed other's work" },
+                          { value: "Publications / citations", label: "Publications / citations", subtext: "(for researchers)" },
+                          { value: "Patents / open-source impact", label: "Patents / open-source impact", subtext: "(for engineers)" },
+                          { value: "High salary / top compensation", label: "High salary / top compensation", subtext: "(Salary range above INR 40LPA)" },
+                          { value: "Critical role at distinguished org", label: "Critical role at distinguished org", subtext: "(E.g. if you have worked in Fortune 500 at Director or VP Level)" },
+                        ].map((item) => (
+                          <div
+                            key={item.value}
+                            className="flex items-start space-x-3 border border-border rounded-sm p-3 hover:bg-muted transition-colors"
+                          >
+                            <Checkbox
+                              id={`qual-${item.value}`}
+                              checked={formData.qualifications.includes(item.value)}
+                              onCheckedChange={(checked) => handleQualificationsChange(item.value, checked as boolean)}
+                              className="mt-0.5"
+                            />
+                            <Label htmlFor={`qual-${item.value}`} className="flex-1 cursor-pointer text-sm">
+                              <span>{item.label}</span>
+                              {item.subtext && (
+                                <span className="block text-xs text-muted-foreground mt-0.5">{item.subtext}</span>
+                              )}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
