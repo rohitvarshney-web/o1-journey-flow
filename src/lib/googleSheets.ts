@@ -1,6 +1,6 @@
-const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
-const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || '';
-const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID || '';
+const CLIENT_ID = '965326801387-clsh11jpj4c23huj7u9p9f4u2dj15cpf.apps.googleusercontent.com'; // import.meta.env.VITE_GOOGLE_CLIENT_ID || 
+const API_KEY =   'AIzaSyD67X3sppaSPGK-mjzNfkw5APs5AF3PYyc'; // import.meta.env.VITE_GOOGLE_API_KEY ||
+const SHEET_ID =  '1WskGAV25nCtPmE-Bozp1vZGru6yquynwix3wamZ3PuM'; // import.meta.env.VITE_GOOGLE_SHEET_ID ||
 const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
 
 let tokenClient: any;
