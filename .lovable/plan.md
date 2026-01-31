@@ -1,85 +1,77 @@
 
-## What the error means (in plain English)
+# Fix: Form Self-Submitting on Last Step
 
-Your app is trying to download Google’s “API description” file for Google Sheets (the `$discovery/rest?version=v4` URL) during `gapi.client.init(...)`.
+## Problem Identified
 
-That request is being blocked with **403 Forbidden**, which usually happens for one of these reasons:
-1) The **API key** you’re using is restricted/blocked for that specific Google service/method, or  
-2) The **Sheets API** isn’t enabled (or not enabled in the exact Google Cloud project that issued that API key), or  
-3) The key restrictions (HTTP referrers / API restrictions) don’t include your current Lovable preview/published domain.
+The form auto-submits when the user navigates to step 4 (the last step). This is caused by a combination of factors:
 
-However, in your current codebase, there’s an important detail:
+1. **Event timing during step transition**: When clicking "Continue" to go from step 3 to step 4, React re-renders and replaces the Continue button with the Submit button in the same DOM position
+2. **Residual click/keyboard events**: If the user presses Enter or double-clicks, the event can "carry over" to the newly rendered Submit button
+3. **AnimatePresence transition**: During the animation, focus management can cause unexpected button activation
 
-- You are **not actually using GAPI for the Sheets append**.
-- You append via a direct `fetch(...)` call with a **Bearer OAuth token**.
-- So this “discovery doc” fetch is unnecessary, and it’s the thing failing.
+## Solution
 
-## Root cause in this codebase
+Add safeguards to prevent accidental submission during step transitions.
 
-In `src/lib/googleSheets.ts`:
-- `initializeGoogleAPI()` loads **GAPI** and calls:
+### Changes to `src/components/ApplicationForm.tsx`
 
-  - `gapi.client.init({ apiKey, discoveryDocs: [...] })`
+**1. Add a state to track when the step just changed (debounce protection):**
 
-That triggers the failing request to:
-- `https://content-sheets.googleapis.com/$discovery/rest?version=v4&...&key=...`
+```typescript
+const [canSubmit, setCanSubmit] = useState(true);
+```
 
-But later, when submitting, you do:
-- `fetch("https://sheets.googleapis.com/v4/spreadsheets/.../append", { Authorization: Bearer ... })`
+**2. Update `handleNext` to temporarily disable submission:**
 
-So the app can work without ever calling `gapi.client.init` (and without an API key).
+```typescript
+const handleNext = () => {
+  if (step < totalSteps - 1) {
+    setCanSubmit(false);  // Prevent accidental submit
+    setStep(step + 1);
+    // Re-enable after a short delay
+    setTimeout(() => setCanSubmit(true), 300);
+  }
+};
+```
 
-## Proposed fix (recommended): remove GAPI dependency entirely
+**3. Guard the submit handler:**
 
-### Goal
-Stop calling the discovery endpoint (so the 403 disappears) and rely only on:
-- Google Identity Services (GIS) to get an access token
-- Direct REST `fetch` to append to Sheets
+```typescript
+const handleSubmit = async () => {
+  if (!canSubmit || isSubmitting) return;  // Prevent accidental submission
+  
+  setIsSubmitting(true);
+  // ... rest of submit logic
+};
+```
 
-### Implementation changes (high level)
+**4. Also disable the submit button during the transition:**
 
-1) **Update `src/lib/googleSheets.ts`**
-   - Remove loading `https://apis.google.com/js/api.js` (GAPI) and remove `gapi.client.init(...)`.
-   - Keep only loading `https://accounts.google.com/gsi/client` (GIS).
-   - Make `initializeGoogleAPI()` resolve **only after** GIS is initialized and `tokenClient` is created (this also prevents `tokenClient` being undefined).
-   - Remove the `API_KEY` constant entirely (since it won’t be needed).
-   - Keep `CLIENT_ID`, `SHEET_ID`, and `SCOPES`.
+```typescript
+<Button 
+  type="button" 
+  onClick={handleSubmit} 
+  disabled={isSubmitting || !canSubmit}  // Add canSubmit check
+  className="gap-2 text-sm rounded-sm"
+>
+```
 
-2) **Update `appendToGoogleSheet()`**
-   - Keep the current `fetch` append logic.
-   - Ensure it calls the updated `initializeGoogleAPI()` (GIS-only) if not initialized.
+## Technical Details
 
-3) **Update `src/components/ApplicationForm.tsx`**
-   - Remove the explicit `await initializeGoogleAPI();` from `handleSubmit()` (optional but recommended), because `appendToGoogleSheet()` already ensures initialization.
-   - Keep error handling/toast as-is (or slightly improve messaging later).
+| Aspect | Change |
+|--------|--------|
+| New state | `canSubmit` - tracks if submission is allowed |
+| handleNext | Sets `canSubmit` to false, then re-enables after 300ms |
+| handleSubmit | Early return if `canSubmit` is false |
+| Submit button | Disabled when `!canSubmit` |
 
-## Why this works
+## Why This Works
 
-- The Google Sheets “append” endpoint works with an OAuth access token.
-- It does not require the API discovery doc.
-- It does not require an API key.
-- By removing GAPI initialization, we eliminate the failing 403 request entirely.
+- When user clicks "Continue" to reach step 4, `canSubmit` is immediately set to `false`
+- The Submit button renders but is disabled for 300ms
+- Any residual click/keyboard events are blocked during this window
+- After 300ms, the button becomes active for intentional submission
 
-## Edge cases / notes
+## Alternative Considered
 
-- You still must have the correct OAuth Client ID configuration:
-  - In Google Cloud Console → OAuth Client → “Authorized JavaScript origins”
-  - Include:
-    - Your Lovable Preview URL origin (the domain without path)
-    - Your Published URL origin
-- If the user’s Google account hasn’t granted access yet, they’ll see the consent popup on first submit.
-- If consent is blocked because the OAuth consent screen is still in “Testing” mode, you must add the Google account as a test user.
-
-## Testing checklist (end-to-end)
-
-1) Open the site in the Lovable preview URL.
-2) Open the form modal and submit.
-3) Confirm you see a Google consent popup.
-4) After accepting, confirm:
-   - No more `$discovery/rest?... 403` in the console/network tab
-   - A new row appears in the target Google Sheet.
-
-## Optional next step (more robust, not required for this fix)
-
-If you eventually want “no Google login popup for users” (fully server-side write), you’d move the Sheets append to a backend (Lovable Cloud / Supabase Edge Function) using a service account. That would require storing a private key securely and is a different architecture.
-
+Wrapping in a `<form>` element with `e.preventDefault()` - but this would be more invasive and the debounce approach is simpler and directly addresses the race condition.
