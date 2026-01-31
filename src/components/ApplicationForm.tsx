@@ -21,6 +21,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(true);
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -78,7 +79,10 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
 
   const handleNext = () => {
     if (step < totalSteps - 1) {
+      setCanSubmit(false); // Prevent accidental submit during transition
       setStep(step + 1);
+      // Re-enable after transition completes
+      setTimeout(() => setCanSubmit(true), 300);
     }
   };
 
@@ -89,6 +93,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   };
 
   const handleSubmit = async () => {
+    if (!canSubmit || isSubmitting) return; // Prevent accidental submission
     setIsSubmitting(true);
     try {
       const submitData = {
@@ -568,7 +573,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               ) : (
-                <Button type="button" onClick={handleSubmit} disabled={isSubmitting} className="gap-2 text-sm rounded-sm">
+                <Button type="button" onClick={handleSubmit} disabled={isSubmitting || !canSubmit} className="gap-2 text-sm rounded-sm">
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
