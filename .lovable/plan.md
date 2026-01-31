@@ -1,98 +1,85 @@
 
-# Plan: Google Sheets Direct Integration with User OAuth
+## What the error means (in plain English)
 
-## Overview
+Your app is trying to download Google’s “API description” file for Google Sheets (the `$discovery/rest?version=v4` URL) during `gapi.client.init(...)`.
 
-Modify the existing Google Drive integration to append form submissions as rows in a single Google Sheet instead of creating individual Excel files. Users will still authenticate via Google OAuth popup when submitting.
+That request is being blocked with **403 Forbidden**, which usually happens for one of these reasons:
+1) The **API key** you’re using is restricted/blocked for that specific Google service/method, or  
+2) The **Sheets API** isn’t enabled (or not enabled in the exact Google Cloud project that issued that API key), or  
+3) The key restrictions (HTTP referrers / API restrictions) don’t include your current Lovable preview/published domain.
 
----
+However, in your current codebase, there’s an important detail:
 
-## How It Will Work
+- You are **not actually using GAPI for the Sheets append**.
+- You append via a direct `fetch(...)` call with a **Bearer OAuth token**.
+- So this “discovery doc” fetch is unnecessary, and it’s the thing failing.
 
-```text
-User fills form --> Clicks Submit --> Google OAuth popup --> Data appends to Sheet
-```
+## Root cause in this codebase
 
-Each submission becomes a new row in your spreadsheet with all form fields as columns.
+In `src/lib/googleSheets.ts`:
+- `initializeGoogleAPI()` loads **GAPI** and calls:
 
----
+  - `gapi.client.init({ apiKey, discoveryDocs: [...] })`
 
-## Changes Required
+That triggers the failing request to:
+- `https://content-sheets.googleapis.com/$discovery/rest?version=v4&...&key=...`
 
-### 1. Update `src/lib/googleDrive.ts`
+But later, when submitting, you do:
+- `fetch("https://sheets.googleapis.com/v4/spreadsheets/.../append", { Authorization: Bearer ... })`
 
-**Rename to** `src/lib/googleSheets.ts` and modify:
+So the app can work without ever calling `gapi.client.init` (and without an API key).
 
-- Change scope from `drive.file` to `spreadsheets` 
-- Add discovery doc for Google Sheets API
-- Replace `uploadToGoogleDrive` with `appendToGoogleSheet`
-- Remove Excel file creation (no longer needed)
-- Add function to append a row to a specific spreadsheet
+## Proposed fix (recommended): remove GAPI dependency entirely
 
-**New configuration needed:**
-- `VITE_GOOGLE_SHEET_ID` - The ID of your Google Sheet (from the URL)
+### Goal
+Stop calling the discovery endpoint (so the 403 disappears) and rely only on:
+- Google Identity Services (GIS) to get an access token
+- Direct REST `fetch` to append to Sheets
 
-### 2. Update `src/components/ApplicationForm.tsx`
+### Implementation changes (high level)
 
-- Import from new `googleSheets.ts` instead of `googleDrive.ts`
-- Call `appendToGoogleSheet` instead of `uploadToGoogleDrive`
-- Update success message
+1) **Update `src/lib/googleSheets.ts`**
+   - Remove loading `https://apis.google.com/js/api.js` (GAPI) and remove `gapi.client.init(...)`.
+   - Keep only loading `https://accounts.google.com/gsi/client` (GIS).
+   - Make `initializeGoogleAPI()` resolve **only after** GIS is initialized and `tokenClient` is created (this also prevents `tokenClient` being undefined).
+   - Remove the `API_KEY` constant entirely (since it won’t be needed).
+   - Keep `CLIENT_ID`, `SHEET_ID`, and `SCOPES`.
 
-### 3. Update Environment Variables
+2) **Update `appendToGoogleSheet()`**
+   - Keep the current `fetch` append logic.
+   - Ensure it calls the updated `initializeGoogleAPI()` (GIS-only) if not initialized.
 
-Add to `.env.example`:
-- `VITE_GOOGLE_SHEET_ID` - Your spreadsheet ID
+3) **Update `src/components/ApplicationForm.tsx`**
+   - Remove the explicit `await initializeGoogleAPI();` from `handleSubmit()` (optional but recommended), because `appendToGoogleSheet()` already ensures initialization.
+   - Keep error handling/toast as-is (or slightly improve messaging later).
 
----
+## Why this works
 
-## Technical Details
+- The Google Sheets “append” endpoint works with an OAuth access token.
+- It does not require the API discovery doc.
+- It does not require an API key.
+- By removing GAPI initialization, we eliminate the failing 403 request entirely.
 
-### Google Sheets API Scope
-```
-https://www.googleapis.com/auth/spreadsheets
-```
+## Edge cases / notes
 
-### API Endpoint
-```
-POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}:append
-```
+- You still must have the correct OAuth Client ID configuration:
+  - In Google Cloud Console → OAuth Client → “Authorized JavaScript origins”
+  - Include:
+    - Your Lovable Preview URL origin (the domain without path)
+    - Your Published URL origin
+- If the user’s Google account hasn’t granted access yet, they’ll see the consent popup on first submit.
+- If consent is blocked because the OAuth consent screen is still in “Testing” mode, you must add the Google account as a test user.
 
-### Data Format
-Form data will be mapped to columns in order:
-| Name | Email | Phone | Country | Current Visa | Timeline | Resume | LinkedIn | Role Type | Qualifications | Awards | Associations | Media Coverage | Impactful Work | Scholarly Articles | Critical Role | Immigration Issues | Family in US | Submitted At |
+## Testing checklist (end-to-end)
 
-### Sheet ID Location
-From a Google Sheets URL like:
-`https://docs.google.com/spreadsheets/d/1ABC123xyz/edit`
-The Sheet ID is: `1ABC123xyz`
+1) Open the site in the Lovable preview URL.
+2) Open the form modal and submit.
+3) Confirm you see a Google consent popup.
+4) After accepting, confirm:
+   - No more `$discovery/rest?... 403` in the console/network tab
+   - A new row appears in the target Google Sheet.
 
----
+## Optional next step (more robust, not required for this fix)
 
-## Setup Requirements
+If you eventually want “no Google login popup for users” (fully server-side write), you’d move the Sheets append to a backend (Lovable Cloud / Supabase Edge Function) using a service account. That would require storing a private key securely and is a different architecture.
 
-Before this works, you'll need to:
-
-1. **Create a Google Sheet** to store submissions
-2. **Add header row** (optional - the function can work without it)
-3. **Set the Sheet ID** in your environment variables
-4. **Ensure your Google Cloud OAuth credentials** have Sheets API enabled
-
----
-
-## Files to Modify
-
-| File | Action |
-|------|--------|
-| `src/lib/googleDrive.ts` | Rename to `googleSheets.ts`, rewrite for Sheets API |
-| `src/components/ApplicationForm.tsx` | Update imports and function calls |
-| `.env.example` | Add `VITE_GOOGLE_SHEET_ID` |
-
----
-
-## Benefits Over Current Approach
-
-- All submissions in one spreadsheet (easier to manage)
-- No need to download/open individual Excel files
-- Real-time data in Google Sheets
-- Can use Google Sheets formulas, filtering, sorting
-- Easy to share with team members
