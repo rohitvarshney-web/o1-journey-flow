@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { appendToGoogleSheet, initializeGoogleAPI } from "@/lib/googleSheets";
+import { appendToGoogleSheet } from "@/lib/googleSheets";
 import { useToast } from "@/hooks/use-toast";
 
 interface ApplicationFormProps {
@@ -91,7 +91,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await initializeGoogleAPI();
       const submitData = {
         ...formData,
         timeline: formData.timeline.join(", "),
