@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight, Upload, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { appendToGoogleSheet, uploadToGoogleDrive } from "@/lib/googleSheets";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
 
 interface ApplicationFormProps {
   open: boolean;
@@ -25,6 +26,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,8 +50,51 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
 
   const totalSteps = 5;
 
+  const requiredSchemas = useMemo(() => {
+    const phoneSchema = z
+      .string()
+      .trim()
+      .min(1, { message: "Phone number is required" })
+      .max(30, { message: "Phone number is too long" })
+      .refine((v) => /^[0-9+()\-\s.]{5,30}$/.test(v), {
+        message: "Enter a valid phone number",
+      });
+
+    return {
+      step0: z.object({
+        name: z.string().trim().min(1, { message: "Full name is required" }).max(100, {
+          message: "Full name must be under 100 characters",
+        }),
+        email: z
+          .string()
+          .trim()
+          .min(1, { message: "Email address is required" })
+          .email({ message: "Enter a valid email address" })
+          .max(255, { message: "Email must be under 255 characters" }),
+        phone: phoneSchema,
+      }),
+      step1: z.object({
+        countryOfCitizenship: z.string().trim().min(1, { message: "Country of citizenship is required" }),
+        timeline: z.array(z.string()).min(1, { message: "Please select a timeline" }),
+      }),
+      step2: z.object({
+        roleType: z.array(z.string()).min(1, { message: "Please select at least one role" }),
+      }),
+    } as const;
+  }, []);
+
+  const clearError = (key: string) => {
+    setErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
+
   const handleInputChange = (field: string, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    clearError(field);
   };
 
   const handleTimelineChange = (value: string, checked: boolean) => {
@@ -59,6 +104,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         ? [...prev.timeline, value]
         : prev.timeline.filter((t) => t !== value),
     }));
+    clearError("timeline");
   };
 
   const handleRoleTypeChange = (value: string, checked: boolean) => {
@@ -68,6 +114,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         ? [...prev.roleType, value]
         : prev.roleType.filter((r) => r !== value),
     }));
+    clearError("roleType");
   };
 
   const handleQualificationsChange = (value: string, checked: boolean) => {
@@ -77,6 +124,73 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         ? [...prev.qualifications, value]
         : prev.qualifications.filter((q) => q !== value),
     }));
+  };
+
+  const validateStep = (stepIndex: number): boolean => {
+    // Only enforce mandatory questions on steps 0-2.
+    const stepErrors: Record<string, string> = {};
+
+    if (stepIndex === 0) {
+      const parsed = requiredSchemas.step0.safeParse({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+      });
+
+      if (!parsed.success) {
+        for (const issue of parsed.error.issues) {
+          const key = issue.path[0] as string;
+          if (key && !stepErrors[key]) stepErrors[key] = issue.message;
+        }
+      }
+    }
+
+    if (stepIndex === 1) {
+      const parsed = requiredSchemas.step1.safeParse({
+        countryOfCitizenship: formData.countryOfCitizenship,
+        timeline: formData.timeline,
+      });
+
+      if (!parsed.success) {
+        for (const issue of parsed.error.issues) {
+          const key = issue.path[0] as string;
+          if (key && !stepErrors[key]) stepErrors[key] = issue.message;
+        }
+      }
+    }
+
+    if (stepIndex === 2) {
+      const parsed = requiredSchemas.step2.safeParse({
+        roleType: formData.roleType,
+      });
+
+      if (!parsed.success) {
+        for (const issue of parsed.error.issues) {
+          const key = issue.path[0] as string;
+          if (key && !stepErrors[key]) stepErrors[key] = issue.message;
+        }
+      }
+    }
+
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors((prev) => ({ ...prev, ...stepErrors }));
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateRequiredBeforeSubmit = (): boolean => {
+    // Validate all mandatory steps; if something is missing, jump user to the first invalid step.
+    const stepsToValidate = [0, 1, 2];
+    for (const s of stepsToValidate) {
+      const ok = validateStep(s);
+      if (!ok) {
+        setStep(s);
+        return false;
+      }
+    }
+    return true;
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,6 +222,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   };
 
   const handleNext = () => {
+    if (!validateStep(step)) return;
     if (step < totalSteps - 1) {
       setCanSubmit(false); // Prevent accidental submit during transition
       setStep(step + 1);
@@ -124,6 +239,16 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
 
   const handleSubmit = async () => {
     if (!canSubmit || isSubmitting) return; // Prevent accidental submission
+
+    if (!validateRequiredBeforeSubmit()) {
+      toast({
+        title: "Missing required fields",
+        description: "Please complete the required questions before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const submitData = {
@@ -285,8 +410,15 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         className="bg-muted border-border rounded-sm mt-1.5"
                         value={formData.name}
                         onChange={(e) => handleInputChange("name", e.target.value)}
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                         required
                       />
+                      {errors.name && (
+                        <p id="name-error" className="mt-1 text-xs text-destructive">
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -298,8 +430,15 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         className="bg-muted border-border rounded-sm mt-1.5"
                         value={formData.email}
                         onChange={(e) => handleInputChange("email", e.target.value)}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
                         required
                       />
+                      {errors.email && (
+                        <p id="email-error" className="mt-1 text-xs text-destructive">
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -311,8 +450,15 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                         className="bg-muted border-border rounded-sm mt-1.5"
                         value={formData.phone}
                         onChange={(e) => handleInputChange("phone", e.target.value)}
+                        aria-invalid={!!errors.phone}
+                        aria-describedby={errors.phone ? "phone-error" : undefined}
                         required
                       />
+                      {errors.phone && (
+                        <p id="phone-error" className="mt-1 text-xs text-destructive">
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -320,7 +466,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                 {step === 1 && (
                   <div className="space-y-4">
                     <div>
-                      <Label htmlFor="countryOfCitizenship" className="text-sm font-medium">Country of Citizenship</Label>
+                      <Label htmlFor="countryOfCitizenship" className="text-sm font-medium">Country of Citizenship *</Label>
                       <Select
                         value={formData.countryOfCitizenship}
                         onValueChange={(value) => handleInputChange("countryOfCitizenship", value)}
@@ -337,6 +483,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
+                      {errors.countryOfCitizenship && (
+                        <p className="mt-1 text-xs text-destructive">{errors.countryOfCitizenship}</p>
+                      )}
                     </div>
 
                     <div>
@@ -351,7 +500,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium mb-3 block">When are you planning to file?</Label>
+                      <Label className="text-sm font-medium mb-3 block">When are you planning to file? *</Label>
                       <div className="space-y-3">
                         <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors">
                           <Checkbox
@@ -384,6 +533,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           </Label>
                         </div>
                       </div>
+                      {errors.timeline && <p className="mt-1 text-xs text-destructive">{errors.timeline}</p>}
                     </div>
                   </div>
                 )}
@@ -436,7 +586,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium mb-3 block">Which best describes you?</Label>
+                      <Label className="text-sm font-medium mb-3 block">Which best describes you? *</Label>
                       <div className="grid grid-cols-2 gap-2">
                         {["Founder", "Executive Team Member", "Engineer", "Researcher / PHD / PostDoc", "Influencer", "Other"].map((role) => (
                           <div
@@ -454,6 +604,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           </div>
                         ))}
                       </div>
+                      {errors.roleType && <p className="mt-1 text-xs text-destructive">{errors.roleType}</p>}
                     </div>
 
                     <div>
