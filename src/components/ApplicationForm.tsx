@@ -1,6 +1,6 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight, Upload, Loader2 } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Upload, Loader2, Link as LinkIcon } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { appendToGoogleSheet, uploadToGoogleDrive } from "@/lib/googleSheets";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  appendToGoogleSheet,
+  uploadToGoogleDrive,
+  connectGoogleAccount,
+  isGoogleConnected,
+  subscribeToAuthState,
+  type GoogleAuthState,
+} from "@/lib/googleSheets";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
@@ -24,6 +32,10 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [canSubmit, setCanSubmit] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [googleAuthState, setGoogleAuthState] = useState<GoogleAuthState>(() =>
+    isGoogleConnected() ? 'connected' : 'not_connected'
+  );
+  const [showConnectPrompt, setShowConnectPrompt] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -49,6 +61,17 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   });
 
   const totalSteps = 5;
+
+  // Subscribe to auth state changes
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthState((state) => {
+      setGoogleAuthState(state);
+      if (state === 'connected') {
+        setShowConnectPrompt(false);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   const requiredSchemas = useMemo(() => {
     const phoneSchema = z
@@ -127,7 +150,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   };
 
   const validateStep = (stepIndex: number): boolean => {
-    // Only enforce mandatory questions on steps 0-2.
     const stepErrors: Record<string, string> = {};
 
     if (stepIndex === 0) {
@@ -181,7 +203,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   };
 
   const validateRequiredBeforeSubmit = (): boolean => {
-    // Validate all mandatory steps; if something is missing, jump user to the first invalid step.
     const stepsToValidate = [0, 1, 2];
     for (const s of stepsToValidate) {
       const ok = validateStep(s);
@@ -193,9 +214,46 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     return true;
   };
 
+  /**
+   * Handle Google connection - MUST be triggered by direct user click
+   */
+  const handleConnectGoogle = async () => {
+    try {
+      await connectGoogleAccount();
+      toast({
+        title: "Connected!",
+        description: "Your Google account is now connected.",
+      });
+    } catch (error) {
+      console.error("Google connection error:", error);
+      toast({
+        title: "Connection failed",
+        description: "Could not connect to Google. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  /**
+   * Handle file upload - only works if already connected
+   */
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Check if connected BEFORE attempting upload
+    if (!isGoogleConnected()) {
+      toast({
+        title: "Google not connected",
+        description: "Please connect your Google account first to upload files.",
+        variant: "destructive",
+      });
+      // Reset input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      return;
+    }
 
     setIsUploading(true);
     try {
@@ -209,12 +267,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       console.error("Upload error:", error);
       toast({
         title: "Upload failed",
-        description: "Failed to upload file. Please try again or paste a link instead.",
+        description: error instanceof Error ? error.message : "Failed to upload file. Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsUploading(false);
-      // Reset input so the same file can be selected again
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -224,9 +281,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const handleNext = () => {
     if (!validateStep(step)) return;
     if (step < totalSteps - 1) {
-      setCanSubmit(false); // Prevent accidental submit during transition
+      setCanSubmit(false);
       setStep(step + 1);
-      // Re-enable after transition completes
       setTimeout(() => setCanSubmit(true), 300);
     }
   };
@@ -237,8 +293,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     }
   };
 
+  /**
+   * Handle form submission - checks auth state, does NOT trigger OAuth
+   */
   const handleSubmit = async () => {
-    if (!canSubmit || isSubmitting) return; // Prevent accidental submission
+    if (!canSubmit || isSubmitting) return;
 
     if (!validateRequiredBeforeSubmit()) {
       toast({
@@ -246,6 +305,12 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         description: "Please complete the required questions before submitting.",
         variant: "destructive",
       });
+      return;
+    }
+
+    // Check if Google is connected - if not, show prompt (do NOT trigger OAuth)
+    if (!isGoogleConnected()) {
+      setShowConnectPrompt(true);
       return;
     }
 
@@ -261,13 +326,13 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       setSubmitted(true);
       toast({
         title: "Success!",
-        description: "Your application has been submitted to Google Sheets.",
+        description: "Your application has been submitted.",
       });
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
         title: "Error",
-        description: "Failed to save application. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to save application. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -278,6 +343,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const handleClose = () => {
     setSubmitted(false);
     setStep(0);
+    setShowConnectPrompt(false);
     setFormData({
       name: "",
       email: "",
@@ -356,21 +422,78 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden p-0">
         <div className="bg-primary p-6 text-primary-foreground">
           <DialogHeader>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-sm bg-primary-foreground/20 flex items-center justify-center">
-                <Check className="w-5 h-5" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-sm bg-primary-foreground/20 flex items-center justify-center">
+                  <Check className="w-5 h-5" />
+                </div>
+                <div>
+                  <DialogTitle className="text-primary-foreground font-serif text-lg">
+                    O-1 Visa Application
+                  </DialogTitle>
+                  <p className="text-xs text-primary-foreground/70">Applicant</p>
+                </div>
               </div>
-              <div>
-                <DialogTitle className="text-primary-foreground font-serif text-lg">
-                  O-1 Visa Application
-                </DialogTitle>
-                <p className="text-xs text-primary-foreground/70">Applicant</p>
+              {/* Google connection status indicator */}
+              <div className="flex items-center gap-2">
+                {googleAuthState === 'connected' ? (
+                  <span className="text-xs bg-primary-foreground/20 px-2 py-1 rounded-sm flex items-center gap-1">
+                    <Check className="w-3 h-3" />
+                    Google Connected
+                  </span>
+                ) : googleAuthState === 'connecting' ? (
+                  <span className="text-xs bg-primary-foreground/20 px-2 py-1 rounded-sm flex items-center gap-1">
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                    Connecting...
+                  </span>
+                ) : (
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    className="text-xs h-7 rounded-sm"
+                    onClick={handleConnectGoogle}
+                  >
+                    <LinkIcon className="w-3 h-3 mr-1" />
+                    Connect Google
+                  </Button>
+                )}
               </div>
             </div>
           </DialogHeader>
         </div>
 
         <div className="p-6">
+          {/* Connect prompt alert */}
+          {showConnectPrompt && googleAuthState !== 'connected' && (
+            <Alert className="mb-4 border-amber-500/50 bg-amber-50 dark:bg-amber-950/20">
+              <AlertDescription className="flex items-center justify-between">
+                <span className="text-sm">
+                  Please connect your Google account to submit your application.
+                </span>
+                <Button
+                  type="button"
+                  size="sm"
+                  className="ml-4 rounded-sm"
+                  onClick={handleConnectGoogle}
+                  disabled={googleAuthState === 'connecting'}
+                >
+                  {googleAuthState === 'connecting' ? (
+                    <>
+                      <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                      Connecting...
+                    </>
+                  ) : (
+                    <>
+                      <LinkIcon className="w-3 h-3 mr-1" />
+                      Connect Google
+                    </>
+                  )}
+                </Button>
+              </AlertDescription>
+            </Alert>
+          )}
+
           {/* Progress indicator */}
           <div className="mb-6">
             <div className="flex justify-between text-xs text-muted-foreground mb-2">
@@ -562,7 +685,17 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           variant="outline" 
                           size="icon" 
                           className="rounded-sm"
-                          onClick={() => fileInputRef.current?.click()}
+                          onClick={() => {
+                            if (!isGoogleConnected()) {
+                              toast({
+                                title: "Connect Google first",
+                                description: "Please connect your Google account to upload files.",
+                                variant: "destructive",
+                              });
+                              return;
+                            }
+                            fileInputRef.current?.click();
+                          }}
                           disabled={isUploading}
                         >
                           {isUploading ? (
@@ -572,6 +705,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           )}
                         </Button>
                       </div>
+                      {!isGoogleConnected() && (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Connect Google to upload files, or paste a link directly.
+                        </p>
+                      )}
                     </div>
 
                     <div>
