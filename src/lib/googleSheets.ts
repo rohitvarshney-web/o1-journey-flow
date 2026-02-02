@@ -1,6 +1,6 @@
 const CLIENT_ID = '965326801387-clsh11jpj4c23huj7u9p9f4u2dj15cpf.apps.googleusercontent.com';
 const SHEET_ID = '1WskGAV25nCtPmE-Bozp1vZGru6yquynwix3wamZ3PuM';
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file';
 
 let tokenClient: any;
 let gisInitialized = false;
@@ -50,6 +50,64 @@ const getAccessToken = (): Promise<string> => {
       reject(error);
     }
   });
+};
+
+export const uploadToGoogleDrive = async (file: File): Promise<string> => {
+  if (!gisInitialized || !tokenClient) {
+    await initializeGoogleAPI();
+  }
+
+  const accessToken = await getAccessToken();
+
+  // Create metadata
+  const metadata = {
+    name: file.name,
+    mimeType: file.type,
+  };
+
+  // Create multipart form data
+  const formData = new FormData();
+  formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+  formData.append('file', file);
+
+  // Upload file to Google Drive
+  const uploadResponse = await fetch(
+    'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,webViewLink',
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      body: formData,
+    }
+  );
+
+  if (!uploadResponse.ok) {
+    const errorData = await uploadResponse.json();
+    console.error('Google Drive upload error:', errorData);
+    throw new Error('Failed to upload file to Google Drive');
+  }
+
+  const uploadResult = await uploadResponse.json();
+  const fileId = uploadResult.id;
+
+  // Set file permissions to "anyone with link can view"
+  const permResponse = await fetch(
+    `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ role: 'reader', type: 'anyone' }),
+    }
+  );
+
+  if (!permResponse.ok) {
+    console.warn('Failed to set file permissions, file may not be publicly viewable');
+  }
+
+  // Return shareable link
+  return `https://drive.google.com/file/d/${fileId}/view`;
 };
 
 export const appendToGoogleSheet = async (formData: any): Promise<void> => {

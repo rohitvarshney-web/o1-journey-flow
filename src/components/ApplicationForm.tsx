@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight, Upload, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { appendToGoogleSheet } from "@/lib/googleSheets";
+import { appendToGoogleSheet, uploadToGoogleDrive } from "@/lib/googleSheets";
 import { useToast } from "@/hooks/use-toast";
 
 interface ApplicationFormProps {
@@ -22,6 +22,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [canSubmit, setCanSubmit] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -75,6 +77,34 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
         ? [...prev.qualifications, value]
         : prev.qualifications.filter((q) => q !== value),
     }));
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const driveLink = await uploadToGoogleDrive(file);
+      handleInputChange("resume", driveLink);
+      toast({
+        title: "File uploaded!",
+        description: "Resume uploaded to Google Drive successfully.",
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload file. Please try again or paste a link instead.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+      // Reset input so the same file can be selected again
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const handleNext = () => {
@@ -370,8 +400,26 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           value={formData.resume}
                           onChange={(e) => handleInputChange("resume", e.target.value)}
                         />
-                        <Button type="button" variant="outline" size="icon" className="rounded-sm">
-                          <Upload className="w-4 h-4" />
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          onChange={handleFileSelect}
+                          accept=".pdf,.doc,.docx"
+                          className="hidden"
+                        />
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="icon" 
+                          className="rounded-sm"
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={isUploading}
+                        >
+                          {isUploading ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Upload className="w-4 h-4" />
+                          )}
                         </Button>
                       </div>
                     </div>
