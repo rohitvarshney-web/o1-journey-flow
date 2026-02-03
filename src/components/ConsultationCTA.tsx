@@ -21,18 +21,6 @@ const ConsultationCTA = () => {
   return (
     <section ref={ref} className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
-            Connect and let us handle all your immigration needs
-          </h2>
-        </motion.div>
-
         {/* Main Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

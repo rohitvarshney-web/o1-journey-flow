@@ -30,7 +30,7 @@ const VisualIntro = () => {
             className="order-1"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground leading-tight">
-              What is <span className="text-primary">O-1 Visa?</span>
+              What is <span className="text-primary">'the' O-1 Visa?</span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
               The O-1 is a U.S. work visa for people with extraordinary ability or achievement in fields like technology, science, business, the arts, or athletics. If approved, it can be granted for up to 3 years initially and may be extended in 1-year increments as long as eligible work continues. There is no annual cap and no specific degree requirement. The O-1 is employer or agent-sponsored, meaning you're authorized to work for the petitioning employer/agent (and any approved concurrent employers).
