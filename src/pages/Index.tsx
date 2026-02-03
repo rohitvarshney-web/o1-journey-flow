@@ -5,7 +5,7 @@ import ProcessTimeline from "@/components/ProcessTimeline";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import ApprovalProtection from "@/components/ApprovalProtection";
-import ConsultationCTA from "@/components/ConsultationCTA";
+
 import PricingPlans from "@/components/PricingPlans";
 import FloatingCTA from "@/components/FloatingCTA";
 import useScrollToHash from "@/hooks/useScrollToHash";
@@ -21,7 +21,7 @@ const Index = () => {
         <ApprovalProtection />
         <ProcessTimeline />
         <PricingPlans />
-        <ConsultationCTA />
+        
         <FAQ />
       </main>
       <Footer />
