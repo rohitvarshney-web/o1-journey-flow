@@ -1,175 +1,150 @@
 
-# Plan: Upload Files to Google Drive and Store Link in Google Sheet
+# Plan: Update Application Form and Landing Page Content
 
 ## Overview
 
-When a user uploads their resume, the file will be uploaded to Google Drive and the resulting shareable link will be saved in the Google Sheet alongside other form data.
+This plan addresses multiple content and structure changes across the ApplicationForm component and landing page sections.
 
-## Current State
+## Changes Summary
 
-- The upload button exists but has no functionality
-- Form data is saved to Google Sheet via direct REST API with OAuth
-- OAuth scope is currently only `spreadsheets` (no Drive access)
+### 1. ApplicationForm Title Change
+**Current:** "O-1 Visa Application"  
+**New:** "Check Your O-1 Readiness"
 
-## Implementation
+**Location:** Line 432 in `src/components/ApplicationForm.tsx`
 
-### 1. Update OAuth Scope
+---
 
-**File: `src/lib/googleSheets.ts`**
+### 2. Step 2 (index 1) - Field Updates
 
-Add Google Drive scope to the existing OAuth configuration:
+**A. "Currently holding which visa?" heading change**
+**Current:** "Currently holding which visa?"  
+**New:** "Current US Visa (if any)"
 
-```typescript
-// Change from:
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+**Location:** Line 615
 
-// To:
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file';
-```
+**B. Timeline heading change**
+**Current:** "When are you planning to file?"  
+**New:** "Timeframe to file for O-1"
 
-The `drive.file` scope allows uploading files that the app creates (more limited/secure than full Drive access).
+**Location:** Line 626
 
-### 2. Create Google Drive Upload Function
+**C. Add "Exploring" option to timeline**
+Add a fourth checkbox option:
+- 0-3 Months
+- 3-6 Months  
+- More than 6 Months
+- **Exploring** (new)
 
-**File: `src/lib/googleSheets.ts`**
+**Location:** After line 657, add new checkbox block
 
-Add new function to upload files to Google Drive:
+---
 
-```typescript
-export const uploadToGoogleDrive = async (file: File): Promise<string> => {
-  // 1. Ensure GIS is initialized
-  // 2. Get access token
-  // 3. Upload file using multipart upload to Google Drive API
-  // 4. Make file publicly viewable
-  // 5. Return the shareable link
-};
-```
+### 3. Step 3 (index 2) - Role Type Updates
 
-The function will:
-1. Use the same OAuth token already obtained for Sheets
-2. Upload via `https://www.googleapis.com/upload/drive/v3/files`
-3. Set file permissions to "anyone with link can view"
-4. Return the web view link: `https://drive.google.com/file/d/{fileId}/view`
+**A. Add two new role options before "Other"**
+**Current list:** Founder, Executive Team Member, Engineer, Researcher / PHD / PostDoc, Influencer, Other
 
-### 3. Update ApplicationForm Component
+**New list:** Founder, Executive Team Member, Engineer, Researcher / PHD / PostDoc, Influencer, **Athlete**, **Artist**, Other
 
-**File: `src/components/ApplicationForm.tsx`**
+**Location:** Line 729
 
-Add file upload handling:
+**B. Change "Select which all applies to you" heading**
+**Current:** "Select which all applies to you"  
+**New:** "Select the options which applies to you"
 
-1. Add a `useRef` for the hidden file input
-2. Add state to track upload progress
-3. Create `handleFileSelect` function that:
-   - Gets the selected file
-   - Calls `uploadToGoogleDrive(file)`
-   - Stores the returned Drive link in `formData.resume`
-   - Shows upload progress/success feedback
+**Location:** Line 749
 
-```typescript
-const fileInputRef = useRef<HTMLInputElement>(null);
-const [isUploading, setIsUploading] = useState(false);
+**C. Remove subtext under "High salary / top compensation"**
+**Current:** Has subtext "(Salary range above INR 40LPA)"  
+**New:** Remove the subtext entirely
 
-const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  
-  setIsUploading(true);
-  try {
-    const driveLink = await uploadToGoogleDrive(file);
-    handleInputChange("resume", driveLink);
-    toast({ title: "File uploaded!", description: "Resume uploaded to Google Drive" });
-  } catch (error) {
-    toast({ title: "Upload failed", variant: "destructive" });
-  } finally {
-    setIsUploading(false);
-  }
-};
-```
+**Location:** Line 758 - remove the `subtext` property
 
-4. Add hidden file input element:
-```jsx
-<input
-  type="file"
-  ref={fileInputRef}
-  onChange={handleFileSelect}
-  accept=".pdf,.doc,.docx"
-  className="hidden"
-/>
-```
+---
 
-5. Connect upload button to trigger file picker:
-```jsx
-<Button 
-  onClick={() => fileInputRef.current?.click()}
-  disabled={isUploading}
->
-  {isUploading ? <Loader2 className="animate-spin" /> : <Upload />}
-</Button>
-```
+### 4. Remove Steps 4 and 5 Content
+
+**Current structure:**
+- Step 0: Basic info (name, email, phone)
+- Step 1: Country, visa, timeline
+- Step 2: Resume, LinkedIn, role type, qualifications
+- Step 3: Awards, associations, media, impactful work
+- Step 4: Scholarly articles, critical role, immigration issues, family in US
+
+**New structure (3 steps total):**
+- Step 0: Basic info (name, email, phone) - unchanged
+- Step 1: Country, visa, timeline - unchanged  
+- Step 2: Resume, LinkedIn, role type, qualifications - unchanged
+
+**Changes needed:**
+1. Update `totalSteps` from 5 to 3 (line 63)
+2. Remove `step === 3` block (lines 784-831)
+3. Remove `step === 4` block (lines 834-894)
+4. Remove unused form fields from state: `awards`, `associations`, `mediaCoverage`, `impactfulWork`, `scholarlyArticles`, `criticalRole`, `immigrationIssues`, `familyInUS`
+5. Update `handleClose` reset to remove these fields
+
+---
+
+### 5. Remove ConsultationCTA Top Heading
+
+**File:** `src/components/ConsultationCTA.tsx`
+
+**Remove:** The section heading "Connect and let us handle all your immigration needs" (lines 25-34)
+
+This removes the `<motion.div>` containing the `<h2>` with "Connect and let us handle all your immigration needs"
+
+---
+
+### 6. Update VisualIntro Heading
+
+**File:** `src/components/VisualIntro.tsx`
+
+**Current:** "What is O-1 Visa?"  
+**New:** "What is 'the' O-1 Visa?"
+
+**Location:** Line 33
+
+---
 
 ## Technical Details
 
-### Google Drive Upload API Call
-
-```typescript
-// Multipart upload with metadata
-const metadata = {
-  name: file.name,
-  mimeType: file.type,
-};
-
-const formData = new FormData();
-formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-formData.append('file', file);
-
-const response = await fetch(
-  'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,webViewLink',
-  {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${accessToken}` },
-    body: formData,
-  }
-);
-
-// Then set permissions for public viewing
-await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}/permissions`, {
-  method: 'POST',
-  headers: {
-    Authorization: `Bearer ${accessToken}`,
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ role: 'reader', type: 'anyone' }),
-});
-```
-
-### Data Flow
-
-```
-User selects file → Upload to Google Drive → Get shareable link → Store in formData.resume → Submit form → Link saved to Google Sheet
-```
-
-## File Changes Summary
+### Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/lib/googleSheets.ts` | Add Drive scope, add `uploadToGoogleDrive` function |
-| `src/components/ApplicationForm.tsx` | Add file input ref, upload state, `handleFileSelect` handler, connect upload button |
+| `src/components/ApplicationForm.tsx` | Title, step 1 labels, step 2 options, remove steps 3-4, reduce totalSteps |
+| `src/components/ConsultationCTA.tsx` | Remove top heading section |
+| `src/components/VisualIntro.tsx` | Update heading text |
 
-## User Experience
+### Form State Cleanup
 
-1. User clicks upload button
-2. File picker opens (accepts PDF, DOC, DOCX)
-3. User selects file
-4. Google OAuth popup appears (if not already authorized)
-5. Upload progress shown (button shows spinner)
-6. On success: Drive link appears in the input field
-7. User submits form
-8. Google Sheet receives the Drive link in the resume column
+Remove these unused fields from `formData` initial state:
+```typescript
+awards: "",
+associations: "",
+mediaCoverage: "",
+impactfulWork: "",
+scholarlyArticles: "",
+criticalRole: "",
+immigrationIssues: "",
+familyInUS: "",
+```
 
-## Requirements
+### Role Type Array Update
 
-You'll need to enable the **Google Drive API** in your Google Cloud Console (same project as Sheets API):
-1. Go to https://console.cloud.google.com/apis/library/drive.googleapis.com
-2. Click "Enable"
+```typescript
+// Change from:
+["Founder", "Executive Team Member", "Engineer", "Researcher / PHD / PostDoc", "Influencer", "Other"]
 
-The OAuth consent screen already has the required configuration since we're using the same Client ID.
+// Change to:
+["Founder", "Executive Team Member", "Engineer", "Researcher / PHD / PostDoc", "Influencer", "Athlete", "Artist", "Other"]
+```
+
+### Qualifications Array Update
+
+```typescript
+// Remove subtext from High salary option:
+{ value: "High salary / top compensation", label: "High salary / top compensation" }
+// (no subtext property)
+```
