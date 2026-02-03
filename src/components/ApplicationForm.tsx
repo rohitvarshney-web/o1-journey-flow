@@ -50,17 +50,9 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     linkedIn: "",
     roleType: [] as string[],
     qualifications: [] as string[],
-    awards: "",
-    associations: "",
-    mediaCoverage: "",
-    impactfulWork: "",
-    scholarlyArticles: "",
-    criticalRole: "",
-    immigrationIssues: "",
-    familyInUS: "",
   });
 
-  const totalSteps = 5;
+  const totalSteps = 3;
 
   // Subscribe to auth state changes
   useEffect(() => {
@@ -355,14 +347,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       linkedIn: "",
       roleType: [],
       qualifications: [],
-      awards: "",
-      associations: "",
-      mediaCoverage: "",
-      impactfulWork: "",
-      scholarlyArticles: "",
-      criticalRole: "",
-      immigrationIssues: "",
-      familyInUS: "",
     });
     onOpenChange(false);
   };
@@ -428,8 +412,8 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                   <Check className="w-5 h-5" />
                 </div>
                 <div>
-                  <DialogTitle className="text-primary-foreground font-serif text-lg">
-                    O-1 Visa Application
+                <DialogTitle className="text-primary-foreground font-serif text-lg">
+                    Check Your O-1 Readiness
                   </DialogTitle>
                   <p className="text-xs text-primary-foreground/70">Applicant</p>
                 </div>
@@ -612,7 +596,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     </div>
 
                     <div>
-                      <Label htmlFor="currentVisa" className="text-sm font-medium">Currently holding which visa?</Label>
+                      <Label htmlFor="currentVisa" className="text-sm font-medium">Current US Visa (if any)</Label>
                       <Input
                         id="currentVisa"
                         placeholder="e.g., H-1B, F-1, L-1"
@@ -623,7 +607,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium mb-3 block">When are you planning to file? *</Label>
+                      <Label className="text-sm font-medium mb-3 block">Timeframe to file for O-1 *</Label>
                       <div className="space-y-3">
                         <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors">
                           <Checkbox
@@ -653,6 +637,16 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           />
                           <Label htmlFor="timeline-6plus" className="flex-1 cursor-pointer text-sm">
                             More than 6 Months
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-3 border border-border rounded-sm p-4 hover:bg-muted transition-colors">
+                          <Checkbox
+                            id="timeline-exploring"
+                            checked={formData.timeline.includes("Exploring")}
+                            onCheckedChange={(checked) => handleTimelineChange("Exploring", checked as boolean)}
+                          />
+                          <Label htmlFor="timeline-exploring" className="flex-1 cursor-pointer text-sm">
+                            Exploring
                           </Label>
                         </div>
                       </div>
@@ -726,7 +720,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     <div>
                       <Label className="text-sm font-medium mb-3 block">Which best describes you? *</Label>
                       <div className="grid grid-cols-2 gap-2">
-                        {["Founder", "Executive Team Member", "Engineer", "Researcher / PHD / PostDoc", "Influencer", "Other"].map((role) => (
+                        {["Founder", "Executive Team Member", "Engineer", "Researcher / PHD / PostDoc", "Influencer", "Athlete", "Artist", "Other"].map((role) => (
                           <div
                             key={role}
                             className="flex items-center space-x-3 border border-border rounded-sm p-3 hover:bg-muted transition-colors"
@@ -746,7 +740,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium mb-3 block">Select which all applies to you</Label>
+                      <Label className="text-sm font-medium mb-3 block">Select the options which applies to you</Label>
                       <div className="space-y-2">
                         {[
                           { value: "Press / articles about you", label: "Press / articles about you" },
@@ -755,7 +749,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           { value: "Judged / reviewed other's work", label: "Judged / reviewed other's work" },
                           { value: "Publications / citations", label: "Publications / citations", subtext: "(for researchers)" },
                           { value: "Patents / open-source impact", label: "Patents / open-source impact", subtext: "(for engineers)" },
-                          { value: "High salary / top compensation", label: "High salary / top compensation", subtext: "(Salary range above INR 40LPA)" },
+                          { value: "High salary / top compensation", label: "High salary / top compensation" },
                           { value: "Critical role at distinguished org", label: "Critical role at distinguished org", subtext: "(E.g. if you have worked in Fortune 500 at Director or VP Level)" },
                         ].map((item) => (
                           <div
@@ -781,117 +775,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                   </div>
                 )}
 
-                {step === 3 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="awards" className="text-sm font-medium">Details of any award received</Label>
-                      <Textarea
-                        id="awards"
-                        placeholder="List any awards, recognitions, or honors you've received..."
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.awards}
-                        onChange={(e) => handleInputChange("awards", e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="associations" className="text-sm font-medium">Member of any established association?</Label>
-                      <Textarea
-                        id="associations"
-                        placeholder="Professional organizations, industry associations, etc..."
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.associations}
-                        onChange={(e) => handleInputChange("associations", e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="mediaCoverage" className="text-sm font-medium">Any media coverage for your work?</Label>
-                      <Textarea
-                        id="mediaCoverage"
-                        placeholder="Publications, interviews, press mentions, etc..."
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.mediaCoverage}
-                        onChange={(e) => handleInputChange("mediaCoverage", e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="impactfulWork" className="text-sm font-medium">
-                        Have you developed something that makes an impact in your field?
-                      </Label>
-                      <Textarea
-                        id="impactfulWork"
-                        placeholder="Describe your contributions and their impact..."
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.impactfulWork}
-                        onChange={(e) => handleInputChange("impactfulWork", e.target.value)}
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {step === 4 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="scholarlyArticles" className="text-sm font-medium">
-                        Have you written any scholarly articles that got published?
-                      </Label>
-                      <Textarea
-                        id="scholarlyArticles"
-                        placeholder="List publications, journals, citations, etc..."
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.scholarlyArticles}
-                        onChange={(e) => handleInputChange("scholarlyArticles", e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="criticalRole" className="text-sm font-medium">
-                        Have you served in a critical role for an important organization?
-                      </Label>
-                      <Textarea
-                        id="criticalRole"
-                        placeholder="Describe leadership positions and organizational impact..."
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.criticalRole}
-                        onChange={(e) => handleInputChange("criticalRole", e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="immigrationIssues" className="text-sm font-medium">Have you ever had any prior immigration issues?</Label>
-                      <Textarea
-                        id="immigrationIssues"
-                        placeholder="Visa violations, denials, rejections, etc. (if any)"
-                        className="bg-muted border-border rounded-sm min-h-[80px] mt-1.5"
-                        value={formData.immigrationIssues}
-                        onChange={(e) => handleInputChange("immigrationIssues", e.target.value)}
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">Leave blank if not applicable</p>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="familyInUS" className="text-sm font-medium">
-                        Do you have a close family member who is currently a U.S. citizen or Green Card holder?
-                      </Label>
-                      <RadioGroup
-                        value={formData.familyInUS}
-                        onValueChange={(value) => handleInputChange("familyInUS", value)}
-                        className="mt-2"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="yes" id="family-yes" />
-                          <Label htmlFor="family-yes" className="text-sm">Yes</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no" id="family-no" />
-                          <Label htmlFor="family-no" className="text-sm">No</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-                )}
               </motion.div>
             </AnimatePresence>
           </div>
