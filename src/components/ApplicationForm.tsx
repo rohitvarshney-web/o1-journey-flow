@@ -1,23 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight, Upload, Loader2, Link as LinkIcon } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Upload, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  appendToGoogleSheet,
-  uploadToGoogleDrive,
-  connectGoogleAccount,
-  isGoogleConnected,
-  subscribeToAuthState,
-  type GoogleAuthState,
-} from "@/lib/googleSheets";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
@@ -26,16 +15,14 @@ interface ApplicationFormProps {
   onOpenChange: (open: boolean) => void;
 }
 
+const API_ENDPOINT = "https://api.live.stampmyvisa.com/v1/automations/o1-readiness";
+
 const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [canSubmit, setCanSubmit] = useState(true);
-  const [isUploading, setIsUploading] = useState(false);
-  const [googleAuthState, setGoogleAuthState] = useState<GoogleAuthState>(() =>
-    isGoogleConnected() ? 'connected' : 'not_connected'
-  );
-  const [showConnectPrompt, setShowConnectPrompt] = useState(false);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -46,24 +33,12 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     countryOfCitizenship: "",
     currentVisa: "",
     timeline: [] as string[],
-    resume: "",
     linkedIn: "",
     roleType: [] as string[],
     qualifications: [] as string[],
   });
 
   const totalSteps = 3;
-
-  // Subscribe to auth state changes
-  useEffect(() => {
-    const unsubscribe = subscribeToAuthState((state) => {
-      setGoogleAuthState(state);
-      if (state === 'connected') {
-        setShowConnectPrompt(false);
-      }
-    });
-    return unsubscribe;
-  }, []);
 
   const requiredSchemas = useMemo(() => {
     const phoneSchema = z
@@ -206,67 +181,17 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     return true;
   };
 
-  /**
-   * Handle Google connection - MUST be triggered by direct user click
-   */
-  const handleConnectGoogle = async () => {
-    try {
-      await connectGoogleAccount();
-      toast({
-        title: "Connected!",
-        description: "Your Google account is now connected.",
-      });
-    } catch (error) {
-      console.error("Google connection error:", error);
-      toast({
-        title: "Connection failed",
-        description: "Could not connect to Google. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  /**
-   * Handle file upload - only works if already connected
-   */
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Check if connected BEFORE attempting upload
-    if (!isGoogleConnected()) {
+    if (file) {
+      setResumeFile(file);
       toast({
-        title: "Google not connected",
-        description: "Please connect your Google account first to upload files.",
-        variant: "destructive",
+        title: "File selected",
+        description: `${file.name} ready to upload on submit.`,
       });
-      // Reset input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-      return;
     }
-
-    setIsUploading(true);
-    try {
-      const driveLink = await uploadToGoogleDrive(file);
-      handleInputChange("resume", driveLink);
-      toast({
-        title: "File uploaded!",
-        description: "Resume uploaded to Google Drive successfully.",
-      });
-    } catch (error) {
-      console.error("Upload error:", error);
-      toast({
-        title: "Upload failed",
-        description: error instanceof Error ? error.message : "Failed to upload file. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
@@ -285,9 +210,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
     }
   };
 
-  /**
-   * Handle form submission - checks auth state, does NOT trigger OAuth
-   */
   const handleSubmit = async () => {
     if (!canSubmit || isSubmitting) return;
 
@@ -300,21 +222,32 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       return;
     }
 
-    // Check if Google is connected - if not, show prompt (do NOT trigger OAuth)
-    if (!isGoogleConnected()) {
-      setShowConnectPrompt(true);
-      return;
-    }
-
     setIsSubmitting(true);
     try {
-      const submitData = {
-        ...formData,
-        timeline: formData.timeline.join(", "),
-        roleType: formData.roleType.join(", "),
-        qualifications: formData.qualifications.join(", "),
-      };
-      await appendToGoogleSheet(submitData);
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("phone", formData.phone);
+      formDataToSend.append("countryOfCitizenship", formData.countryOfCitizenship);
+      formDataToSend.append("currentVisa", formData.currentVisa);
+      formDataToSend.append("timeline", formData.timeline.join(", "));
+      formDataToSend.append("linkedIn", formData.linkedIn);
+      formDataToSend.append("roleType", formData.roleType.join(", "));
+      formDataToSend.append("qualifications", formData.qualifications.join(", "));
+      
+      if (resumeFile) {
+        formDataToSend.append("resume", resumeFile);
+      }
+
+      const response = await fetch(API_ENDPOINT, {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Submission failed: ${response.status}`);
+      }
+
       setSubmitted(true);
       toast({
         title: "Success!",
@@ -324,7 +257,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       console.error("Error submitting form:", error);
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Failed to save application. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to submit application. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -335,7 +268,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
   const handleClose = () => {
     setSubmitted(false);
     setStep(0);
-    setShowConnectPrompt(false);
+    setResumeFile(null);
     setFormData({
       name: "",
       email: "",
@@ -343,7 +276,6 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       countryOfCitizenship: "",
       currentVisa: "",
       timeline: [],
-      resume: "",
       linkedIn: "",
       roleType: [],
       qualifications: [],
@@ -412,72 +344,17 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                   <Check className="w-5 h-5" />
                 </div>
                 <div>
-                <DialogTitle className="text-primary-foreground font-serif text-lg">
+                  <DialogTitle className="text-primary-foreground font-serif text-lg">
                     Check Your O-1 Readiness
                   </DialogTitle>
                   <p className="text-xs text-primary-foreground/70">Applicant</p>
                 </div>
-              </div>
-              {/* Google connection status indicator */}
-              <div className="flex items-center gap-2">
-                {googleAuthState === 'connected' ? (
-                  <span className="text-xs bg-primary-foreground/20 px-2 py-1 rounded-sm flex items-center gap-1">
-                    <Check className="w-3 h-3" />
-                    Google Connected
-                  </span>
-                ) : googleAuthState === 'connecting' ? (
-                  <span className="text-xs bg-primary-foreground/20 px-2 py-1 rounded-sm flex items-center gap-1">
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                    Connecting...
-                  </span>
-                ) : (
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    size="sm"
-                    className="text-xs h-7 rounded-sm"
-                    onClick={handleConnectGoogle}
-                  >
-                    <LinkIcon className="w-3 h-3 mr-1" />
-                    Connect Google
-                  </Button>
-                )}
               </div>
             </div>
           </DialogHeader>
         </div>
 
         <div className="p-6">
-          {/* Connect prompt alert */}
-          {showConnectPrompt && googleAuthState !== 'connected' && (
-            <Alert className="mb-4 border-amber-500/50 bg-amber-50 dark:bg-amber-950/20">
-              <AlertDescription className="flex items-center justify-between">
-                <span className="text-sm">
-                  Please connect your Google account to submit your application.
-                </span>
-                <Button
-                  type="button"
-                  size="sm"
-                  className="ml-4 rounded-sm"
-                  onClick={handleConnectGoogle}
-                  disabled={googleAuthState === 'connecting'}
-                >
-                  {googleAuthState === 'connecting' ? (
-                    <>
-                      <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                      Connecting...
-                    </>
-                  ) : (
-                    <>
-                      <LinkIcon className="w-3 h-3 mr-1" />
-                      Connect Google
-                    </>
-                  )}
-                </Button>
-              </AlertDescription>
-            </Alert>
-          )}
-
           {/* Progress indicator */}
           <div className="mb-6">
             <div className="flex justify-between text-xs text-muted-foreground mb-2">
@@ -658,15 +535,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                 {step === 2 && (
                   <div className="space-y-6">
                     <div>
-                      <Label htmlFor="resume" className="text-sm font-medium">Resume (URL or file)</Label>
+                      <Label htmlFor="resume" className="text-sm font-medium">Resume (PDF, DOC, DOCX)</Label>
                       <div className="flex gap-2 mt-1.5">
-                        <Input
-                          id="resume"
-                          placeholder="Paste link or upload file"
-                          className="bg-muted border-border rounded-sm flex-1"
-                          value={formData.resume}
-                          onChange={(e) => handleInputChange("resume", e.target.value)}
-                        />
+                        <div className="flex-1 bg-muted border border-border rounded-sm px-3 py-2 text-sm text-muted-foreground">
+                          {resumeFile ? resumeFile.name : "No file selected"}
+                        </div>
                         <input
                           type="file"
                           ref={fileInputRef}
@@ -679,31 +552,11 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
                           variant="outline" 
                           size="icon" 
                           className="rounded-sm"
-                          onClick={() => {
-                            if (!isGoogleConnected()) {
-                              toast({
-                                title: "Connect Google first",
-                                description: "Please connect your Google account to upload files.",
-                                variant: "destructive",
-                              });
-                              return;
-                            }
-                            fileInputRef.current?.click();
-                          }}
-                          disabled={isUploading}
+                          onClick={() => fileInputRef.current?.click()}
                         >
-                          {isUploading ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : (
-                            <Upload className="w-4 h-4" />
-                          )}
+                          <Upload className="w-4 h-4" />
                         </Button>
                       </div>
-                      {!isGoogleConnected() && (
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          Connect Google to upload files, or paste a link directly.
-                        </p>
-                      )}
                     </div>
 
                     <div>
