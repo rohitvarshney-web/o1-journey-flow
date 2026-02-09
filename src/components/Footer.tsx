@@ -77,22 +77,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/#timeline"
-                  className="hover:text-background transition-colors"
-                >
-                  Application Timeline
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/#testimonials"
-                  className="hover:text-background transition-colors"
-                >
-                  Success Stories
-                </Link>
-              </li>
-              <li>
                 {isAboutPage ? (
                   <a
                     href="#faq"
