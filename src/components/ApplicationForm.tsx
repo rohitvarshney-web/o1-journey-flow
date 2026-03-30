@@ -1,4 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void;
+  }
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight, Upload, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
