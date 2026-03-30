@@ -232,6 +232,20 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
 
     setIsSubmitting(true);
     try {
+      // Generate event ID for Meta Pixel deduplication
+      const eventId = typeof crypto.randomUUID === "function"
+        ? crypto.randomUUID()
+        : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+          });
+
+      // Fire browser-side Meta Pixel event
+      if (window.fbq) {
+        window.fbq("trackCustom", "form_submit", {}, { eventID: eventId });
+      }
+
       const formDataToSend = new FormData();
       formDataToSend.append("name", formData.name);
       formDataToSend.append("email", formData.email);
