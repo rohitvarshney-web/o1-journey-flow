@@ -260,6 +260,7 @@ const ApplicationForm = ({ open, onOpenChange }: ApplicationFormProps) => {
       if (resumeFile) {
         formDataToSend.append("resume", resumeFile);
       }
+      formDataToSend.append("meta_event_id", eventId);
 
       const response = await fetch(API_ENDPOINT, {
         method: "POST",
