@@ -33,11 +33,7 @@ const ApprovalProtection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-accent/10 border border-accent/20"
-              >
-                <span className="text-xs font-medium text-accent uppercase tracking-wide">
-                  Exclusive Protection Plan
-                </span>
-              </motion.div>
+              ></motion.div>
 
               <motion.h2
                 initial={{ opacity: 0, y: 10 }}
@@ -54,8 +50,7 @@ const ApprovalProtection = () => {
                 transition={{ duration: 0.4, delay: 0.2 }}
                 className="text-lg text-muted-foreground leading-relaxed"
               >
-                Our Approval Protection Plan removes all financial risk from your O-1 visa application. If your petition
-                is denied, we refund your entire service fee - no exceptions.
+                Get reviewed & guided from top US immigration Lawyers.
               </motion.p>
 
               <motion.ul
