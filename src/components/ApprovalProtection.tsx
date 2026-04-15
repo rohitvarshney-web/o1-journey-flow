@@ -10,7 +10,7 @@ const ApprovalProtection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const benefits = [
-    "100% fee refund if your application is denied",
+    "Profile building assistance",
     "No questions asked - straightforward claim process",
     "Peace of mind throughout your visa journey",
     "Available for both O-1A and O-1B applications",
