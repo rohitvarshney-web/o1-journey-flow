@@ -28,13 +28,6 @@ const ApprovalProtection = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Content Side */}
             <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-accent/10 border border-accent/20"
-              ></motion.div>
-
               <motion.h2
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
