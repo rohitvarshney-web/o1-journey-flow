@@ -11,9 +11,10 @@ const ApprovalProtection = () => {
 
   const benefits = [
     "Profile building assistance",
-    "No questions asked - straightforward claim process",
-    "Peace of mind throughout your visa journey",
+    "Thorough criteria check",
     "Available for both O-1A and O-1B applications",
+    "Dedicated Relationship Manager",
+    "Peach of mind throughout your Visa journey",
   ];
 
   return (
