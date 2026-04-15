@@ -37,7 +37,7 @@ const PricingPlans = () => {
               <span className="text-sm font-medium">Money Back Guarantee</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-              Most standard O-1 cases are $7,000. If you need additional support for narrative development,
+              Most standard O-1 cases are $8,500. If you need additional support for narrative development,
               recommendation letters, or complex case structuring, we will confirm any incremental costs upfront.
             </p>
             <Button
