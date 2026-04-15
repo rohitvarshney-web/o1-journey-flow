@@ -34,7 +34,9 @@ const ApprovalProtection = () => {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-accent/10 border border-accent/20"
               >
-                <span className="text-xs font-medium text-accent uppercase tracking-wide">Exclusive Protection Plan</span>
+                <span className="text-xs font-medium text-accent uppercase tracking-wide">
+                  Exclusive Protection Plan
+                </span>
               </motion.div>
 
               <motion.h2
@@ -43,8 +45,7 @@ const ApprovalProtection = () => {
                 transition={{ duration: 0.4, delay: 0.15 }}
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-foreground"
               >
-                Apply with{" "}
-                <span className="text-primary">Complete Confidence</span>
+                Apply with <span className="text-primary">Complete Confidence</span>
               </motion.h2>
 
               <motion.p
@@ -90,7 +91,6 @@ const ApprovalProtection = () => {
                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                       Approval Protection
                     </p>
-                    <h3 className="font-serif text-2xl font-semibold text-foreground">Money-Back Guarantee</h3>
                   </div>
 
                   <div className="h-px bg-border" />
